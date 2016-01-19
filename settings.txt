@@ -1,0 +1,21 @@
+Location=24,74
+International=true
+UseTopPanel=true
+;Toto Look-and-feel Settings:
+totoWidth=214
+totoHeight=54
+totoBackgroundColor=0,0,0
+totoTitleText=Toto's DVs (0-15)
+totoTitleFontSize=17
+totoTitleFont=Calibri
+totoTitleFontExtra=1
+totoTitleColor=226,164,41
+totoColumnHeadersFontSize=11
+totoColumnHeadersFont=Calibri
+totoColumnHeadersFontExtra=1
+totoColumnHeadersColor=200,200,200
+totoDVNumbersFontSizeBig=15
+totoDVNumbersFontSizeSmall=13
+totoDVNumbersFont=Calibri
+totoDVNumbersFontExtra=1
+totoDVNumbersColor=248,248,248
