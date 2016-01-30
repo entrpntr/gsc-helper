@@ -68,8 +68,8 @@ extends JFrame {
     private JDialog optionDialog;
     private DVPanel dv;
     private DVCalculatorPanel calc;
-    private final int width = 1270;
-    private final int height = 590;
+    private final int width = 1010;
+    private final int height = 740;
     private String font = "";
     private JButton buttonOptions;
     public JCheckBox checkBoxUseTopPanel;
@@ -163,13 +163,13 @@ extends JFrame {
             }
         });
         this.setResizable(false);
-        this.setBounds(0, 0, 1270, 630 + this.totoHeight);
+        this.setBounds(0, 0, 1010, 782 + this.totoHeight);
         this.setLocationRelativeTo(null);
         this.setExecutionPath();
         this.font = font;
         this.main = new JPanel();
         this.main.setLayout(null);
-        this.main.setBounds(0, 0, 1270, 620 + this.totoHeight);
+        this.main.setBounds(0, 0, 1010, 782 + this.totoHeight);
         this.dv = new DVPanel(this, this.font);
         this.calc = new DVCalculatorPanel(this, this.font);
         this.settings = new JPanel();
@@ -232,7 +232,7 @@ extends JFrame {
     private void initTotodile() {
         this.totodile = new JPanel();
         this.totodile.setBackground(this.totoBackgroundColor);
-        this.totodile.setBounds(870, 25, this.totoWidth, this.totoHeight);
+        this.totodile.setBounds(5, 750, this.totoWidth, this.totoHeight);
         this.totodile.setLayout(new BorderLayout());
         this.totodile.setBorder(new EmptyBorder(5, 5, 0, 5));
         this.labelTitle = new JLabel(this.totoTitleText, 0);
@@ -956,8 +956,8 @@ extends JFrame {
         this.totoDVNumbersFont = (String)this.comboBoxTotoDVNumbersFont.getSelectedItem();
         this.totoDVNumbersFontExtra = this.comboBoxTotoDVNumbersFontExtra.getSelectedIndex();
         this.totoDVNumbersColor = this.labelButtonTotoDVNumbersColor.getBackground();
-        this.setSize(1280, 630 + this.totoHeight);
-        this.main.setSize(1280, 620 + this.totoHeight);
+        this.setSize(1010, 782 + this.totoHeight);
+        this.main.setSize(1010, 782 + this.totoHeight);
         this.totodile.setSize(this.totoWidth, this.totoHeight);
         int borderLeftRight = this.totoWidth / 72;
         int borderTopBottom = this.totoHeight / 24;
@@ -1070,45 +1070,6 @@ extends JFrame {
     public void setInternational(boolean international) {
         this.international = international;
 //        this.calc.setInternational(international);
-    }
-
-    private void dsum() {
-        String dsumlocation = "";
-        String s = "<html><body><p style=\"font-family:'arial';font-size:9px;width:455px\">";
-        dsumlocation = String.valueOf(this.getExecutionPath()) + "/resources/dsum.png";
-
-        s = String.valueOf(s) + "<img src='" + dsumlocation + "' alt='' name='dsum' width='572' height='307' />";
-        JEditorPane ep = new JEditorPane();
-        ep.setEditorKit(JEditorPane.createEditorKitForContentType("text/html"));
-        ep.setEditable(false);
-        ep.setBackground(null);
-        int caretPosition = ep.getCaretPosition();
-        ep.setText(s);
-        ep.setAlignmentX(0.0f);
-        ep.addHyperlinkListener(new HyperlinkListener(){
-
-            @Override
-            public void hyperlinkUpdate(HyperlinkEvent e) {
-                if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED && Desktop.isDesktopSupported()) {
-                    try {
-                        Desktop.getDesktop().browse(e.getURL().toURI());
-                    }
-                    catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
-                    catch (URISyntaxException e1) {
-                        e1.printStackTrace();
-                    }
-                }
-            }
-        });
-        ep.setCaretPosition(Math.min(caretPosition, s.length()));
-        JScrollPane sp = new JScrollPane(ep);
-        sp.setPreferredSize(new Dimension(610, 350));
-        sp.setHorizontalScrollBarPolicy(31);
-        sp.getVerticalScrollBar().setUnitIncrement(16);
-        sp.setBorder(null);
-        JOptionPane.showMessageDialog(this, sp, "Dsum", -1);
     }
 
     private void about() {
