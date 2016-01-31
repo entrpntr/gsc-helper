@@ -60,7 +60,7 @@ import javax.swing.event.HyperlinkListener;
 public class HelperFrame
 extends JFrame {
     private static final long serialVersionUID = 6359843786380885160L;
-    private double version = 0.8;
+    private double version = 0.9;
     private JPanel main;
     private JPanel settings;
     private JPanel totodile;
@@ -68,7 +68,7 @@ extends JFrame {
     private JDialog optionDialog;
     private DVPanel dv;
     private DVCalculatorPanel calc;
-    private final int width = 1010;
+    private final int width = 800;
     private final int height = 740;
     private String font = "";
     private JButton buttonOptions;
@@ -79,6 +79,8 @@ extends JFrame {
     private JLabel lastButtonPressed = null;
     private int totoWidth = 240;
     private int totoHeight = 80;
+    int maxWidth = 320;
+    int maxHeight = 160;
     private Color totoBackgroundColor = new Color(255, 255, 255);
     String totoTitleText = "Toto DVs (0-15)";
     private int totoTitleFontSize = 20;
@@ -163,36 +165,42 @@ extends JFrame {
             }
         });
         this.setResizable(false);
-        this.setBounds(0, 0, 1010, 782 + this.totoHeight);
+        this.setBounds(0, 0, 800, 740 + Math.max(0, this.totoHeight - 100));
         this.setLocationRelativeTo(null);
         this.setExecutionPath();
         this.font = font;
         this.main = new JPanel();
         this.main.setLayout(null);
-        this.main.setBounds(0, 0, 1010, 782 + this.totoHeight);
+        this.main.setBounds(0, 0, 800, 740 + Math.max(0, this.totoHeight - 100));
         this.dv = new DVPanel(this, this.font);
         this.calc = new DVCalculatorPanel(this, this.font);
         this.settings = new JPanel();
         this.settings.setLayout(null);
-        this.settings.setBounds(520, 0, 250, 160);
+        this.settings.setBounds(473, 590, 250, 160);
         this.settings.setBackground(null);
         this.initOptions();
         this.buttonOptions = new JButton("Options");
         this.buttonOptions.setMargin(new Insets(1, 1, 1, 1));
-        this.buttonOptions.setFont(new Font(font, 1, 14));
-        this.buttonOptions.setBounds(24, 30, 100, 30);
+        this.buttonOptions.setFont(new Font(font, 1, 13));
+        this.buttonOptions.setBounds(115, 39, 80, 28);
         this.buttonOptions.addActionListener(new ActionListener(){
-
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                editTotoDialog.setLocation(optionDialog.getLocation().x, optionDialog.getLocation().y);
+                HelperFrame.this.editTotoDialog.setVisible(true);
+            }
+/*
             @Override
             public void actionPerformed(ActionEvent evt) {
                 optionDialog.setLocation(optionDialog.getParent().getLocation().x + 285, optionDialog.getParent().getLocation().y + 140);
                 HelperFrame.this.optionDialog.setVisible(true);
             }
+*/
         });
         this.settings.add(this.buttonOptions);
         JButton buttonAbout = new JButton("About");
-        buttonAbout.setBounds(24, 70, 100, 30);
-        buttonAbout.setFont(new Font(font, 1, 14));
+        buttonAbout.setBounds(115, 71, 80, 28);
+        buttonAbout.setFont(new Font(font, 1, 13));
         buttonAbout.addActionListener(new ActionListener(){
 
             @Override
@@ -203,7 +211,7 @@ extends JFrame {
         this.settings.add(buttonAbout);
         ImageIcon iconReset = new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/reset.png");
         JButton buttonReset = new JButton(iconReset);
-        buttonReset.setBounds(150, 15, 100, 100);
+        buttonReset.setBounds(0, 10, 100, 100);
         buttonReset.setBorderPainted(false);
         buttonReset.setContentAreaFilled(false);
         buttonReset.setFocusPainted(false);
@@ -218,7 +226,7 @@ extends JFrame {
         });
         this.settings.add(buttonReset);
         this.initTotodile();
-        this.main.add(this.dv);
+//        this.main.add(this.dv);
         this.main.add(this.calc);
         this.main.add(this.settings);
         this.main.add(this.totodile);
@@ -232,7 +240,7 @@ extends JFrame {
     private void initTotodile() {
         this.totodile = new JPanel();
         this.totodile.setBackground(this.totoBackgroundColor);
-        this.totodile.setBounds(5, 750, this.totoWidth, this.totoHeight);
+        this.totodile.setBounds(0, 612, this.totoWidth, this.totoHeight);
         this.totodile.setLayout(new BorderLayout());
         this.totodile.setBorder(new EmptyBorder(5, 5, 0, 5));
         this.labelTitle = new JLabel(this.totoTitleText, 0);
@@ -378,8 +386,7 @@ extends JFrame {
                 e.getWindow().dispose();
             }
         });
-        int maxWidth = 1264;
-        int maxHeight = 480;
+
         String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         String[] fontsExtra = new String[]{"Plain", "Bold", "Italic"};
         ChangeListener changeListenerToto = new ChangeListener(){
@@ -764,11 +771,11 @@ extends JFrame {
                     this.checkBoxUseTopPanel.doClick();
                     continue;
                 }
-                if (sp[0].equals("totoWidth") && HelperFrame.isInteger(sp[1], 0, 1264)) {
+                if (sp[0].equals("totoWidth") && HelperFrame.isInteger(sp[1], 0, this.maxWidth)) {
                     this.spinnerTotoAreaWidth.setValue(Integer.parseInt(sp[1]));
                     continue;
                 }
-                if (sp[0].equals("totoHeight") && HelperFrame.isInteger(sp[1], 0, 510)) {
+                if (sp[0].equals("totoHeight") && HelperFrame.isInteger(sp[1], 0, this.maxHeight)) {
                     this.spinnerTotoAreaHeight.setValue(Integer.parseInt(sp[1]));
                     continue;
                 }
@@ -956,8 +963,8 @@ extends JFrame {
         this.totoDVNumbersFont = (String)this.comboBoxTotoDVNumbersFont.getSelectedItem();
         this.totoDVNumbersFontExtra = this.comboBoxTotoDVNumbersFontExtra.getSelectedIndex();
         this.totoDVNumbersColor = this.labelButtonTotoDVNumbersColor.getBackground();
-        this.setSize(1010, 782 + this.totoHeight);
-        this.main.setSize(1010, 782 + this.totoHeight);
+        this.setSize(800, 740 + Math.max(0, this.totoHeight - 100));
+        this.main.setSize(800, 740 + Math.max(0, this.totoHeight - 100));
         this.totodile.setSize(this.totoWidth, this.totoHeight);
         int borderLeftRight = this.totoWidth / 72;
         int borderTopBottom = this.totoHeight / 24;
@@ -1073,7 +1080,7 @@ extends JFrame {
     }
 
     private void about() {
-        String s = "<html><body><p style=\"font-family:'arial';font-size:9px;width:405px\">Pok\u00e9mon Gold DV Helper<br>Version: " + this.version + "<br><br>This is a GSC helper program developed by <a href='http://www.twitch.tv/entrpntr'>entrpntr</a>, derived from the Yellow Helper program designed by <a href='http://www.twitch.tv/Dailyleaf'>Dailyleaf</a>. The goal is making it easier for Pok\u00e9mon Gold & Crystal glitchless speedrunners to figure out DVs and plan ahead based on this knowledge." + "<br><br>DV Calculation:" + "<br><br>Top Panel:" + "<br>Select DV's yourself if you know them and/or don't want to use the bottom area." + "<br>Selecting a DV from here will update stats below and calculates other DV possibilities." + "<br>Red options are not possible for the selected DV's shown below." + "<br><br>Stats Panel:" + "<br>Click what you see ingame, the program will do the math and eliminate impossible combinations." + "<br>Select (in order) the trainer Pokémon and wild encounters you killed and the program will keep track of your experience and stat experience automatically."  + "<br><br>Questions:" + "<br>If you have any questions, feel free to contact entrpntr on the PSR forums or on discord. The thread for GSC DV Helper can be found <a href='http://forums.pokemonspeedruns.com/viewtopic.php?f=116&t=512'>here</a>." + "<br><br>entrpntr's Credits:" + "<br><a href='http://www.twitch.tv/Dailyleaf'>Dailyleaf</a> - For making the original Red Helper and Yellow Helper programs." + "<br><br>Daily's Credits:" + "<br><a href='http://www.twitch.tv/BobChao87'>BobChao87</a> - For giving me the idea of how to make the DV calculator." + "<br><a href='http://www.twitch.tv/ExarionU'>ExarionU</a> - For providing the <a href='https://docs.google.com/spreadsheets/d/1mc4MIi2FWYsAoft1srthtEP--Oo36TXddMhQbG1NnB0/edit?pli=1#gid=0'>late-game strategy chart</a> that is used." + "<br><a href='http://www.twitch.tv/Masteri_Mori'>Masteri_Mori</a> - For providing a <a href='http://pastebin.com/Dnw1PE2U'>full list</a> of all possible DV combinations. Which helped me test my code. There are 364 possibilities missing in that list." + "<br><a href='http://www.twitch.tv/Masteri_Mori'>HRoll</a> - For making the amazing <a href='https://github.com/HRoll/poke-router'>RouteOne</a> pogram. It gave me a great insight in how all the calculations are done." + "<br><br>Daily's Shoutouts:" + "<br>Shoutouts to all the people in the Pok\u00e9mon Red skype-group for giving me feedback. Especially <a href='http://www.twitch.tv/dabomstew'>dabomstew</a> for some great help explaining how the calculations were done in RouteOne.";
+        String s = "<html><body><p style=\"font-family:'arial';font-size:9px;width:405px\">Pok\u00e9mon Gold DV Helper<br>Version: " + this.version + "<br><br>This is a GSC helper program developed by <a href='http://www.twitch.tv/entrpntr'>entrpntr</a>, derived from the Yellow Helper program designed by <a href='http://www.twitch.tv/Dailyleaf'>Dailyleaf</a>. The goal is making it easier for Pok\u00e9mon Gold & Crystal glitchless speedrunners to figure out DVs and plan ahead based on this knowledge." + "<br><br>DV Calculation:" + "<br><br>Stats Panel:" + "<br>Click what you see ingame, the program will do the math and eliminate impossible combinations." + "<br>Select (in order) the trainer Pokémon and wild encounters you killed and the program will keep track of your experience and stat experience automatically."  + "<br><br>Questions:" + "<br>If you have any questions, feel free to contact entrpntr on the PSR forums or on discord. The thread for GSC DV Helper can be found <a href='http://forums.pokemonspeedruns.com/viewtopic.php?f=116&t=512'>here</a>." + "<br><br>entrpntr's Credits:" + "<br><a href='http://www.twitch.tv/Dailyleaf'>Dailyleaf</a> - For making the original Red Helper and Yellow Helper programs." + "<br><br><em>Daily's Credits:" + "<br><a href='http://www.twitch.tv/BobChao87'>BobChao87</a> - For giving me the idea of how to make the DV calculator." + "<br><a href='http://www.twitch.tv/ExarionU'>ExarionU</a> - For providing the <a href='https://docs.google.com/spreadsheets/d/1mc4MIi2FWYsAoft1srthtEP--Oo36TXddMhQbG1NnB0/edit?pli=1#gid=0'>late-game strategy chart</a> that is used." + "<br><a href='http://www.twitch.tv/Masteri_Mori'>Masteri_Mori</a> - For providing a <a href='http://pastebin.com/Dnw1PE2U'>full list</a> of all possible DV combinations. Which helped me test my code. There are 364 possibilities missing in that list." + "<br><a href='http://www.twitch.tv/Masteri_Mori'>HRoll</a> - For making the amazing <a href='https://github.com/HRoll/poke-router'>RouteOne</a> pogram. It gave me a great insight in how all the calculations are done." + "<br><br>Daily's Shoutouts:" + "<br>Shoutouts to all the people in the Pok\u00e9mon Red skype-group for giving me feedback. Especially <a href='http://www.twitch.tv/dabomstew'>dabomstew</a> for some great help explaining how the calculations were done in RouteOne.</em>";
         JEditorPane ep = new JEditorPane();
         ep.setEditorKit(JEditorPane.createEditorKitForContentType("text/html"));
         ep.setEditable(false);

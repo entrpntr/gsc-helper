@@ -125,7 +125,7 @@ extends JPanel {
         this.parent = parent;
         this.font = font;
         this.setLayout(null);
-        this.setBounds(0, 160, 1010, 588);
+        this.setBounds(0, 0, 792, 594);
         this.setBackground(null);
         this.init();
         this.initStatButtons();
@@ -142,51 +142,51 @@ extends JPanel {
             this.redSpc[i] = false;
         }
         JLabel labelHP = new JLabel("HP");
-        labelHP.setBounds(14, 72, 70, 50);
+        labelHP.setBounds(14, 51, 70, 50);
         labelHP.setFont(new Font(this.font, 1, 19));
         labelHP.setHorizontalAlignment(0);
         this.add(labelHP);
         JLabel labelAtk = new JLabel("Atk");
-        labelAtk.setBounds(104, 72, 70, 50);
+        labelAtk.setBounds(104, 51, 70, 50);
         labelAtk.setFont(new Font(this.font, 1, 19));
         labelAtk.setHorizontalAlignment(0);
         this.add(labelAtk);
         JLabel labelDef = new JLabel("Def");
-        labelDef.setBounds(194, 72, 70, 50);
+        labelDef.setBounds(194, 51, 70, 50);
         labelDef.setFont(new Font(this.font, 1, 19));
         labelDef.setHorizontalAlignment(0);
         this.add(labelDef);
         JLabel labelSpd = new JLabel("Spd");
-        labelSpd.setBounds(374, 72, 70, 50);
+        labelSpd.setBounds(374, 51, 70, 50);
         labelSpd.setFont(new Font(this.font, 1, 19));
         labelSpd.setHorizontalAlignment(0);
         this.add(labelSpd);
         JLabel labelSpc = new JLabel("Spc");
-        labelSpc.setBounds(284, 72, 70, 50);
+        labelSpc.setBounds(284, 51, 70, 50);
         labelSpc.setFont(new Font(this.font, 1, 19));
         labelSpc.setHorizontalAlignment(0);
         this.add(labelSpc);
         JLabel labelTotoIcon = new JLabel(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/totodile.png"));
-        labelTotoIcon.setBounds(134, 17, 48, 48);
+        labelTotoIcon.setBounds(134, 4, 48, 48);
         this.add(labelTotoIcon);
         this.labelTotoLevel = new JLabel("Level: " + this.level);
-        this.labelTotoLevel.setBounds(196,17,150,48);
+        this.labelTotoLevel.setBounds(196,4,150,48);
         this.labelTotoLevel.setFont(new Font(this.font,1,29));
         this.add(this.labelTotoLevel);
 
         JLabel labelWild = new JLabel("Wild Pokes");
-        labelWild.setBounds(487,21,190,42);
+        labelWild.setBounds(155,459,190,42);
         labelWild.setFont(new Font(this.font,1,29));
         this.add(labelWild);
         this.labelPidgeyAmount = new JLabel("×0");
-        this.labelPidgeyAmount.setBounds(620, 87, 50, 24);
+        this.labelPidgeyAmount.setBounds(145, 512, 50, 24);
         this.labelPidgeyAmount.setFont(new Font(this.font, 1, 20));
         this.add(this.labelPidgeyAmount);
         JLabel labelPidgeyIcon = new JLabel(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/pidgey.png"));
-        labelPidgeyIcon.setBounds(577, 78, 40, 40);
+        labelPidgeyIcon.setBounds(102, 503, 40, 40);
         this.add(labelPidgeyIcon);
         this.buttonPidgeyL2 = new JButton("L2");
-        this.buttonPidgeyL2.setBounds(489, 84, 27, 27);
+        this.buttonPidgeyL2.setBounds(14, 509, 26, 26);
         this.buttonPidgeyL2.setMargin(new Insets(1, 1, 1, 1));
         this.buttonPidgeyL2.setFont(new Font(this.font, 1, 14));
         this.buttonPidgeyL2.addActionListener(new ActionListener(){
@@ -210,7 +210,7 @@ extends JPanel {
         });
         this.add(this.buttonPidgeyL2);
         this.buttonPidgeyL3 = new JButton("L3");
-        this.buttonPidgeyL3.setBounds(517, 84, 27, 27);
+        this.buttonPidgeyL3.setBounds(42, 509, 26, 26);
         this.buttonPidgeyL3.setMargin(new Insets(1, 1, 1, 1));
         this.buttonPidgeyL3.setFont(new Font(this.font, 1, 14));
         this.buttonPidgeyL3.addActionListener(new ActionListener(){
@@ -234,7 +234,7 @@ extends JPanel {
         });
         this.add(this.buttonPidgeyL3);
         this.buttonPidgeyL4 = new JButton("L4");
-        this.buttonPidgeyL4.setBounds(545, 84, 27, 27);
+        this.buttonPidgeyL4.setBounds(70, 509, 26, 26);
         this.buttonPidgeyL4.setMargin(new Insets(1, 1, 1, 1));
         this.buttonPidgeyL4.setFont(new Font(this.font, 1, 14));
         this.buttonPidgeyL4.addActionListener(new ActionListener(){
@@ -258,14 +258,14 @@ extends JPanel {
         });
         this.add(this.buttonPidgeyL4);
         this.labelSentretAmount = new JLabel("×0");
-        this.labelSentretAmount.setBounds(620, 133, 50, 24);
+        this.labelSentretAmount.setBounds(145, 558, 50, 24);
         this.labelSentretAmount.setFont(new Font(this.font, 1, 20));
         this.add(this.labelSentretAmount);
         JLabel labelSentretIcon = new JLabel(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/sentret.png"));
-        labelSentretIcon.setBounds(577, 124, 40, 40);
+        labelSentretIcon.setBounds(102, 549, 40, 40);
         this.add(labelSentretIcon);
         this.buttonSentretL2 = new JButton("L2");
-        this.buttonSentretL2.setBounds(489, 130, 26, 26);
+        this.buttonSentretL2.setBounds(14, 555, 26, 26);
         this.buttonSentretL2.setMargin(new Insets(1, 1, 1, 1));
         this.buttonSentretL2.setFont(new Font(this.font, 1, 14));
         this.buttonSentretL2.addActionListener(new ActionListener(){
@@ -289,7 +289,7 @@ extends JPanel {
         });
         this.add(this.buttonSentretL2);
         this.buttonSentretL3 = new JButton("L3");
-        this.buttonSentretL3.setBounds(517, 130, 26, 26);
+        this.buttonSentretL3.setBounds(42, 555, 26, 26);
         this.buttonSentretL3.setMargin(new Insets(1, 1, 1, 1));
         this.buttonSentretL3.setFont(new Font(this.font, 1, 14));
         this.buttonSentretL3.addActionListener(new ActionListener(){
@@ -313,14 +313,14 @@ extends JPanel {
         });
         this.add(this.buttonSentretL3);
         this.labelRattataAmount = new JLabel("×0");
-        this.labelRattataAmount.setBounds(620, 179, 50, 24);
+        this.labelRattataAmount.setBounds(292, 512, 50, 24);
         this.labelRattataAmount.setFont(new Font(this.font, 1, 20));
         this.add(this.labelRattataAmount);
         JLabel labelRattataIcon = new JLabel(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/rattata.png"));
-        labelRattataIcon.setBounds(577, 170, 40, 40);
+        labelRattataIcon.setBounds(249, 503, 40, 40);
         this.add(labelRattataIcon);
         this.buttonRattataL4 = new JButton("L4");
-        this.buttonRattataL4.setBounds(545, 176, 26, 26);
+        this.buttonRattataL4.setBounds(217, 509, 26, 26);
         this.buttonRattataL4.setMargin(new Insets(1, 1, 1, 1));
         this.buttonRattataL4.setFont(new Font(this.font, 1, 14));
         this.buttonRattataL4.addActionListener(new ActionListener(){
@@ -344,14 +344,14 @@ extends JPanel {
         });
         this.add(this.buttonRattataL4);
         this.labelCaterpieAmount = new JLabel("×0");
-        this.labelCaterpieAmount.setBounds(620, 225, 50, 24);
+        this.labelCaterpieAmount.setBounds(292, 558, 50, 24);
         this.labelCaterpieAmount.setFont(new Font(this.font, 1, 20));
         this.add(this.labelCaterpieAmount);
         JLabel labelCaterpieIcon = new JLabel(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/caterpie.png"));
-        labelCaterpieIcon.setBounds(577, 216, 40, 40);
+        labelCaterpieIcon.setBounds(249, 549, 40, 40);
         this.add(labelCaterpieIcon);
         this.buttonCaterpieL3 = new JButton("L3");
-        this.buttonCaterpieL3.setBounds(517, 222, 26, 26);
+        this.buttonCaterpieL3.setBounds(189, 555, 26, 26);
         this.buttonCaterpieL3.setMargin(new Insets(1, 1, 1, 1));
         this.buttonCaterpieL3.setFont(new Font(this.font, 1, 14));
         this.buttonCaterpieL3.addActionListener(new ActionListener(){
@@ -375,7 +375,7 @@ extends JPanel {
         });
         this.add(this.buttonCaterpieL3);
         this.buttonCaterpieL4 = new JButton("L4");
-        this.buttonCaterpieL4.setBounds(545, 222, 26, 26);
+        this.buttonCaterpieL4.setBounds(217, 555, 26, 26);
         this.buttonCaterpieL4.setMargin(new Insets(1, 1, 1, 1));
         this.buttonCaterpieL4.setFont(new Font(this.font, 1, 14));
         this.buttonCaterpieL4.addActionListener(new ActionListener(){
@@ -399,14 +399,14 @@ extends JPanel {
         });
         this.add(this.buttonCaterpieL4);
         this.labelHoppipAmount = new JLabel("×0");
-        this.labelHoppipAmount.setBounds(620, 271, 50, 24);
+        this.labelHoppipAmount.setBounds(411, 512, 50, 24);
         this.labelHoppipAmount.setFont(new Font(this.font, 1, 20));
         this.add(this.labelHoppipAmount);
         JLabel labelHoppipIcon = new JLabel(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/hoppip.png"));
-        labelHoppipIcon.setBounds(577, 262, 40, 40);
+        labelHoppipIcon.setBounds(368, 503, 40, 40);
         this.add(labelHoppipIcon);
         this.buttonHoppipL6 = new JButton("L6");
-        this.buttonHoppipL6.setBounds(545, 268, 26, 26);
+        this.buttonHoppipL6.setBounds(336, 509, 26, 26);
         this.buttonHoppipL6.setMargin(new Insets(1, 1, 1, 1));
         this.buttonHoppipL6.setFont(new Font(this.font, 1, 14));
         this.buttonHoppipL6.addActionListener(new ActionListener(){
@@ -430,7 +430,7 @@ extends JPanel {
         });
         this.add(this.buttonHoppipL6);
 /*        this.labelGeodudeAmount = new JLabel("×0");
-        this.labelGeodudeAmount.setBounds(629, 313, 50, 24);
+        this.labelGeodudeAmount.setBounds(639, 313, 50, 24);
         this.labelGeodudeAmount.setFont(new Font(this.font, 1, 22));
         this.add(this.labelGeodudeAmount);
         JLabel labelGeodudeIcon = new JLabel(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/geodude.png"));
@@ -461,7 +461,7 @@ extends JPanel {
         });
         this.add(this.buttonGeodudeL6);
         this.labelSandshrewAmount = new JLabel("×0");
-        this.labelSandshrewAmount.setBounds(629, 359, 50, 24);
+        this.labelSandshrewAmount.setBounds(639, 359, 50, 24);
         this.labelSandshrewAmount.setFont(new Font(this.font, 1, 22));
         this.add(this.labelSandshrewAmount);
         JLabel labelSandshrewIcon = new JLabel(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/sandshrew.png"));
@@ -492,7 +492,7 @@ extends JPanel {
         });
         this.add(this.buttonSandshrewL6);
         this.labelOnixAmount = new JLabel("×0");
-        this.labelOnixAmount.setBounds(629, 405, 50, 24);
+        this.labelOnixAmount.setBounds(639, 405, 50, 24);
         this.labelOnixAmount.setFont(new Font(this.font, 1, 22));
         this.add(this.labelOnixAmount);
         JLabel labelOnixIcon = new JLabel(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/onix.png"));
@@ -523,7 +523,7 @@ extends JPanel {
         });
         this.add(this.buttonOnixL6);
         this.labelZubatAmount = new JLabel("×0");
-        this.labelZubatAmount.setBounds(629, 451, 50, 24);
+        this.labelZubatAmount.setBounds(639, 451, 50, 24);
         this.labelZubatAmount.setFont(new Font(this.font, 1, 22));
         this.add(this.labelZubatAmount);
         JLabel labelZubatIcon = new JLabel(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/zubat.png"));
@@ -578,19 +578,19 @@ extends JPanel {
         });
         this.add(this.buttonZubatL6); */
         JLabel labelTrainers = new JLabel("Trainers");
-        labelTrainers.setBounds(706,21,150,42);
+        labelTrainers.setBounds(498,4,150,48);
         labelTrainers.setFont(new Font(this.font,1,29));
         this.add(labelTrainers);
         JLabel labelRival = new JLabel("RIVAL 1");
-        labelRival.setBounds(709,85,124,24);
-        labelRival.setFont(new Font(this.font,1,12));
+        labelRival.setBounds(501,75,124,24);
+        labelRival.setFont(new Font(this.font,1,11));
         this.add(labelRival);
         buttonRivalChikoritaL5 = new JButton("L5");
         buttonRivalChikoritaL5.setVerticalAlignment(JLabel.CENTER);
         buttonRivalChikoritaL5.setVerticalTextPosition(JLabel.CENTER);
         buttonRivalChikoritaL5.setHorizontalTextPosition(JLabel.RIGHT);
         buttonRivalChikoritaL5.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/chikorita.png"));
-        buttonRivalChikoritaL5.setBounds(772,72,73,50);
+        buttonRivalChikoritaL5.setBounds(566,62,73,50);
         buttonRivalChikoritaL5.setMargin(new Insets(1,0,1,0));
         buttonRivalChikoritaL5.setFont(new Font(this.font, 1, 12));
         buttonRivalChikoritaL5.addActionListener(new ActionListener(){
@@ -613,15 +613,15 @@ extends JPanel {
         });
         this.add(buttonRivalChikoritaL5);
         JLabel labelMikey = new JLabel("MIKEY");
-        labelMikey.setBounds(709,135,124,24);
-        labelMikey.setFont(new Font(this.font,1,12));
+        labelMikey.setBounds(501,127,124,24);
+        labelMikey.setFont(new Font(this.font,1,11));
         this.add(labelMikey);
         buttonMikeyPidgeyL2 = new JButton("L2");
         buttonMikeyPidgeyL2.setVerticalAlignment(JLabel.CENTER);
         buttonMikeyPidgeyL2.setVerticalTextPosition(JLabel.CENTER);
         buttonMikeyPidgeyL2.setHorizontalTextPosition(JLabel.RIGHT);
         buttonMikeyPidgeyL2.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/pidgey.png"));
-        buttonMikeyPidgeyL2.setBounds(772,122,73,50);
+        buttonMikeyPidgeyL2.setBounds(566,114,73,50);
         buttonMikeyPidgeyL2.setMargin(new Insets(1,0,1,0));
         buttonMikeyPidgeyL2.setFont(new Font(this.font, 1, 12));
         buttonMikeyPidgeyL2.addActionListener(new ActionListener(){
@@ -648,7 +648,7 @@ extends JPanel {
         buttonMikeyRattataL4.setVerticalTextPosition(JLabel.CENTER);
         buttonMikeyRattataL4.setHorizontalTextPosition(JLabel.RIGHT);
         buttonMikeyRattataL4.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/rattata.png"));
-        buttonMikeyRattataL4.setBounds(844,122,73,50);
+        buttonMikeyRattataL4.setBounds(639,114,73,50);
         buttonMikeyRattataL4.setMargin(new Insets(1,0,1,0));
         buttonMikeyRattataL4.setFont(new Font(this.font, 1, 12));
         buttonMikeyRattataL4.addActionListener(new ActionListener(){
@@ -671,15 +671,15 @@ extends JPanel {
         });
         this.add(buttonMikeyRattataL4);
         JLabel labelDon = new JLabel("DON");
-        labelDon.setBounds(709,185,124,24);
-        labelDon.setFont(new Font(this.font,1,12));
+        labelDon.setBounds(501,179,124,24);
+        labelDon.setFont(new Font(this.font,1,11));
         this.add(labelDon);
         buttonDonCaterpieL3_1 = new JButton("L3");
         buttonDonCaterpieL3_1.setVerticalAlignment(JLabel.CENTER);
         buttonDonCaterpieL3_1.setVerticalTextPosition(JLabel.CENTER);
         buttonDonCaterpieL3_1.setHorizontalTextPosition(JLabel.RIGHT);
         buttonDonCaterpieL3_1.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/caterpie.png"));
-        buttonDonCaterpieL3_1.setBounds(772,172,73,50);
+        buttonDonCaterpieL3_1.setBounds(566,166,73,50);
         buttonDonCaterpieL3_1.setMargin(new Insets(1,0,1,0));
         buttonDonCaterpieL3_1.setFont(new Font(this.font, 1, 12));
         buttonDonCaterpieL3_1.addActionListener(new ActionListener(){
@@ -706,7 +706,7 @@ extends JPanel {
         buttonDonCaterpieL3_2.setVerticalTextPosition(JLabel.CENTER);
         buttonDonCaterpieL3_2.setHorizontalTextPosition(JLabel.RIGHT);
         buttonDonCaterpieL3_2.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/caterpie.png"));
-        buttonDonCaterpieL3_2.setBounds(844,172,73,50);
+        buttonDonCaterpieL3_2.setBounds(639,166,73,50);
         buttonDonCaterpieL3_2.setMargin(new Insets(1,0,1,0));
         buttonDonCaterpieL3_2.setFont(new Font(this.font, 1, 12));
         buttonDonCaterpieL3_2.addActionListener(new ActionListener(){
@@ -729,15 +729,15 @@ extends JPanel {
         });
         this.add(buttonDonCaterpieL3_2);
         JLabel labelAbe = new JLabel("ABE");
-        labelAbe.setBounds(709,235,124,24);
-        labelAbe.setFont(new Font(this.font,1,12));
+        labelAbe.setBounds(501,231,124,24);
+        labelAbe.setFont(new Font(this.font,1,11));
         this.add(labelAbe);
         buttonAbeSpearowL9 = new JButton("L9");
         buttonAbeSpearowL9.setVerticalAlignment(JLabel.CENTER);
         buttonAbeSpearowL9.setVerticalTextPosition(JLabel.CENTER);
         buttonAbeSpearowL9.setHorizontalTextPosition(JLabel.RIGHT);
         buttonAbeSpearowL9.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/spearow.png"));
-        buttonAbeSpearowL9.setBounds(772,222,73,50);
+        buttonAbeSpearowL9.setBounds(566,218,73,50);
         buttonAbeSpearowL9.setMargin(new Insets(1,0,1,0));
         buttonAbeSpearowL9.setFont(new Font(this.font, 1, 12));
         buttonAbeSpearowL9.addActionListener(new ActionListener(){
@@ -760,15 +760,15 @@ extends JPanel {
         });
         this.add(buttonAbeSpearowL9);
         JLabel labelRod = new JLabel("ROD");
-        labelRod.setBounds(709,285,124,24);
-        labelRod.setFont(new Font(this.font,1,12));
+        labelRod.setBounds(501,283,124,24);
+        labelRod.setFont(new Font(this.font,1,11));
         this.add(labelRod);
         buttonRodPidgeyL7_1 = new JButton("L7");
         buttonRodPidgeyL7_1.setVerticalAlignment(JLabel.CENTER);
         buttonRodPidgeyL7_1.setVerticalTextPosition(JLabel.CENTER);
         buttonRodPidgeyL7_1.setHorizontalTextPosition(JLabel.RIGHT);
         buttonRodPidgeyL7_1.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/pidgey.png"));
-        buttonRodPidgeyL7_1.setBounds(772,272,73,50);
+        buttonRodPidgeyL7_1.setBounds(566,270,73,50);
         buttonRodPidgeyL7_1.setMargin(new Insets(1,0,1,0));
         buttonRodPidgeyL7_1.setFont(new Font(this.font, 1, 12));
         buttonRodPidgeyL7_1.addActionListener(new ActionListener(){
@@ -795,7 +795,7 @@ extends JPanel {
         buttonRodPidgeyL7_2.setVerticalTextPosition(JLabel.CENTER);
         buttonRodPidgeyL7_2.setHorizontalTextPosition(JLabel.RIGHT);
         buttonRodPidgeyL7_2.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/pidgey.png"));
-        buttonRodPidgeyL7_2.setBounds(844,272,73,50);
+        buttonRodPidgeyL7_2.setBounds(639,270,73,50);
         buttonRodPidgeyL7_2.setMargin(new Insets(1,0,1,0));
         buttonRodPidgeyL7_2.setFont(new Font(this.font, 1, 12));
         buttonRodPidgeyL7_2.addActionListener(new ActionListener(){
@@ -818,15 +818,15 @@ extends JPanel {
         });
         this.add(buttonRodPidgeyL7_2);
         JLabel labelFalkner = new JLabel("FALKNER");
-        labelFalkner.setBounds(709,335,124,24);
-        labelFalkner.setFont(new Font(this.font,1,12));
+        labelFalkner.setBounds(501,335,124,24);
+        labelFalkner.setFont(new Font(this.font,1,11));
         this.add(labelFalkner);
         buttonFalknerPidgeyL7 = new JButton("L7");
         buttonFalknerPidgeyL7.setVerticalAlignment(JLabel.CENTER);
         buttonFalknerPidgeyL7.setVerticalTextPosition(JLabel.CENTER);
         buttonFalknerPidgeyL7.setHorizontalTextPosition(JLabel.RIGHT);
         buttonFalknerPidgeyL7.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/pidgey.png"));
-        buttonFalknerPidgeyL7.setBounds(772,322,73,50);
+        buttonFalknerPidgeyL7.setBounds(566,322,73,50);
         buttonFalknerPidgeyL7.setMargin(new Insets(1,0,1,0));
         buttonFalknerPidgeyL7.setFont(new Font(this.font, 1, 12));
         buttonFalknerPidgeyL7.addActionListener(new ActionListener(){
@@ -853,7 +853,7 @@ extends JPanel {
         buttonFalknerPidgeottoL9.setVerticalTextPosition(JLabel.CENTER);
         buttonFalknerPidgeottoL9.setHorizontalTextPosition(JLabel.RIGHT);
         buttonFalknerPidgeottoL9.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/pidgeotto.png"));
-        buttonFalknerPidgeottoL9.setBounds(844,322,73,50);
+        buttonFalknerPidgeottoL9.setBounds(639,322,73,50);
         buttonFalknerPidgeottoL9.setMargin(new Insets(1,0,1,0));
         buttonFalknerPidgeottoL9.setFont(new Font(this.font, 1, 12));
         buttonFalknerPidgeottoL9.addActionListener(new ActionListener(){
@@ -876,15 +876,15 @@ extends JPanel {
         });
         this.add(buttonFalknerPidgeottoL9);
         JLabel labelAlbert = new JLabel("ALBERT");
-        labelAlbert.setBounds(709,385,124,24);
-        labelAlbert.setFont(new Font(this.font,1,12));
+        labelAlbert.setBounds(501,387,124,24);
+        labelAlbert.setFont(new Font(this.font,1,11));
         this.add(labelAlbert);
         buttonAlbertRattataL6 = new JButton("L6");
         buttonAlbertRattataL6.setVerticalAlignment(JLabel.CENTER);
         buttonAlbertRattataL6.setVerticalTextPosition(JLabel.CENTER);
         buttonAlbertRattataL6.setHorizontalTextPosition(JLabel.RIGHT);
         buttonAlbertRattataL6.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/rattata.png"));
-        buttonAlbertRattataL6.setBounds(772,372,73,50);
+        buttonAlbertRattataL6.setBounds(566,374,73,50);
         buttonAlbertRattataL6.setMargin(new Insets(1,0,1,0));
         buttonAlbertRattataL6.setFont(new Font(this.font, 1, 12));
         buttonAlbertRattataL6.addActionListener(new ActionListener(){
@@ -911,7 +911,7 @@ extends JPanel {
         buttonAlbertZubatL8.setVerticalTextPosition(JLabel.CENTER);
         buttonAlbertZubatL8.setHorizontalTextPosition(JLabel.RIGHT);
         buttonAlbertZubatL8.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/zubat.png"));
-        buttonAlbertZubatL8.setBounds(844,372,73,50);
+        buttonAlbertZubatL8.setBounds(639,374,73,50);
         buttonAlbertZubatL8.setMargin(new Insets(1,0,1,0));
         buttonAlbertZubatL8.setFont(new Font(this.font, 1, 12));
         buttonAlbertZubatL8.addActionListener(new ActionListener(){
@@ -934,15 +934,15 @@ extends JPanel {
         });
         this.add(buttonAlbertZubatL8);
         JLabel labelRalph = new JLabel("RALPH");
-        labelRalph.setBounds(709,435,124,24);
-        labelRalph.setFont(new Font(this.font,1,12));
+        labelRalph.setBounds(501,439,124,24);
+        labelRalph.setFont(new Font(this.font,1,11));
         this.add(labelRalph);
         buttonRalphGoldeenL10 = new JButton("L10");
         buttonRalphGoldeenL10.setVerticalAlignment(JLabel.CENTER);
         buttonRalphGoldeenL10.setVerticalTextPosition(JLabel.CENTER);
         buttonRalphGoldeenL10.setHorizontalTextPosition(JLabel.RIGHT);
         buttonRalphGoldeenL10.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/goldeen.png"));
-        buttonRalphGoldeenL10.setBounds(772,422,73,50);
+        buttonRalphGoldeenL10.setBounds(566,426,73,50);
         buttonRalphGoldeenL10.setMargin(new Insets(1,0,1,0));
         buttonRalphGoldeenL10.setFont(new Font(this.font, 1, 12));
         buttonRalphGoldeenL10.addActionListener(new ActionListener(){
@@ -965,15 +965,15 @@ extends JPanel {
         });
         this.add(buttonRalphGoldeenL10);
         JLabel labelDaniel = new JLabel("DANIEL");
-        labelDaniel.setBounds(709,485,124,24);
-        labelDaniel.setFont(new Font(this.font,1,12));
+        labelDaniel.setBounds(501,491,124,24);
+        labelDaniel.setFont(new Font(this.font,1,11));
         this.add(labelDaniel);
         buttonDanielOnixL11 = new JButton("L11");
         buttonDanielOnixL11.setVerticalAlignment(JLabel.CENTER);
         buttonDanielOnixL11.setVerticalTextPosition(JLabel.CENTER);
         buttonDanielOnixL11.setHorizontalTextPosition(JLabel.RIGHT);
         buttonDanielOnixL11.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/onix.png"));
-        buttonDanielOnixL11.setBounds(772,472,73,50);
+        buttonDanielOnixL11.setBounds(566,478,73,50);
         buttonDanielOnixL11.setMargin(new Insets(1,0,1,0));
         buttonDanielOnixL11.setFont(new Font(this.font, 1, 12));
         buttonDanielOnixL11.addActionListener(new ActionListener(){
@@ -996,15 +996,15 @@ extends JPanel {
         });
         this.add(buttonDanielOnixL11);
         JLabel labelRussell = new JLabel("RUSSELL");
-        labelRussell.setBounds(709,535,124,24);
-        labelRussell.setFont(new Font(this.font,1,12));
+        labelRussell.setBounds(501,543,124,24);
+        labelRussell.setFont(new Font(this.font,1,11));
         this.add(labelRussell);
         buttonRussellGeodudeL4 = new JButton("L4");
         buttonRussellGeodudeL4.setVerticalAlignment(JLabel.CENTER);
         buttonRussellGeodudeL4.setVerticalTextPosition(JLabel.CENTER);
         buttonRussellGeodudeL4.setHorizontalTextPosition(JLabel.RIGHT);
         buttonRussellGeodudeL4.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/geodude.png"));
-        buttonRussellGeodudeL4.setBounds(772,522,73,50);
+        buttonRussellGeodudeL4.setBounds(566,530,73,50);
         buttonRussellGeodudeL4.setMargin(new Insets(1,0,1,0));
         buttonRussellGeodudeL4.setFont(new Font(this.font, 1, 12));
         buttonRussellGeodudeL4.addActionListener(new ActionListener(){
@@ -1031,7 +1031,7 @@ extends JPanel {
         buttonRussellGeodudeL6.setVerticalTextPosition(JLabel.CENTER);
         buttonRussellGeodudeL6.setHorizontalTextPosition(JLabel.RIGHT);
         buttonRussellGeodudeL6.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/geodude.png"));
-        buttonRussellGeodudeL6.setBounds(844,522,73,50);
+        buttonRussellGeodudeL6.setBounds(639,530,73,50);
         buttonRussellGeodudeL6.setMargin(new Insets(1,0,1,0));
         buttonRussellGeodudeL6.setFont(new Font(this.font, 1, 12));
         buttonRussellGeodudeL6.addActionListener(new ActionListener(){
@@ -1058,7 +1058,7 @@ extends JPanel {
         buttonRussellGeodudeL8.setVerticalTextPosition(JLabel.CENTER);
         buttonRussellGeodudeL8.setHorizontalTextPosition(JLabel.RIGHT);
         buttonRussellGeodudeL8.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/geodude.png"));
-        buttonRussellGeodudeL8.setBounds(916,522,73,50);
+        buttonRussellGeodudeL8.setBounds(712,530,73,50);
         buttonRussellGeodudeL8.setMargin(new Insets(1,0,1,0));
         buttonRussellGeodudeL8.setFont(new Font(this.font, 1, 12));
         buttonRussellGeodudeL8.addActionListener(new ActionListener(){
@@ -1473,7 +1473,7 @@ extends JPanel {
                 extraStats = Math.floor(Math.floor(Math.sqrt(this.hpStatExp - 1) + 1.0) / 4.0);
             }
             statValue = Math.floor(((double)((this.baseHP + i + 50) * 2) + extraStats) * (double)this.level / 100.0 + 10.0);
-            stat = new Stat(Column.HP, "" + i, (int)statValue, 30, 33 + i * 23);
+            stat = new Stat(Column.HP, "" + i, (int)statValue, 30, 11 + i * 22);
             this.hpStats.add(stat);
             this.add(stat.label);
             this.add(stat.button);
@@ -1485,7 +1485,7 @@ extends JPanel {
                 extraStats = Math.floor(Math.floor(Math.sqrt(this.atkStatExp - 1) + 1.0) / 4.0);
             }
             statValue = Math.floor(((double)((this.baseAtk + i) * 2) + extraStats) * (double)this.level / 100.0 + 5.0);
-            stat = new Stat(Column.ATK, "" + i, (int)statValue, 120, 33 + i * 23);
+            stat = new Stat(Column.ATK, "" + i, (int)statValue, 120, 11 + i * 22);
             this.atkStats.add(stat);
             this.add(stat.label);
             this.add(stat.button);
@@ -1497,7 +1497,7 @@ extends JPanel {
                 extraStats = Math.floor(Math.floor(Math.sqrt(this.defStatExp - 1) + 1.0) / 4.0);
             }
             statValue = Math.floor(((double)((this.baseDef + i) * 2) + extraStats) * (double)this.level / 100.0 + 5.0);
-            stat = new Stat(Column.DEF, "" + i, (int)statValue, 210, 33 + i * 23);
+            stat = new Stat(Column.DEF, "" + i, (int)statValue, 210, 11 + i * 22);
             this.defStats.add(stat);
             this.add(stat.label);
             this.add(stat.button);
@@ -1509,7 +1509,7 @@ extends JPanel {
                 extraStats = Math.floor(Math.floor(Math.sqrt(this.spdStatExp - 1) + 1.0) / 4.0);
             }
             statValue = Math.floor(((double)((this.baseSpe + i) * 2) + extraStats) * (double)this.level / 100.0 + 5.0);
-            stat = new Stat(Column.SPD, "" + i, (int)statValue, 390, 33 + i * 23);
+            stat = new Stat(Column.SPD, "" + i, (int)statValue, 390, 11 + i * 22);
             this.spdStats.add(stat);
             this.add(stat.label);
             this.add(stat.button);
@@ -1522,7 +1522,7 @@ extends JPanel {
             }
             statValue = Math.floor(((double)((this.baseSpA + i) * 2) + extraStats) * (double)this.level / 100.0 + 5.0);
             double spcDefValue = Math.floor(((double)((this.baseSpD + i) * 2) + extraStats) * (double)this.level / 100.0 + 5.0);
-            stat = new Stat(Column.SPC, "" + i, (int)statValue*(int)spcDefValue, 300, 33 + i * 23);
+            stat = new Stat(Column.SPC, "" + i, (int)statValue*(int)spcDefValue, 300, 11 + i * 22);
             this.spcStats.add(stat);
             this.add(stat.label);
             this.add(stat.button);
@@ -2039,10 +2039,10 @@ extends JPanel {
             this.buttonGeodudePlus.setLocation(480, 290);
             this.buttonClefairyPlus.setLocation(480, 330);
             this.buttonNidoMin.setLocation(655, 70);
-            this.buttonPidgeyMin.setLocation(505, 210);
-            this.buttonSpearowMin.setLocation(505, 250);
-            this.buttonGeodudeMin.setLocation(505, 290);
-            this.buttonClefairyMin.setLocation(505, 330);
+            this.buttonPidgeyMin.setLocation(566, 210);
+            this.buttonSpearowMin.setLocation(566, 250);
+            this.buttonGeodudeMin.setLocation(566, 290);
+            this.buttonClefairyMin.setLocation(566, 330);
         } else {
             this.buttonNidoMin.setLocation(620, 70);
             this.buttonSpearowMin.setLocation(480, 210);
@@ -2050,10 +2050,10 @@ extends JPanel {
             this.buttonGeodudeMin.setLocation(480, 290);
             this.buttonClefairyMin.setLocation(480, 330);
             this.buttonNidoPlus.setLocation(655, 70);
-            this.buttonSpearowPlus.setLocation(505, 210);
-            this.buttonPidgeyL2.setLocation(505, 250);
-            this.buttonGeodudePlus.setLocation(505, 290);
-            this.buttonClefairyPlus.setLocation(505, 330);
+            this.buttonSpearowPlus.setLocation(566, 210);
+            this.buttonPidgeyL2.setLocation(566, 250);
+            this.buttonGeodudePlus.setLocation(566, 290);
+            this.buttonClefairyPlus.setLocation(566, 330);
         }
 
     }*/
