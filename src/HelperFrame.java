@@ -29,25 +29,8 @@ import java.lang.reflect.Field;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
-import javax.swing.AbstractButton;
-import javax.swing.ButtonModel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JEditorPane;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSlider;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.UIManager;
+import java.util.Arrays;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.event.ChangeEvent;
@@ -60,19 +43,19 @@ import javax.swing.event.HyperlinkListener;
 public class HelperFrame
 extends JFrame {
     private static final long serialVersionUID = 6359843786380885160L;
-    private double version = 0.9;
+    private double version = 0.99;
     private JPanel main;
     private JPanel settings;
     private JPanel totodile;
     private JPanel totodileDVSPanel;
     private JDialog optionDialog;
-    private DVPanel dv;
-    private DVCalculatorPanel calc;
+    private GSCDVCalculatorPanel calc;
+    private final GoldDVCalculatorPanel goldCalc;
+    private final CrystalDVCalculatorPanel crystalCalc;
     private final int width = 800;
     private final int height = 740;
     private String font = "";
     private JButton buttonOptions;
-    public JCheckBox checkBoxUseTopPanel;
     private PreviewPane previewPane;
     private JColorChooser cc;
     private ActionListener okListener;
@@ -126,9 +109,23 @@ extends JFrame {
     private JTextField textFieldTotoTitleText;
     private JButton buttonEditToto;
     private JDialog editTotoDialog;
+    private JRadioButton radioGold;
+    private JRadioButton radioCrystal;
+    private ButtonGroup radioGSC;
     private boolean international;
+    private boolean isCrystal;
     private boolean initializing = true;
     private String executionPath;
+    private boolean[] redHP = new boolean[16];
+    private boolean[] redAtk = new boolean[16];
+    private boolean[] redDef = new boolean[16];
+    private boolean[] redSpd = new boolean[16];
+    private boolean[] redSpc = new boolean[16];
+    private int hpdv;
+    private int atkdv;
+    private int defdv;
+    private int spddv;
+    private int spcdv;
 
     public String getExecutionPath() {
         return this.executionPath;
@@ -147,7 +144,7 @@ extends JFrame {
     }
 
     public HelperFrame(String font) {
-        super("Pok\u00e9mon Gold DV Helper");
+        super("Pok\u00e9mon GSC DV Helper");
         if (UIManager.getSystemLookAndFeelClassName().contains("windows")) {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -172,13 +169,26 @@ extends JFrame {
         this.main = new JPanel();
         this.main.setLayout(null);
         this.main.setBounds(0, 0, 800, 740 + Math.max(0, this.totoHeight - 100));
-        this.dv = new DVPanel(this, this.font);
-        this.calc = new DVCalculatorPanel(this, this.font);
+        goldCalc = new GoldDVCalculatorPanel(HelperFrame.this, this.font);
+        crystalCalc = new CrystalDVCalculatorPanel(HelperFrame.this, this.font);
+        this.calc = crystalCalc;
         this.settings = new JPanel();
         this.settings.setLayout(null);
-        this.settings.setBounds(473, 590, 250, 160);
+        this.settings.setBounds(473, 590, 319, 160);
         this.settings.setBackground(null);
         this.initOptions();
+        for (int i2 = 0; i2 < 16; ++i2) {
+            this.redHP[i2] = false;
+            this.redAtk[i2] = false;
+            this.redDef[i2] = false;
+            this.redSpd[i2] = false;
+            this.redSpc[i2] = false;
+        }
+        this.hpdv = -1;
+        this.atkdv = -1;
+        this.defdv = -1;
+        this.spddv = -1;
+        this.spcdv = -1;
         this.buttonOptions = new JButton("Options");
         this.buttonOptions.setMargin(new Insets(1, 1, 1, 1));
         this.buttonOptions.setFont(new Font(font, 1, 13));
@@ -225,13 +235,57 @@ extends JFrame {
             }
         });
         this.settings.add(buttonReset);
+        radioCrystal = new JRadioButton("Crystal");
+        radioCrystal.setBounds(220,39,80,28);
+        radioCrystal.setSelected(true);
+        radioCrystal.setFont(new Font(font, 1, 14));
+        Color crystal = new Color(113,158,179);
+        radioCrystal.setForeground(crystal);
+        radioCrystal.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(!HelperFrame.this.isCrystal) {
+                    HelperFrame.this.goldCalc.reset();
+                    HelperFrame.this.main.remove(calc);
+                    HelperFrame.this.calc = crystalCalc;
+                    HelperFrame.this.main.add(calc);
+                    HelperFrame.this.reset();
+                    HelperFrame.this.repaint();
+                    HelperFrame.this.revalidate();
+                    HelperFrame.this.isCrystal = true;
+                }
+            }
+        });
+        radioGold = new JRadioButton("Gold");
+        radioGold.setBounds(220,71,80,28);
+        radioGold.setFont(new Font(font, 1, 14));
+        Color gold = new Color(179,151,0);
+        radioGold.setForeground(gold);
+        radioGold.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(HelperFrame.this.isCrystal) {
+                    HelperFrame.this.crystalCalc.reset();
+                    HelperFrame.this.main.remove(calc);
+                    HelperFrame.this.calc = goldCalc;
+                    HelperFrame.this.main.add(calc);
+                    HelperFrame.this.reset();
+                    HelperFrame.this.repaint();
+                    HelperFrame.this.revalidate();
+                    HelperFrame.this.isCrystal = false;
+                }
+            }
+        });
+        radioGSC = new ButtonGroup();
+        radioGSC.add(radioCrystal);
+        radioGSC.add(radioGold);
+        this.settings.add(radioCrystal);
+        this.settings.add(radioGold);
         this.initTotodile();
-//        this.main.add(this.dv);
         this.main.add(this.calc);
         this.main.add(this.settings);
         this.main.add(this.totodile);
         this.add(this.main);
         this.international = true;
+        this.isCrystal = true;
         this.load();
         this.initializing = false;
         this.updateTotoLookAndFeel();
@@ -301,17 +355,7 @@ extends JFrame {
                 e.getWindow().dispose();
             }
         });
-        ChangeListener changeListener = new ChangeListener(){
 
-            @Override
-            public void stateChanged(ChangeEvent changeEvent) {
-                AbstractButton abstractButton = (AbstractButton)changeEvent.getSource();
-                ButtonModel buttonModel = abstractButton.getModel();
-                if (!buttonModel.isArmed() && abstractButton.equals(HelperFrame.this.checkBoxUseTopPanel)) {
-                    HelperFrame.this.dv.useTopPanel(HelperFrame.this.checkBoxUseTopPanel.isSelected());
-                }
-            }
-        };
         ImageIcon iconInternational = new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/international.png");
         ImageIcon iconGermany = new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/germany.png");
         JButton buttonInternational = new JButton(iconInternational);
@@ -348,15 +392,6 @@ extends JFrame {
         labelDVSelection.setBounds(5, 40, 150, 20);
         labelDVSelection.setFont(new Font(this.font, 1, 14));
         this.optionDialog.add(labelDVSelection);
-        JLabel labelUseTopPanel = new JLabel("Use top DV Panel.");
-        labelUseTopPanel.setBounds(30, 60, 150, 20);
-        labelUseTopPanel.setFont(new Font(this.font, 1, 12));
-        this.optionDialog.add(labelUseTopPanel);
-        this.checkBoxUseTopPanel = new JCheckBox();
-        this.checkBoxUseTopPanel.setBounds(5, 60, 20, 20);
-        this.checkBoxUseTopPanel.setRolloverEnabled(false);
-        this.checkBoxUseTopPanel.addChangeListener(changeListener);
-        this.optionDialog.add(this.checkBoxUseTopPanel);
         this.buttonEditToto = new JButton("Edit Toto Look");
         this.buttonEditToto.setFont(new Font(this.font, 1, 12));
         this.buttonEditToto.setMargin(new Insets(2, 0, 2, 0));
@@ -767,8 +802,17 @@ extends JFrame {
                     this.setInternational(false);
                     continue;
                 }
-                if (sp[0].equals("UseTopPanel") && sp[1].equals("true")) {
-                    this.checkBoxUseTopPanel.doClick();
+                if (sp[0].equals("Game") && sp[1].equals("Gold")) {
+                    this.setGame(false);
+                    this.crystalCalc.reset();
+                    this.main.remove(calc);
+                    this.calc = goldCalc;
+                    this.main.add(calc);
+                    this.radioGold.setSelected(true);
+                    this.radioCrystal.setSelected(false);
+                    this.reset();
+                    this.repaint();
+                    this.revalidate();
                     continue;
                 }
                 if (sp[0].equals("totoWidth") && HelperFrame.isInteger(sp[1], 0, this.maxWidth)) {
@@ -878,7 +922,8 @@ extends JFrame {
                     out.newLine();
                     out.write("International=" + this.international);
                     out.newLine();
-                    out.write("UseTopPanel=" + this.checkBoxUseTopPanel.isSelected());
+                    String game = this.isCrystal ? "Crystal" : "Gold";
+                    out.write("Game=" + game);
                     out.newLine();
                     out.write(";Toto Look-and-feel Settings:");
                     out.newLine();
@@ -1052,7 +1097,290 @@ extends JFrame {
     }
 
     public void updateDVPanel(boolean[] redHP, boolean[] redAtk, boolean[] redDef, boolean[] redSpd, boolean[] redSpc) {
-        this.dv.externalRed(redHP, redAtk, redDef, redSpd, redSpc);
+        this.externalRed(redHP, redAtk, redDef, redSpd, redSpc);
+    }
+
+    public void externalRed(boolean[] redHP, boolean[] redAtk, boolean[] redDef, boolean[] redSpd, boolean[] redSpc) {
+        for (int i = 0; i < 16; ++i) {
+            if (redHP[i]) {
+                this.redHP[i] = redHP[i];
+            }
+            if (redAtk[i]) {
+                this.redAtk[i] = redAtk[i];
+            }
+            if (redDef[i]) {
+                this.redDef[i] = redDef[i];
+            }
+            if (redSpd[i]) {
+                this.redSpd[i] = redSpd[i];
+            }
+            if (!redSpc[i]) continue;
+            this.redSpc[i] = redSpc[i];
+        }
+        while (this.removeByRanges()) {}
+        this.setOnlyDV();
+        this.updateLabels();
+    }
+
+    private boolean removeByRanges() {
+        boolean success = false;
+        boolean[] hpPossible = new boolean[16];
+        boolean[] atkPossible = new boolean[16];
+        boolean[] defPossible = new boolean[16];
+        boolean[] spdPossible = new boolean[16];
+        boolean[] spcPossible = new boolean[16];
+        if (this.hpdv == -1) {
+            Arrays.fill(hpPossible, true);
+        } else {
+            Arrays.fill(hpPossible, false);
+            hpPossible[this.hpdv] = true;
+        }
+        if (this.atkdv == -1) {
+            Arrays.fill(atkPossible, true);
+        } else {
+            Arrays.fill(atkPossible, false);
+            atkPossible[this.atkdv] = true;
+        }
+        if (this.defdv == -1) {
+            Arrays.fill(defPossible, true);
+        } else {
+            Arrays.fill(defPossible, false);
+            defPossible[this.defdv] = true;
+        }
+        if (this.spddv == -1) {
+            Arrays.fill(spdPossible, true);
+        } else {
+            Arrays.fill(spdPossible, false);
+            spdPossible[this.spddv] = true;
+        }
+        if (this.spcdv == -1) {
+            Arrays.fill(spcPossible, true);
+        } else {
+            Arrays.fill(spcPossible, false);
+            spcPossible[this.spcdv] = true;
+        }
+        for (int i = 0; i < 16; ++i) {
+            if (this.redHP[i]) {
+                hpPossible[i] = false;
+            }
+            if(this.redAtk[i]) {
+                atkPossible[i] = false;
+            }
+            if(this.redDef[i]) {
+                defPossible[i] = false;
+            }
+            if(this.redSpd[i]) {
+                spdPossible[i] = false;
+            }
+            if(this.redSpc[i]) {
+                spcPossible[i] = false;
+            }
+        }
+        boolean[] newHPRed = new boolean[16];
+        boolean[] newAtkRed = new boolean[16];
+        boolean[] newDefRed = new boolean[16];
+        boolean[] newSpdRed = new boolean[16];
+        boolean[] newSpcRed = new boolean[16];
+        Arrays.fill(newHPRed, false);
+        Arrays.fill(newAtkRed, false);
+        Arrays.fill(newDefRed, false);
+        Arrays.fill(newSpdRed, false);
+        Arrays.fill(newSpcRed, false);
+        for (int i = 0; i < 16; ++i) {
+            if (!atkPossible[i]) continue;
+            for (int j = 0; j < 16; ++j) {
+                if (!defPossible[j]) continue;
+                for (int k = 0; k < 16; ++k) {
+                    if (!spdPossible[k]) continue;
+                    for (int l = 0; l < 16; ++l) {
+                        if (!spcPossible[l]) continue;
+                        if (!hpPossible[i % 2 * 8 + j % 2 * 4 + k % 2 * 2 + l % 2 * 1]) continue;
+                        newHPRed[i % 2 * 8 + j % 2 * 4 + k % 2 * 2 + l % 2 * 1] = true;
+                        newAtkRed[i] = true;
+                        newDefRed[j] = true;
+                        newSpdRed[k] = true;
+                        newSpcRed[l] = true;
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < 16; ++i) {
+            if (hpPossible[i] && !newHPRed[i]) {
+                success = true;
+                this.redHP[i] = true;
+                this.removeStat(0, i);
+            }
+            if (atkPossible[i] && !newAtkRed[i]) {
+                success = true;
+                this.redAtk[i] = true;
+                this.removeStat(1, i);
+            }
+            if (defPossible[i] && !newDefRed[i]) {
+                success = true;
+                this.redDef[i] = true;
+                this.removeStat(2, i);
+            }
+            if (spdPossible[i] && !newSpdRed[i]) {
+                success = true;
+                this.redSpd[i] = true;
+                this.removeStat(3, i);
+            }
+            if (spcPossible[i] && !newSpcRed[i]) {
+                success = true;
+                this.redSpc[i] = true;
+                this.removeStat(4, i);
+            }
+
+        }
+        return success;
+    }
+
+    private void setOnlyDV() {
+        boolean update = true;
+        while (update) {
+            int i;
+            update = false;
+            int possibleHP = 0;
+            int possibleAtk = 0;
+            int possibleDef = 0;
+            int possibleSpd = 0;
+            int possibleSpc = 0;
+            int newHP = -1;
+            int newAtk = -1;
+            int newDef = -1;
+            int newSpd = -1;
+            int newSpc = -1;
+            for (i = 0; i < 16; ++i) {
+                if(!this.redHP[i]) {
+                    ++possibleHP;
+                    newHP = i;
+                }
+                if(!this.redAtk[i]) {
+                    ++possibleAtk;
+                    newAtk = i;
+                }
+                if(!this.redDef[i]) {
+                    ++possibleDef;
+                    newDef = i;
+                }
+                if(!this.redSpd[i]) {
+                    ++possibleSpd;
+                    newSpd = i;
+                }
+                if(!this.redSpc[i]) {
+                    ++possibleSpc;
+                    newSpc = i;
+                }
+            }
+            if (possibleHP == 1) {
+                if (this.hpdv != newHP) {
+                    update = true;
+                }
+                this.hpdv = newHP;
+            }
+            if (possibleAtk == 1) {
+                if (this.atkdv != newAtk) {
+                    update = true;
+                }
+                this.atkdv = newAtk;
+            }
+            if (possibleDef == 1) {
+                if (this.defdv != newDef) {
+                    update = true;
+                }
+                this.defdv = newDef;
+            }
+            if (possibleSpd == 1) {
+                if (this.spddv != newSpd) {
+                    update = true;
+                }
+                this.spddv = newSpd;
+            }
+            if (possibleSpc == 1) {
+                if (this.spcdv != newSpc) {
+                    update = true;
+                }
+                this.spcdv = newSpc;
+            }
+            if (!update) continue;
+            for (i = 0; i < 16; ++i) {
+                if(this.redHP[i]) {
+                    this.removeStat(0, i);
+                }
+                if(this.redAtk[i]) {
+                    this.removeStat(1, i);
+                }
+                if(this.redDef[i]) {
+                    this.removeStat(2, i);
+                }
+                if(this.redSpd[i]) {
+                    this.removeStat(3, i);
+                }
+                if(this.redSpc[i]) {
+                    this.removeStat(4, i);
+                }
+            }
+        }
+    }
+
+    private void updateLabels() {
+        int firstHP = -1;
+        int firstAtk = -1;
+        int firstDef = -1;
+        int firstSpd = -1;
+        int firstSpc = -1;
+        int lastHP = -1;
+        int lastAtk = -1;
+        int lastDef = -1;
+        int lastSpd = -1;
+        int lastSpc = -1;
+        int possibleHP = 0;
+        int possibleAtk = 0;
+        int possibleDef = 0;
+        int possibleSpd = 0;
+        int possibleSpc = 0;
+        for (int i = 0; i < 16; ++i) {
+            if(!this.redHP[i]) {
+                if (firstHP == -1) {
+                    firstHP = i;
+                }
+                lastHP = i;
+                ++possibleHP;
+            }
+            if(!this.redAtk[i]) {
+                if (firstAtk == -1) {
+                    firstAtk = i;
+                }
+                lastAtk = i;
+                ++possibleAtk;
+            }
+            if(!this.redDef[i]) {
+                if (firstDef == -1) {
+                    firstDef = i;
+                }
+                lastDef = i;
+                ++possibleDef;
+            }
+            if(!this.redSpd[i]) {
+                if (firstSpd == -1) {
+                    firstSpd = i;
+                }
+                lastSpd = i;
+                ++possibleSpd;
+            }
+            if(!this.redSpc[i]) {
+                if (firstSpc == -1) {
+                    firstSpc = i;
+                }
+                lastSpc = i;
+                ++possibleSpc;
+            }
+        }
+        this.updateToto(0, firstHP, lastHP, possibleHP);
+        this.updateToto(1, firstAtk, lastAtk, possibleAtk);
+        this.updateToto(2, firstDef, lastDef, possibleDef);
+        this.updateToto(3, firstSpd, lastSpd, possibleSpd);
+        this.updateToto(4, firstSpc, lastSpc, possibleSpc);
     }
 
     public void removeStat(int column, int index) {
@@ -1061,7 +1389,18 @@ extends JFrame {
 
     public void reset() {
         this.calc.reset();
-        this.dv.reset();
+        for (int i = 0; i < 16; ++i) {
+            this.redHP[i] = false;
+            this.redAtk[i] = false;
+            this.redDef[i] = false;
+            this.redSpd[i] = false;
+            this.redSpc[i] = false;
+        }
+        this.hpdv = -1;
+        this.atkdv = -1;
+        this.defdv = -1;
+        this.spddv = -1;
+        this.spcdv = -1;
         this.labelHPDV.setText("?");
         this.labelHPDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
         this.labelAtkDV.setText("?");
@@ -1076,11 +1415,14 @@ extends JFrame {
 
     public void setInternational(boolean international) {
         this.international = international;
-//        this.calc.setInternational(international);
+    }
+
+    public void setGame(boolean isCrystal) {
+        this.isCrystal = isCrystal;
     }
 
     private void about() {
-        String s = "<html><body><p style=\"font-family:'arial';font-size:9px;width:405px\">Pok\u00e9mon Gold DV Helper<br>Version: " + this.version + "<br><br>This is a GSC helper program developed by <a href='http://www.twitch.tv/entrpntr'>entrpntr</a>, derived from the Yellow Helper program designed by <a href='http://www.twitch.tv/Dailyleaf'>Dailyleaf</a>. The goal is making it easier for Pok\u00e9mon Gold & Crystal glitchless speedrunners to figure out DVs and plan ahead based on this knowledge." + "<br><br>DV Calculation:" + "<br><br>Stats Panel:" + "<br>Click what you see ingame, the program will do the math and eliminate impossible combinations." + "<br>Select (in order) the trainer Pokémon and wild encounters you killed and the program will keep track of your experience and stat experience automatically."  + "<br><br>Questions:" + "<br>If you have any questions, feel free to contact entrpntr on the PSR forums or on discord. The thread for GSC DV Helper can be found <a href='http://forums.pokemonspeedruns.com/viewtopic.php?f=116&t=512'>here</a>." + "<br><br>entrpntr's Credits:" + "<br><a href='http://www.twitch.tv/Dailyleaf'>Dailyleaf</a> - For making the original Red Helper and Yellow Helper programs." + "<br><br><em>Daily's Credits:" + "<br><a href='http://www.twitch.tv/BobChao87'>BobChao87</a> - For giving me the idea of how to make the DV calculator." + "<br><a href='http://www.twitch.tv/ExarionU'>ExarionU</a> - For providing the <a href='https://docs.google.com/spreadsheets/d/1mc4MIi2FWYsAoft1srthtEP--Oo36TXddMhQbG1NnB0/edit?pli=1#gid=0'>late-game strategy chart</a> that is used." + "<br><a href='http://www.twitch.tv/Masteri_Mori'>Masteri_Mori</a> - For providing a <a href='http://pastebin.com/Dnw1PE2U'>full list</a> of all possible DV combinations. Which helped me test my code. There are 364 possibilities missing in that list." + "<br><a href='http://www.twitch.tv/Masteri_Mori'>HRoll</a> - For making the amazing <a href='https://github.com/HRoll/poke-router'>RouteOne</a> pogram. It gave me a great insight in how all the calculations are done." + "<br><br>Daily's Shoutouts:" + "<br>Shoutouts to all the people in the Pok\u00e9mon Red skype-group for giving me feedback. Especially <a href='http://www.twitch.tv/dabomstew'>dabomstew</a> for some great help explaining how the calculations were done in RouteOne.</em>";
+        String s = "<html><body><p style=\"font-family:'arial';font-size:9px;width:405px\">Pok\u00e9mon GSC DV Helper<br>Version: " + this.version + "<br><br>This is a GSC helper program developed by <a href='http://www.twitch.tv/entrpntr'>entrpntr</a>, derived from the Yellow Helper program designed by <a href='http://www.twitch.tv/Dailyleaf'>Dailyleaf</a>. The goal is making it easier for Pok\u00e9mon Gold & Crystal glitchless speedrunners to figure out DVs and plan ahead based on this knowledge." + "<br><br>DV Calculation:" + "<br><br>Stats Panel:" + "<br>Click what you see ingame, the program will do the math and eliminate impossible combinations." + "<br>Select (in order) the trainer Pokémon and wild encounters you killed and the program will keep track of your experience and stat experience automatically."  + "<br><br>Questions:" + "<br>If you have any questions, feel free to contact entrpntr on the PSR forums or on discord. The thread for GSC DV Helper can be found <a href='http://forums.pokemonspeedruns.com/viewtopic.php?f=116&t=512'>here</a>." + "<br><br>entrpntr's Credits:" + "<br><a href='http://www.twitch.tv/Dailyleaf'>Dailyleaf</a> - For making the original Red Helper and Yellow Helper programs." + "<br><br><em>Daily's Credits:" + "<br><a href='http://www.twitch.tv/BobChao87'>BobChao87</a> - For giving me the idea of how to make the DV calculator." + "<br><a href='http://www.twitch.tv/ExarionU'>ExarionU</a> - For providing the <a href='https://docs.google.com/spreadsheets/d/1mc4MIi2FWYsAoft1srthtEP--Oo36TXddMhQbG1NnB0/edit?pli=1#gid=0'>late-game strategy chart</a> that is used." + "<br><a href='http://www.twitch.tv/Masteri_Mori'>Masteri_Mori</a> - For providing a <a href='http://pastebin.com/Dnw1PE2U'>full list</a> of all possible DV combinations. Which helped me test my code. There are 364 possibilities missing in that list." + "<br><a href='http://www.twitch.tv/Masteri_Mori'>HRoll</a> - For making the amazing <a href='https://github.com/HRoll/poke-router'>RouteOne</a> pogram. It gave me a great insight in how all the calculations are done." + "<br><br>Daily's Shoutouts:" + "<br>Shoutouts to all the people in the Pok\u00e9mon Red skype-group for giving me feedback. Especially <a href='http://www.twitch.tv/dabomstew'>dabomstew</a> for some great help explaining how the calculations were done in RouteOne.</em>";
         JEditorPane ep = new JEditorPane();
         ep.setEditorKit(JEditorPane.createEditorKitForContentType("text/html"));
         ep.setEditable(false);

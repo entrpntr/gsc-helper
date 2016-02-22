@@ -2,10 +2,10 @@ import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.util.ArrayList;
 
-public class GoldHelper {
+public class GSCHelper {
     private HelperFrame ui;
 
-    public GoldHelper() {
+    public GSCHelper() {
         ArrayList<String> fonts = new ArrayList<String>();
         for (Font f : GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts()) {
             if (fonts.contains(f.getFamily())) continue;
@@ -47,7 +47,7 @@ public class GoldHelper {
     }
 
     public static void main(String[] args) {
-        new GoldHelper();
+        new GSCHelper();
     }
 }
 
