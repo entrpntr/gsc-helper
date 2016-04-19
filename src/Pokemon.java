@@ -19,7 +19,7 @@ public class Pokemon {
         this.spc = spc;
     }
 
-    public static enum Pkmn {
+    public enum Pkmn {
         BULBASAUR,
         IVYSAUR,
         VENUSAUR,
@@ -270,6 +270,6 @@ public class Pokemon {
         TYRANITAR,
         LUGIA,
         HOOH,
-        CELEBI;
+        CELEBI
     }
 }

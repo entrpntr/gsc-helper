@@ -1,7 +1,8 @@
-import java.awt.Font;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,10 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class CrystalDVCalculatorPanel extends GSCDVCalculatorPanel {
     private static final long serialVersionUID = -7545905343679467024L;
@@ -103,6 +101,7 @@ public class CrystalDVCalculatorPanel extends GSCDVCalculatorPanel {
     }
 
     public CrystalDVCalculatorPanel(HelperFrame parent, String font) {
+        super(parent);
         this.parent = parent;
         this.font = font;
         this.setLayout(null);
@@ -1010,7 +1009,7 @@ public class CrystalDVCalculatorPanel extends GSCDVCalculatorPanel {
                 extraStats = Math.floor(Math.floor(Math.sqrt(this.hpStatExp - 1) + 1.0) / 4.0);
             }
             statValue = Math.floor(((double)((this.baseHP + i + 50) * 2) + extraStats) * (double)this.level / 100.0 + 10.0);
-            stat = new Stat(Column.HP, "" + i, (int)statValue, 30, 11 + i * 22);
+            stat = new Stat(this, Column.HP, i, (int)statValue, 30, 11 + i * 22);
             this.hpStats.add(stat);
             this.add(stat.label);
             this.add(stat.button);
@@ -1022,7 +1021,7 @@ public class CrystalDVCalculatorPanel extends GSCDVCalculatorPanel {
                 extraStats = Math.floor(Math.floor(Math.sqrt(this.atkStatExp - 1) + 1.0) / 4.0);
             }
             statValue = Math.floor(((double)((this.baseAtk + i) * 2) + extraStats) * (double)this.level / 100.0 + 5.0);
-            stat = new Stat(Column.ATK, "" + i, (int)statValue, 120, 11 + i * 22);
+            stat = new Stat(this, Column.ATK, i, (int)statValue, 120, 11 + i * 22);
             this.atkStats.add(stat);
             this.add(stat.label);
             this.add(stat.button);
@@ -1034,7 +1033,7 @@ public class CrystalDVCalculatorPanel extends GSCDVCalculatorPanel {
                 extraStats = Math.floor(Math.floor(Math.sqrt(this.defStatExp - 1) + 1.0) / 4.0);
             }
             statValue = Math.floor(((double)((this.baseDef + i) * 2) + extraStats) * (double)this.level / 100.0 + 5.0);
-            stat = new Stat(Column.DEF, "" + i, (int)statValue, 210, 11 + i * 22);
+            stat = new Stat(this, Column.DEF, i, (int)statValue, 210, 11 + i * 22);
             this.defStats.add(stat);
             this.add(stat.label);
             this.add(stat.button);
@@ -1046,7 +1045,7 @@ public class CrystalDVCalculatorPanel extends GSCDVCalculatorPanel {
                 extraStats = Math.floor(Math.floor(Math.sqrt(this.spdStatExp - 1) + 1.0) / 4.0);
             }
             statValue = Math.floor(((double)((this.baseSpe + i) * 2) + extraStats) * (double)this.level / 100.0 + 5.0);
-            stat = new Stat(Column.SPD, "" + i, (int)statValue, 390, 11 + i * 22);
+            stat = new Stat(this, Column.SPD, i, (int)statValue, 390, 11 + i * 22);
             this.spdStats.add(stat);
             this.add(stat.label);
             this.add(stat.button);
@@ -1059,7 +1058,7 @@ public class CrystalDVCalculatorPanel extends GSCDVCalculatorPanel {
             }
             statValue = Math.floor(((double)((this.baseSpA + i) * 2) + extraStats) * (double)this.level / 100.0 + 5.0);
             double spcDefValue = Math.floor(((double)((this.baseSpD + i) * 2) + extraStats) * (double)this.level / 100.0 + 5.0);
-            stat = new Stat(Column.SPC, "" + i, (int)statValue*(int)spcDefValue, 300, 11 + i * 22);
+            stat = new Stat(this, Column.SPC, i, (int)statValue*(int)spcDefValue, 300, 11 + i * 22);
             this.spcStats.add(stat);
             this.add(stat.label);
             this.add(stat.button);
@@ -1194,7 +1193,7 @@ public class CrystalDVCalculatorPanel extends GSCDVCalculatorPanel {
         }
     }
 
-    private void updateButtons(Column column, int value) {
+    public void updateButtons(Column column, int value) {
         Stat stat;
         int i;
         if (column == Column.ATK) {
@@ -1551,74 +1550,5 @@ public class CrystalDVCalculatorPanel extends GSCDVCalculatorPanel {
             this.redSpc[i] = false;
         }
         this.updateStats();
-    }
-
-    static /* synthetic */ void access$3(CrystalDVCalculatorPanel dVCalculatorPanelCrystal, int n) {
-        dVCalculatorPanelCrystal.level = n;
-    }
-
-    static /* synthetic */ void access$6(CrystalDVCalculatorPanel dVCalculatorPanelCrystal, int n) {
-        dVCalculatorPanelCrystal.stage = n;
-    }
-
-    static /* synthetic */ void access$9(CrystalDVCalculatorPanel dVCalculatorPanelCrystal, int n) {
-        dVCalculatorPanelCrystal.baseHP = n;
-    }
-
-    static /* synthetic */ void access$10(CrystalDVCalculatorPanel dVCalculatorPanelCrystal, int n) {
-        dVCalculatorPanelCrystal.baseAtk = n;
-    }
-
-    static /* synthetic */ void access$11(CrystalDVCalculatorPanel dVCalculatorPanelCrystal, int n) {
-        dVCalculatorPanelCrystal.baseDef = n;
-    }
-
-    static /* synthetic */ void access$12(CrystalDVCalculatorPanel dVCalculatorPanelCrystal, int n) {
-        dVCalculatorPanelCrystal.baseSpe = n;
-    }
-
-    static /* synthetic */ void access$13(CrystalDVCalculatorPanel dVCalculatorPanelCrystal, int n) {
-        dVCalculatorPanelCrystal.baseSpA = n;
-    }
-
-    public static enum Column {
-        HP,
-        ATK,
-        DEF,
-        SPD,
-        SPC;
-    }
-
-    class Stat {
-        public int value;
-        public JButton button;
-        public JLabel label;
-        public Column column;
-        public boolean possible;
-
-        public Stat(Column column, String dv, int value, int x, int y) {
-            this.possible = true;
-            this.column = column;
-            this.value = value;
-            this.label = new JLabel(dv);
-            this.label.setBounds(x - 29, y + 79, 22, 22);
-            this.label.setFont(new Font(CrystalDVCalculatorPanel.this.font, 1, 12));
-            this.label.setHorizontalAlignment(4);
-            this.makeButton("" + value, x - 6, y + 79);
-        }
-
-        private void makeButton(String text, int x, int y) {
-            this.button = new JButton(text);
-            this.button.setBounds(x, y, 50, 22);
-            this.button.setFont(new Font(CrystalDVCalculatorPanel.this.font, 1, 14));
-            this.button.setMargin(new Insets(1, 0, 1, 0));
-            this.button.addActionListener(new ActionListener(){
-
-                @Override
-                public void actionPerformed(ActionEvent evt) {
-                    CrystalDVCalculatorPanel.this.updateButtons(column, value);
-                }
-            });
-        }
     }
 }

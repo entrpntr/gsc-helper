@@ -3,9 +3,8 @@ import java.awt.GraphicsEnvironment;
 import java.util.ArrayList;
 
 public class GSCHelper {
-    private HelperFrame ui;
-
     public GSCHelper() {
+        HelperFrame ui;
         ArrayList<String> fonts = new ArrayList<String>();
         for (Font f : GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts()) {
             if (fonts.contains(f.getFamily())) continue;
@@ -42,8 +41,8 @@ public class GSCHelper {
         } else {
             System.out.println("Selected font: " + font);
         }
-        this.ui = new HelperFrame(font);
-        this.ui.setVisible(true);
+        ui = new HelperFrame(font);
+        ui.setVisible(true);
     }
 
     public static void main(String[] args) {
