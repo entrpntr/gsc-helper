@@ -167,8 +167,8 @@ extends JFrame {
         this.main = new JPanel();
         this.main.setLayout(null);
         this.main.setBounds(0, 0, baseWidth, baseHeight + Math.max(0, this.totoHeight - 100));
-        goldCalc = new GoldDVCalculatorPanel(HelperFrame.this, this.font);
-        crystalCalc = new CrystalDVCalculatorPanel(HelperFrame.this, this.font);
+        goldCalc = new GoldDVCalculatorPanel(HelperFrame.this, new PartyPokemon(), this.font);
+        crystalCalc = new CrystalDVCalculatorPanel(HelperFrame.this, new PartyPokemon(), this.font);
         this.calc = crystalCalc;
         this.settings = new JPanel();
         this.settings.setLayout(null);
