@@ -6,6 +6,7 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
     abstract void removeStat(int column, int index);
     abstract void reset();
     abstract void updateButtons(Column column, int value);
+    abstract void updateStats();
     public GSCDVCalculatorPanel(HelperFrame parent) {
         this.parent = parent;
     }

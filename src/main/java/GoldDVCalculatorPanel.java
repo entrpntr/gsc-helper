@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
     private static final long serialVersionUID = -7545905343679467024L;
@@ -48,7 +47,6 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
     private int baseSpA = 44;
     private int baseSpD = 48;
     private int baseSpe = 43;
-    private int stage = 0;
     private JLabel labelTotoLevel;
     private JLabel labelSentretAmount;
     private JLabel labelPidgeyAmount;
@@ -83,20 +81,14 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
     private JButton buttonRussellGeodudeL6;
     private JButton buttonRussellGeodudeL8;
 
-    public static int lowestExpForLevel(int level) {
-        int n = level;
+    public static int lowestExpForLevel(int n) {
         return 6*n*n*n/5 - 15*n*n + 100*n - 140;
     }
     
 	public int expGiven(FoePokemon foe) {
-		int ret = (pokedex.get(foe.poke.ordinal()).expGiven) * foe.level / 7 * 3
+		return (pokedex.get(foe.poke.ordinal()).expGiven) * foe.level / 7 * 3
                 / (foe.isWild ? 3 : 2);
-        return ret;
 	}
-
-    private String getExecutionPath() {
-        return this.parent.getExecutionPath();
-    }
 
     public GoldDVCalculatorPanel(HelperFrame parent, String font) {
         super(parent);
@@ -144,7 +136,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         labelSpc.setFont(new Font(this.font, 1, 19));
         labelSpc.setHorizontalAlignment(0);
         this.add(labelSpc);
-        JLabel labelTotoIcon = new JLabel(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/totodile.png"));
+        JLabel labelTotoIcon = new JLabel(new ImageIcon(getClass().getResource("/gold/totodile.png")));
         labelTotoIcon.setBounds(134, 4, 48, 48);
         this.add(labelTotoIcon);
         this.labelTotoLevel = new JLabel("Level: " + this.level);
@@ -160,7 +152,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.labelPidgeyAmount.setBounds(145, 512, 50, 24);
         this.labelPidgeyAmount.setFont(new Font(this.font, 1, 20));
         this.add(this.labelPidgeyAmount);
-        JLabel labelPidgeyIcon = new JLabel(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/pidgey.png"));
+        JLabel labelPidgeyIcon = new JLabel(new ImageIcon(getClass().getResource("/gold/pidgey.png")));
         labelPidgeyIcon.setBounds(102, 503, 40, 40);
         this.add(labelPidgeyIcon);
         this.buttonPidgeyL2 = new JButton("L2");
@@ -239,7 +231,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.labelSentretAmount.setBounds(145, 558, 50, 24);
         this.labelSentretAmount.setFont(new Font(this.font, 1, 20));
         this.add(this.labelSentretAmount);
-        JLabel labelSentretIcon = new JLabel(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/sentret.png"));
+        JLabel labelSentretIcon = new JLabel(new ImageIcon(getClass().getResource("/gold/sentret.png")));
         labelSentretIcon.setBounds(102, 549, 40, 40);
         this.add(labelSentretIcon);
         this.buttonSentretL2 = new JButton("L2");
@@ -294,7 +286,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.labelRattataAmount.setBounds(292, 512, 50, 24);
         this.labelRattataAmount.setFont(new Font(this.font, 1, 20));
         this.add(this.labelRattataAmount);
-        JLabel labelRattataIcon = new JLabel(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/rattata.png"));
+        JLabel labelRattataIcon = new JLabel(new ImageIcon(getClass().getResource("/gold/rattata.png")));
         labelRattataIcon.setBounds(249, 503, 40, 40);
         this.add(labelRattataIcon);
         this.buttonRattataL4 = new JButton("L4");
@@ -325,7 +317,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.labelCaterpieAmount.setBounds(292, 558, 50, 24);
         this.labelCaterpieAmount.setFont(new Font(this.font, 1, 20));
         this.add(this.labelCaterpieAmount);
-        JLabel labelCaterpieIcon = new JLabel(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/caterpie.png"));
+        JLabel labelCaterpieIcon = new JLabel(new ImageIcon(getClass().getResource("/gold/caterpie.png")));
         labelCaterpieIcon.setBounds(249, 549, 40, 40);
         this.add(labelCaterpieIcon);
         this.buttonCaterpieL3 = new JButton("L3");
@@ -380,7 +372,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.labelHoppipAmount.setBounds(411, 512, 50, 24);
         this.labelHoppipAmount.setFont(new Font(this.font, 1, 20));
         this.add(this.labelHoppipAmount);
-        JLabel labelHoppipIcon = new JLabel(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/hoppip.png"));
+        JLabel labelHoppipIcon = new JLabel(new ImageIcon(getClass().getResource("/gold/hoppip.png")));
         labelHoppipIcon.setBounds(368, 503, 40, 40);
         this.add(labelHoppipIcon);
         this.buttonHoppipL6 = new JButton("L6");
@@ -420,7 +412,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonRivalChikoritaL5.setVerticalAlignment(JLabel.CENTER);
         buttonRivalChikoritaL5.setVerticalTextPosition(JLabel.CENTER);
         buttonRivalChikoritaL5.setHorizontalTextPosition(JLabel.RIGHT);
-        buttonRivalChikoritaL5.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/chikorita.png"));
+        buttonRivalChikoritaL5.setIcon(new ImageIcon(getClass().getResource("/gold/chikorita.png")));
         buttonRivalChikoritaL5.setBounds(566,62,73,50);
         buttonRivalChikoritaL5.setMargin(new Insets(1,0,1,0));
         buttonRivalChikoritaL5.setFont(new Font(this.font, 1, 12));
@@ -451,7 +443,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonMikeyPidgeyL2.setVerticalAlignment(JLabel.CENTER);
         buttonMikeyPidgeyL2.setVerticalTextPosition(JLabel.CENTER);
         buttonMikeyPidgeyL2.setHorizontalTextPosition(JLabel.RIGHT);
-        buttonMikeyPidgeyL2.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/pidgey.png"));
+        buttonMikeyPidgeyL2.setIcon(new ImageIcon(getClass().getResource("/gold/pidgey.png")));
         buttonMikeyPidgeyL2.setBounds(566,114,73,50);
         buttonMikeyPidgeyL2.setMargin(new Insets(1,0,1,0));
         buttonMikeyPidgeyL2.setFont(new Font(this.font, 1, 12));
@@ -478,7 +470,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonMikeyRattataL4.setVerticalAlignment(JLabel.CENTER);
         buttonMikeyRattataL4.setVerticalTextPosition(JLabel.CENTER);
         buttonMikeyRattataL4.setHorizontalTextPosition(JLabel.RIGHT);
-        buttonMikeyRattataL4.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/rattata.png"));
+        buttonMikeyRattataL4.setIcon(new ImageIcon(getClass().getResource("/gold/rattata.png")));
         buttonMikeyRattataL4.setBounds(639,114,73,50);
         buttonMikeyRattataL4.setMargin(new Insets(1,0,1,0));
         buttonMikeyRattataL4.setFont(new Font(this.font, 1, 12));
@@ -509,7 +501,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonDonCaterpieL3_1.setVerticalAlignment(JLabel.CENTER);
         buttonDonCaterpieL3_1.setVerticalTextPosition(JLabel.CENTER);
         buttonDonCaterpieL3_1.setHorizontalTextPosition(JLabel.RIGHT);
-        buttonDonCaterpieL3_1.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/caterpie.png"));
+        buttonDonCaterpieL3_1.setIcon(new ImageIcon(getClass().getResource("/gold/caterpie.png")));
         buttonDonCaterpieL3_1.setBounds(566,166,73,50);
         buttonDonCaterpieL3_1.setMargin(new Insets(1,0,1,0));
         buttonDonCaterpieL3_1.setFont(new Font(this.font, 1, 12));
@@ -536,7 +528,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonDonCaterpieL3_2.setVerticalAlignment(JLabel.CENTER);
         buttonDonCaterpieL3_2.setVerticalTextPosition(JLabel.CENTER);
         buttonDonCaterpieL3_2.setHorizontalTextPosition(JLabel.RIGHT);
-        buttonDonCaterpieL3_2.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/caterpie.png"));
+        buttonDonCaterpieL3_2.setIcon(new ImageIcon(getClass().getResource("/gold/caterpie.png")));
         buttonDonCaterpieL3_2.setBounds(639,166,73,50);
         buttonDonCaterpieL3_2.setMargin(new Insets(1,0,1,0));
         buttonDonCaterpieL3_2.setFont(new Font(this.font, 1, 12));
@@ -567,7 +559,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonAbeSpearowL9.setVerticalAlignment(JLabel.CENTER);
         buttonAbeSpearowL9.setVerticalTextPosition(JLabel.CENTER);
         buttonAbeSpearowL9.setHorizontalTextPosition(JLabel.RIGHT);
-        buttonAbeSpearowL9.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/spearow.png"));
+        buttonAbeSpearowL9.setIcon(new ImageIcon(getClass().getResource("/gold/spearow.png")));
         buttonAbeSpearowL9.setBounds(566,218,73,50);
         buttonAbeSpearowL9.setMargin(new Insets(1,0,1,0));
         buttonAbeSpearowL9.setFont(new Font(this.font, 1, 12));
@@ -598,7 +590,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonRodPidgeyL7_1.setVerticalAlignment(JLabel.CENTER);
         buttonRodPidgeyL7_1.setVerticalTextPosition(JLabel.CENTER);
         buttonRodPidgeyL7_1.setHorizontalTextPosition(JLabel.RIGHT);
-        buttonRodPidgeyL7_1.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/pidgey.png"));
+        buttonRodPidgeyL7_1.setIcon(new ImageIcon(getClass().getResource("/gold/pidgey.png")));
         buttonRodPidgeyL7_1.setBounds(566,270,73,50);
         buttonRodPidgeyL7_1.setMargin(new Insets(1,0,1,0));
         buttonRodPidgeyL7_1.setFont(new Font(this.font, 1, 12));
@@ -625,7 +617,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonRodPidgeyL7_2.setVerticalAlignment(JLabel.CENTER);
         buttonRodPidgeyL7_2.setVerticalTextPosition(JLabel.CENTER);
         buttonRodPidgeyL7_2.setHorizontalTextPosition(JLabel.RIGHT);
-        buttonRodPidgeyL7_2.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/pidgey.png"));
+        buttonRodPidgeyL7_2.setIcon(new ImageIcon(getClass().getResource("/gold/pidgey.png")));
         buttonRodPidgeyL7_2.setBounds(639,270,73,50);
         buttonRodPidgeyL7_2.setMargin(new Insets(1,0,1,0));
         buttonRodPidgeyL7_2.setFont(new Font(this.font, 1, 12));
@@ -656,7 +648,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonFalknerPidgeyL7.setVerticalAlignment(JLabel.CENTER);
         buttonFalknerPidgeyL7.setVerticalTextPosition(JLabel.CENTER);
         buttonFalknerPidgeyL7.setHorizontalTextPosition(JLabel.RIGHT);
-        buttonFalknerPidgeyL7.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/pidgey.png"));
+        buttonFalknerPidgeyL7.setIcon(new ImageIcon(getClass().getResource("/gold/pidgey.png")));
         buttonFalknerPidgeyL7.setBounds(566,322,73,50);
         buttonFalknerPidgeyL7.setMargin(new Insets(1,0,1,0));
         buttonFalknerPidgeyL7.setFont(new Font(this.font, 1, 12));
@@ -683,7 +675,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonFalknerPidgeottoL9.setVerticalAlignment(JLabel.CENTER);
         buttonFalknerPidgeottoL9.setVerticalTextPosition(JLabel.CENTER);
         buttonFalknerPidgeottoL9.setHorizontalTextPosition(JLabel.RIGHT);
-        buttonFalknerPidgeottoL9.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/pidgeotto.png"));
+        buttonFalknerPidgeottoL9.setIcon(new ImageIcon(getClass().getResource("/gold/pidgeotto.png")));
         buttonFalknerPidgeottoL9.setBounds(639,322,73,50);
         buttonFalknerPidgeottoL9.setMargin(new Insets(1,0,1,0));
         buttonFalknerPidgeottoL9.setFont(new Font(this.font, 1, 12));
@@ -714,7 +706,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonAlbertRattataL6.setVerticalAlignment(JLabel.CENTER);
         buttonAlbertRattataL6.setVerticalTextPosition(JLabel.CENTER);
         buttonAlbertRattataL6.setHorizontalTextPosition(JLabel.RIGHT);
-        buttonAlbertRattataL6.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/rattata.png"));
+        buttonAlbertRattataL6.setIcon(new ImageIcon(getClass().getResource("/gold/rattata.png")));
         buttonAlbertRattataL6.setBounds(566,374,73,50);
         buttonAlbertRattataL6.setMargin(new Insets(1,0,1,0));
         buttonAlbertRattataL6.setFont(new Font(this.font, 1, 12));
@@ -741,7 +733,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonAlbertZubatL8.setVerticalAlignment(JLabel.CENTER);
         buttonAlbertZubatL8.setVerticalTextPosition(JLabel.CENTER);
         buttonAlbertZubatL8.setHorizontalTextPosition(JLabel.RIGHT);
-        buttonAlbertZubatL8.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/zubat.png"));
+        buttonAlbertZubatL8.setIcon(new ImageIcon(getClass().getResource("/gold/zubat.png")));
         buttonAlbertZubatL8.setBounds(639,374,73,50);
         buttonAlbertZubatL8.setMargin(new Insets(1,0,1,0));
         buttonAlbertZubatL8.setFont(new Font(this.font, 1, 12));
@@ -772,7 +764,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonRalphGoldeenL10.setVerticalAlignment(JLabel.CENTER);
         buttonRalphGoldeenL10.setVerticalTextPosition(JLabel.CENTER);
         buttonRalphGoldeenL10.setHorizontalTextPosition(JLabel.RIGHT);
-        buttonRalphGoldeenL10.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/goldeen.png"));
+        buttonRalphGoldeenL10.setIcon(new ImageIcon(getClass().getResource("/gold/goldeen.png")));
         buttonRalphGoldeenL10.setBounds(566,426,73,50);
         buttonRalphGoldeenL10.setMargin(new Insets(1,0,1,0));
         buttonRalphGoldeenL10.setFont(new Font(this.font, 1, 12));
@@ -803,7 +795,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonDanielOnixL11.setVerticalAlignment(JLabel.CENTER);
         buttonDanielOnixL11.setVerticalTextPosition(JLabel.CENTER);
         buttonDanielOnixL11.setHorizontalTextPosition(JLabel.RIGHT);
-        buttonDanielOnixL11.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/onix.png"));
+        buttonDanielOnixL11.setIcon(new ImageIcon(getClass().getResource("/gold/onix.png")));
         buttonDanielOnixL11.setBounds(566,478,73,50);
         buttonDanielOnixL11.setMargin(new Insets(1,0,1,0));
         buttonDanielOnixL11.setFont(new Font(this.font, 1, 12));
@@ -834,7 +826,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonRussellGeodudeL4.setVerticalAlignment(JLabel.CENTER);
         buttonRussellGeodudeL4.setVerticalTextPosition(JLabel.CENTER);
         buttonRussellGeodudeL4.setHorizontalTextPosition(JLabel.RIGHT);
-        buttonRussellGeodudeL4.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/geodude.png"));
+        buttonRussellGeodudeL4.setIcon(new ImageIcon(getClass().getResource("/gold/geodude.png")));
         buttonRussellGeodudeL4.setBounds(566,530,73,50);
         buttonRussellGeodudeL4.setMargin(new Insets(1,0,1,0));
         buttonRussellGeodudeL4.setFont(new Font(this.font, 1, 12));
@@ -861,7 +853,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonRussellGeodudeL6.setVerticalAlignment(JLabel.CENTER);
         buttonRussellGeodudeL6.setVerticalTextPosition(JLabel.CENTER);
         buttonRussellGeodudeL6.setHorizontalTextPosition(JLabel.RIGHT);
-        buttonRussellGeodudeL6.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/geodude.png"));
+        buttonRussellGeodudeL6.setIcon(new ImageIcon(getClass().getResource("/gold/geodude.png")));
         buttonRussellGeodudeL6.setBounds(639,530,73,50);
         buttonRussellGeodudeL6.setMargin(new Insets(1,0,1,0));
         buttonRussellGeodudeL6.setFont(new Font(this.font, 1, 12));
@@ -888,7 +880,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonRussellGeodudeL8.setVerticalAlignment(JLabel.CENTER);
         buttonRussellGeodudeL8.setVerticalTextPosition(JLabel.CENTER);
         buttonRussellGeodudeL8.setHorizontalTextPosition(JLabel.RIGHT);
-        buttonRussellGeodudeL8.setIcon(new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/geodude.png"));
+        buttonRussellGeodudeL8.setIcon(new ImageIcon(getClass().getResource("/gold/geodude.png")));
         buttonRussellGeodudeL8.setBounds(712,530,73,50);
         buttonRussellGeodudeL8.setMargin(new Insets(1,0,1,0));
         buttonRussellGeodudeL8.setFont(new Font(this.font, 1, 12));
@@ -983,15 +975,12 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
 
     private void initPokemon() {
         this.pokedex = new ArrayList();
-        FileInputStream fis = null;
         BufferedReader br = null;
         int lineNr = 0;
         int pokedexEntry = 0;
         try {
             try {
-                File f = new File(String.valueOf(this.parent.getExecutionPath()) + "/resources/pokemon.txt");
-                fis = new FileInputStream(f);
-                br = new BufferedReader(new InputStreamReader(fis));
+                br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("pokemon.txt")));
                 String line = br.readLine();
                 while (line != null) {
                     ++lineNr;
@@ -1009,7 +998,6 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
                 e.printStackTrace();
                 try {
                     br.close();
-                    fis.close();
                     return;
                 }
                 catch (IOException e2) {
@@ -1021,7 +1009,6 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
                 e.printStackTrace();
                 try {
                     br.close();
-                    fis.close();
                     return;
                 }
                 catch (IOException e2) {
@@ -1035,7 +1022,6 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
 
                 try {
                     br.close();
-                    fis.close();
                     return;
                 }
                 catch (IOException e2) {
@@ -1047,7 +1033,6 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         finally {
             try {
                 br.close();
-                fis.close();
             }
             catch (IOException e) {
                 e.printStackTrace();
@@ -1055,7 +1040,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         }
     }
 
-    private void updateStats() {
+    public void updateStats() {
         double extraStats;
         int i;
         double statValue;
@@ -1416,7 +1401,6 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         baseSpA = 44;
         baseSpD = 48;
         baseSpe = 43;
-        this.stage = 0;
         this.labelPidgeyAmount.setText("×0");
         this.labelSentretAmount.setText("×0");
         this.labelRattataAmount.setText("×0");

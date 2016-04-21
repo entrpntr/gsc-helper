@@ -42,7 +42,7 @@ import javax.swing.event.HyperlinkListener;
 public class HelperFrame
 extends JFrame {
     private static final long serialVersionUID = 6359843786380885160L;
-    private static final double version = 0.99;
+    private static final double version = 1.0;
     private JPanel main;
     private JPanel settings;
     private JPanel totodile;
@@ -217,7 +217,7 @@ extends JFrame {
             }
         });
         this.settings.add(buttonAbout);
-        ImageIcon iconReset = new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/reset.png");
+        ImageIcon iconReset = new ImageIcon(getClass().getResource("reset.png"));
         JButton buttonReset = new JButton(iconReset);
         buttonReset.setBounds(0, 10, 100, 100);
         buttonReset.setBorderPainted(false);
@@ -354,8 +354,8 @@ extends JFrame {
             }
         });
 
-        ImageIcon iconInternational = new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/international.png");
-        ImageIcon iconGermany = new ImageIcon(String.valueOf(this.getExecutionPath()) + "/resources/germany.png");
+        ImageIcon iconInternational = new ImageIcon(getClass().getResource("international.png"));
+        ImageIcon iconGermany = new ImageIcon(getClass().getResource("germany.png"));
         JButton buttonInternational = new JButton(iconInternational);
         buttonInternational.setBounds(5, 5, 32, 32);
         buttonInternational.setBorderPainted(false);
@@ -1436,7 +1436,7 @@ extends JFrame {
     }
 
     private void about() {
-        String s = "<html><body><p style=\"font-family:'arial';font-size:9px;width:405px\">Pok\u00e9mon GSC DV Helper<br>Version: " + this.version + "<br><br>This is a GSC helper program developed by <a href='http://www.twitch.tv/entrpntr'>entrpntr</a>, derived from the Yellow Helper program designed by <a href='http://www.twitch.tv/Dailyleaf'>Dailyleaf</a>. The goal is making it easier for Pok\u00e9mon Gold & Crystal glitchless speedrunners to figure out DVs and plan ahead based on this knowledge." + "<br><br>DV Calculation:" + "<br><br>Stats Panel:" + "<br>Click what you see ingame, the program will do the math and eliminate impossible combinations." + "<br>Select (in order) the trainer Pokémon and wild encounters you killed and the program will keep track of your experience and stat experience automatically."  + "<br><br>Questions:" + "<br>If you have any questions, feel free to contact entrpntr on the PSR forums or on discord. The thread for GSC DV Helper can be found <a href='http://forums.pokemonspeedruns.com/viewtopic.php?f=116&t=512'>here</a>." + "<br><br>entrpntr's Credits:" + "<br><a href='http://www.twitch.tv/Dailyleaf'>Dailyleaf</a> - For making the original Red Helper and Yellow Helper programs." + "<br><br><em>Daily's Credits:" + "<br><a href='http://www.twitch.tv/BobChao87'>BobChao87</a> - For giving me the idea of how to make the DV calculator." + "<br><a href='http://www.twitch.tv/ExarionU'>ExarionU</a> - For providing the <a href='https://docs.google.com/spreadsheets/d/1mc4MIi2FWYsAoft1srthtEP--Oo36TXddMhQbG1NnB0/edit?pli=1#gid=0'>late-game strategy chart</a> that is used." + "<br><a href='http://www.twitch.tv/Masteri_Mori'>Masteri_Mori</a> - For providing a <a href='http://pastebin.com/Dnw1PE2U'>full list</a> of all possible DV combinations. Which helped me test my code. There are 364 possibilities missing in that list." + "<br><a href='http://www.twitch.tv/Masteri_Mori'>HRoll</a> - For making the amazing <a href='https://github.com/HRoll/poke-router'>RouteOne</a> pogram. It gave me a great insight in how all the calculations are done." + "<br><br>Daily's Shoutouts:" + "<br>Shoutouts to all the people in the Pok\u00e9mon Red skype-group for giving me feedback. Especially <a href='http://www.twitch.tv/dabomstew'>dabomstew</a> for some great help explaining how the calculations were done in RouteOne.</em>";
+        String s = "<html><body><p style=\"font-family:'arial';font-size:9px;width:405px\">Pok\u00e9mon GSC DV Helper<br>Version: " + version + "<br><br>This is a GSC helper program developed by <a href='http://www.twitch.tv/entrpntr'>entrpntr</a>, derived from the Yellow Helper program designed by <a href='http://www.twitch.tv/Dailyleaf'>Dailyleaf</a>. The goal is making it easier for Pok\u00e9mon Gold & Crystal glitchless speedrunners to figure out DVs and plan ahead based on this knowledge." + "<br><br>DV Calculation:" + "<br><br>Stats Panel:" + "<br>Click what you see ingame, the program will do the math and eliminate impossible combinations." + "<br>Select (in order) the trainer Pokémon and wild encounters you killed and the program will keep track of your experience and stat experience automatically."  + "<br><br>Questions:" + "<br>If you have any questions, feel free to contact entrpntr on the PSR forums or on discord. The thread for GSC DV Helper can be found <a href='http://forums.pokemonspeedruns.com/viewtopic.php?f=116&t=512'>here</a>." + "<br><br>entrpntr's Credits:" + "<br><a href='http://www.twitch.tv/Dailyleaf'>Dailyleaf</a> - For making the original Red Helper and Yellow Helper programs." + "<br><br><em>Daily's Credits:" + "<br><a href='http://www.twitch.tv/BobChao87'>BobChao87</a> - For giving me the idea of how to make the DV calculator." + "<br><a href='http://www.twitch.tv/ExarionU'>ExarionU</a> - For providing the <a href='https://docs.google.com/spreadsheets/d/1mc4MIi2FWYsAoft1srthtEP--Oo36TXddMhQbG1NnB0/edit?pli=1#gid=0'>late-game strategy chart</a> that is used." + "<br><a href='http://www.twitch.tv/Masteri_Mori'>Masteri_Mori</a> - For providing a <a href='http://pastebin.com/Dnw1PE2U'>full list</a> of all possible DV combinations. Which helped me test my code. There are 364 possibilities missing in that list." + "<br><a href='http://www.twitch.tv/Masteri_Mori'>HRoll</a> - For making the amazing <a href='https://github.com/HRoll/poke-router'>RouteOne</a> pogram. It gave me a great insight in how all the calculations are done." + "<br><br>Daily's Shoutouts:" + "<br>Shoutouts to all the people in the Pok\u00e9mon Red skype-group for giving me feedback. Especially <a href='http://www.twitch.tv/dabomstew'>dabomstew</a> for some great help explaining how the calculations were done in RouteOne.</em>";
         JEditorPane ep = new JEditorPane();
         ep.setEditorKit(JEditorPane.createEditorKitForContentType("text/html"));
         ep.setEditable(false);

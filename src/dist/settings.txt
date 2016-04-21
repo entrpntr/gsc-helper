@@ -1,0 +1,21 @@
+Location=93,104
+International=true
+Game=Crystal
+;Toto Look-and-feel Settings:
+totoWidth=240
+totoHeight=80
+totoBackgroundColor=255,255,255
+totoTitleText=Toto DVs (0-15)
+totoTitleFontSize=20
+totoTitleFont=Arial
+totoTitleFontExtra=1
+totoTitleColor=0,0,0
+totoColumnHeadersFontSize=14
+totoColumnHeadersFont=Arial
+totoColumnHeadersFontExtra=1
+totoColumnHeadersColor=0,0,0
+totoDVNumbersFontSizeBig=16
+totoDVNumbersFontSizeSmall=14
+totoDVNumbersFont=Arial
+totoDVNumbersFontExtra=1
+totoDVNumbersColor=0,0,0

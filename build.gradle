@@ -1,0 +1,17 @@
+apply plugin: "idea"
+apply plugin: "java"
+apply plugin: 'java-library-distribution'
+
+version = 1.0
+compileJava.options.encoding = 'UTF-8'
+defaultTasks 'distZip','installDist'
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'GSCHelper'
+    }
+}
+
+distZip {
+    archiveName "${baseName}_${version}_bin.zip"
+}
