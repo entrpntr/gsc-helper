@@ -48,13 +48,13 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
 
         JLabel labelWild = new JLabel("Wild Pokes");
         labelWild.setBounds(155,459,190,42);
-        labelWild.setFont(new Font(this.font,Font.BOLD,29));
+        labelWild.setFont(new Font(getFontName(),Font.BOLD,29));
         this.add(labelWild);
 
         // PIDGEY
         this.labelPidgeyAmount = new JLabel("×0");
         this.labelPidgeyAmount.setBounds(145, 512, 50, 24);
-        this.labelPidgeyAmount.setFont(new Font(this.font, Font.BOLD, 20));
+        this.labelPidgeyAmount.setFont(new Font(getFontName(), Font.BOLD, 20));
         this.add(this.labelPidgeyAmount);
         JLabel labelPidgeyIcon = new JLabel(new ImageIcon(getClass().getResource("/gold/pidgey.png")));
         labelPidgeyIcon.setBounds(102, 503, 40, 40);
@@ -62,7 +62,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.buttonPidgeyL2 = new JButton("L2");
         this.buttonPidgeyL2.setBounds(14, 509, 26, 26);
         this.buttonPidgeyL2.setMargin(new Insets(1, 1, 1, 1));
-        this.buttonPidgeyL2.setFont(new Font(this.font, Font.BOLD, 14));
+        this.buttonPidgeyL2.setFont(new Font(getFontName(), Font.BOLD, 14));
         FoePokemon pidgeyL2 = new FoePokemon(Species.PIDGEY, 2, FoeType.WILD);
         buttonPidgeyL2.addActionListener(new DVPanelActionListener(this, this.getStarter(), new WildPokeAdapter(pidgeyL2, labelPidgeyAmount)));
         this.add(this.buttonPidgeyL2);
@@ -70,7 +70,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.buttonPidgeyL3 = new JButton("L3");
         this.buttonPidgeyL3.setBounds(42, 509, 26, 26);
         this.buttonPidgeyL3.setMargin(new Insets(1, 1, 1, 1));
-        this.buttonPidgeyL3.setFont(new Font(this.font, Font.BOLD, 14));
+        this.buttonPidgeyL3.setFont(new Font(getFontName(), Font.BOLD, 14));
         FoePokemon pidgeyL3 = new FoePokemon(Species.PIDGEY, 3, FoeType.WILD);
         buttonPidgeyL3.addActionListener(new DVPanelActionListener(this, this.getStarter(), new WildPokeAdapter(pidgeyL3, labelPidgeyAmount)));
         this.add(this.buttonPidgeyL3);
@@ -78,7 +78,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.buttonPidgeyL4 = new JButton("L4");
         this.buttonPidgeyL4.setBounds(70, 509, 26, 26);
         this.buttonPidgeyL4.setMargin(new Insets(1, 1, 1, 1));
-        this.buttonPidgeyL4.setFont(new Font(this.font, Font.BOLD, 14));
+        this.buttonPidgeyL4.setFont(new Font(getFontName(), Font.BOLD, 14));
         FoePokemon pidgeyL4 = new FoePokemon(Species.PIDGEY, 4, FoeType.WILD);
         buttonPidgeyL4.addActionListener(new DVPanelActionListener(this, this.getStarter(), new WildPokeAdapter(pidgeyL4, labelPidgeyAmount)));
         this.add(this.buttonPidgeyL4);
@@ -86,7 +86,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         // SENTRET
         this.labelSentretAmount = new JLabel("×0");
         this.labelSentretAmount.setBounds(145, 558, 50, 24);
-        this.labelSentretAmount.setFont(new Font(this.font, Font.BOLD, 20));
+        this.labelSentretAmount.setFont(new Font(getFontName(), Font.BOLD, 20));
         this.add(this.labelSentretAmount);
         JLabel labelSentretIcon = new JLabel(new ImageIcon(getClass().getResource("/gold/sentret.png")));
         labelSentretIcon.setBounds(102, 549, 40, 40);
@@ -94,7 +94,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.buttonSentretL2 = new JButton("L2");
         this.buttonSentretL2.setBounds(14, 555, 26, 26);
         this.buttonSentretL2.setMargin(new Insets(1, 1, 1, 1));
-        this.buttonSentretL2.setFont(new Font(this.font, Font.BOLD, 14));
+        this.buttonSentretL2.setFont(new Font(getFontName(), Font.BOLD, 14));
         FoePokemon sentretL2 = new FoePokemon(Species.SENTRET, 2, FoeType.WILD);
         buttonSentretL2.addActionListener(new DVPanelActionListener(this, this.getStarter(), new WildPokeAdapter(sentretL2, labelSentretAmount)));
         this.add(this.buttonSentretL2);
@@ -102,7 +102,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.buttonSentretL3 = new JButton("L3");
         this.buttonSentretL3.setBounds(42, 555, 26, 26);
         this.buttonSentretL3.setMargin(new Insets(1, 1, 1, 1));
-        this.buttonSentretL3.setFont(new Font(this.font, Font.BOLD, 14));
+        this.buttonSentretL3.setFont(new Font(getFontName(), Font.BOLD, 14));
         FoePokemon sentretL3 = new FoePokemon(Species.SENTRET, 3, FoeType.WILD);
         buttonSentretL3.addActionListener(new DVPanelActionListener(this, this.getStarter(), new WildPokeAdapter(sentretL3, labelSentretAmount)));
         this.add(this.buttonSentretL3);
@@ -110,7 +110,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         // RATTATA
         this.labelRattataAmount = new JLabel("×0");
         this.labelRattataAmount.setBounds(292, 512, 50, 24);
-        this.labelRattataAmount.setFont(new Font(this.font, Font.BOLD, 20));
+        this.labelRattataAmount.setFont(new Font(getFontName(), Font.BOLD, 20));
         this.add(this.labelRattataAmount);
         JLabel labelRattataIcon = new JLabel(new ImageIcon(getClass().getResource("/gold/rattata.png")));
         labelRattataIcon.setBounds(249, 503, 40, 40);
@@ -118,7 +118,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.buttonRattataL4 = new JButton("L4");
         this.buttonRattataL4.setBounds(217, 509, 26, 26);
         this.buttonRattataL4.setMargin(new Insets(1, 1, 1, 1));
-        this.buttonRattataL4.setFont(new Font(this.font, Font.BOLD, 14));
+        this.buttonRattataL4.setFont(new Font(getFontName(), Font.BOLD, 14));
         FoePokemon rattataL4 = new FoePokemon(Species.RATTATA, 4, FoeType.WILD);
         buttonRattataL4.addActionListener(new DVPanelActionListener(this, this.getStarter(), new WildPokeAdapter(rattataL4, labelRattataAmount)));
         this.add(this.buttonRattataL4);
@@ -126,7 +126,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         // CATERPIE
         this.labelCaterpieAmount = new JLabel("×0");
         this.labelCaterpieAmount.setBounds(292, 558, 50, 24);
-        this.labelCaterpieAmount.setFont(new Font(this.font, Font.BOLD, 20));
+        this.labelCaterpieAmount.setFont(new Font(getFontName(), Font.BOLD, 20));
         this.add(this.labelCaterpieAmount);
         JLabel labelCaterpieIcon = new JLabel(new ImageIcon(getClass().getResource("/gold/caterpie.png")));
         labelCaterpieIcon.setBounds(249, 549, 40, 40);
@@ -134,7 +134,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.buttonCaterpieL3 = new JButton("L3");
         this.buttonCaterpieL3.setBounds(189, 555, 26, 26);
         this.buttonCaterpieL3.setMargin(new Insets(1, 1, 1, 1));
-        this.buttonCaterpieL3.setFont(new Font(this.font, Font.BOLD, 14));
+        this.buttonCaterpieL3.setFont(new Font(getFontName(), Font.BOLD, 14));
         FoePokemon caterpieL3 = new FoePokemon(Species.CATERPIE, 3, FoeType.WILD);
         buttonCaterpieL3.addActionListener(new DVPanelActionListener(this, this.getStarter(), new WildPokeAdapter(caterpieL3, labelCaterpieAmount)));
         this.add(this.buttonCaterpieL3);
@@ -142,7 +142,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.buttonCaterpieL4 = new JButton("L4");
         this.buttonCaterpieL4.setBounds(217, 555, 26, 26);
         this.buttonCaterpieL4.setMargin(new Insets(1, 1, 1, 1));
-        this.buttonCaterpieL4.setFont(new Font(this.font, Font.BOLD, 14));
+        this.buttonCaterpieL4.setFont(new Font(getFontName(), Font.BOLD, 14));
         FoePokemon caterpieL4 = new FoePokemon(Species.CATERPIE, 4, FoeType.WILD);
         buttonCaterpieL4.addActionListener(new DVPanelActionListener(this, this.getStarter(), new WildPokeAdapter(caterpieL4, labelCaterpieAmount)));
         this.add(this.buttonCaterpieL4);
@@ -150,7 +150,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         // HOPPIP
         this.labelHoppipAmount = new JLabel("×0");
         this.labelHoppipAmount.setBounds(411, 512, 50, 24);
-        this.labelHoppipAmount.setFont(new Font(this.font, Font.BOLD, 20));
+        this.labelHoppipAmount.setFont(new Font(getFontName(), Font.BOLD, 20));
         this.add(this.labelHoppipAmount);
         JLabel labelHoppipIcon = new JLabel(new ImageIcon(getClass().getResource("/gold/hoppip.png")));
         labelHoppipIcon.setBounds(368, 503, 40, 40);
@@ -158,7 +158,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.buttonHoppipL6 = new JButton("L6");
         this.buttonHoppipL6.setBounds(336, 509, 26, 26);
         this.buttonHoppipL6.setMargin(new Insets(1, 1, 1, 1));
-        this.buttonHoppipL6.setFont(new Font(this.font, Font.BOLD, 14));
+        this.buttonHoppipL6.setFont(new Font(getFontName(), Font.BOLD, 14));
         FoePokemon hoppipL6 = new FoePokemon(Species.HOPPIP, 6, FoeType.WILD);
         buttonHoppipL6.addActionListener(new DVPanelActionListener(this, this.getStarter(), new WildPokeAdapter(hoppipL6, labelHoppipAmount)));
         this.add(this.buttonHoppipL6);
@@ -166,13 +166,13 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         // TRAINERS
         JLabel labelTrainers = new JLabel("Trainers");
         labelTrainers.setBounds(498,4,150,48);
-        labelTrainers.setFont(new Font(this.font,Font.BOLD,29));
+        labelTrainers.setFont(new Font(getFontName(),Font.BOLD,29));
         this.add(labelTrainers);
 
         // RIVAL 1
         JLabel labelRival = new JLabel("RIVAL 1");
         labelRival.setBounds(501,75,124,24);
-        labelRival.setFont(new Font(this.font,Font.BOLD,11));
+        labelRival.setFont(new Font(getFontName(),Font.BOLD,11));
         this.add(labelRival);
         buttonRivalChikoritaL5 = new JButton("L5");
         buttonRivalChikoritaL5.setVerticalAlignment(JLabel.CENTER);
@@ -181,7 +181,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonRivalChikoritaL5.setIcon(new ImageIcon(getClass().getResource("/gold/chikorita.png")));
         buttonRivalChikoritaL5.setBounds(566,62,73,50);
         buttonRivalChikoritaL5.setMargin(new Insets(1,0,1,0));
-        buttonRivalChikoritaL5.setFont(new Font(this.font, Font.BOLD, 12));
+        buttonRivalChikoritaL5.setFont(new Font(getFontName(), Font.BOLD, 12));
         FoePokemon rivalChikoritaL5 = new FoePokemon(Species.CHIKORITA, 5, FoeType.TRAINER);
         buttonRivalChikoritaL5.addActionListener(new DVPanelActionListener(this, this.getStarter(), new TrainerPokeAdapter(rivalChikoritaL5, buttonRivalChikoritaL5)));
         this.add(buttonRivalChikoritaL5);
@@ -189,7 +189,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         // MIKEY
         JLabel labelMikey = new JLabel("MIKEY");
         labelMikey.setBounds(501,127,124,24);
-        labelMikey.setFont(new Font(this.font,Font.BOLD,11));
+        labelMikey.setFont(new Font(getFontName(),Font.BOLD,11));
         this.add(labelMikey);
         buttonMikeyPidgeyL2 = new JButton("L2");
         buttonMikeyPidgeyL2.setVerticalAlignment(JLabel.CENTER);
@@ -198,7 +198,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonMikeyPidgeyL2.setIcon(new ImageIcon(getClass().getResource("/gold/pidgey.png")));
         buttonMikeyPidgeyL2.setBounds(566,114,73,50);
         buttonMikeyPidgeyL2.setMargin(new Insets(1,0,1,0));
-        buttonMikeyPidgeyL2.setFont(new Font(this.font, Font.BOLD, 12));
+        buttonMikeyPidgeyL2.setFont(new Font(getFontName(), Font.BOLD, 12));
         FoePokemon mikeyPidgeyL2 = new FoePokemon(Species.PIDGEY, 2, FoeType.TRAINER);
         buttonMikeyPidgeyL2.addActionListener(new DVPanelActionListener(this, this.getStarter(), new TrainerPokeAdapter(mikeyPidgeyL2, buttonMikeyPidgeyL2)));
         this.add(buttonMikeyPidgeyL2);
@@ -210,7 +210,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonMikeyRattataL4.setIcon(new ImageIcon(getClass().getResource("/gold/rattata.png")));
         buttonMikeyRattataL4.setBounds(639,114,73,50);
         buttonMikeyRattataL4.setMargin(new Insets(1,0,1,0));
-        buttonMikeyRattataL4.setFont(new Font(this.font, Font.BOLD, 12));
+        buttonMikeyRattataL4.setFont(new Font(getFontName(), Font.BOLD, 12));
         FoePokemon mikeyRattataL4 = new FoePokemon(Species.RATTATA, 4, FoeType.TRAINER);
         buttonMikeyRattataL4.addActionListener(new DVPanelActionListener(this, this.getStarter(), new TrainerPokeAdapter(mikeyRattataL4, buttonMikeyRattataL4)));
         this.add(buttonMikeyRattataL4);
@@ -218,7 +218,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         // DON
         JLabel labelDon = new JLabel("DON");
         labelDon.setBounds(501,179,124,24);
-        labelDon.setFont(new Font(this.font,Font.BOLD,11));
+        labelDon.setFont(new Font(getFontName(),Font.BOLD,11));
         this.add(labelDon);
         buttonDonCaterpieL3_1 = new JButton("L3");
         buttonDonCaterpieL3_1.setVerticalAlignment(JLabel.CENTER);
@@ -227,7 +227,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonDonCaterpieL3_1.setIcon(new ImageIcon(getClass().getResource("/gold/caterpie.png")));
         buttonDonCaterpieL3_1.setBounds(566,166,73,50);
         buttonDonCaterpieL3_1.setMargin(new Insets(1,0,1,0));
-        buttonDonCaterpieL3_1.setFont(new Font(this.font, Font.BOLD, 12));
+        buttonDonCaterpieL3_1.setFont(new Font(getFontName(), Font.BOLD, 12));
         FoePokemon donCaterpieL3_1 = new FoePokemon(Species.CATERPIE, 3, FoeType.TRAINER);
         buttonDonCaterpieL3_1.addActionListener(new DVPanelActionListener(this, this.getStarter(), new TrainerPokeAdapter(donCaterpieL3_1, buttonDonCaterpieL3_1)));
         this.add(buttonDonCaterpieL3_1);
@@ -239,7 +239,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonDonCaterpieL3_2.setIcon(new ImageIcon(getClass().getResource("/gold/caterpie.png")));
         buttonDonCaterpieL3_2.setBounds(639,166,73,50);
         buttonDonCaterpieL3_2.setMargin(new Insets(1,0,1,0));
-        buttonDonCaterpieL3_2.setFont(new Font(this.font, Font.BOLD, 12));
+        buttonDonCaterpieL3_2.setFont(new Font(getFontName(), Font.BOLD, 12));
         FoePokemon donCaterpieL3_2 = new FoePokemon(Species.CATERPIE, 3, FoeType.TRAINER);
         buttonDonCaterpieL3_2.addActionListener(new DVPanelActionListener(this, this.getStarter(), new TrainerPokeAdapter(donCaterpieL3_2, buttonDonCaterpieL3_2)));
         this.add(buttonDonCaterpieL3_2);
@@ -247,7 +247,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         // ABE
         JLabel labelAbe = new JLabel("ABE");
         labelAbe.setBounds(501,231,124,24);
-        labelAbe.setFont(new Font(this.font,Font.BOLD,11));
+        labelAbe.setFont(new Font(getFontName(),Font.BOLD,11));
         this.add(labelAbe);
         buttonAbeSpearowL9 = new JButton("L9");
         buttonAbeSpearowL9.setVerticalAlignment(JLabel.CENTER);
@@ -256,7 +256,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonAbeSpearowL9.setIcon(new ImageIcon(getClass().getResource("/gold/spearow.png")));
         buttonAbeSpearowL9.setBounds(566,218,73,50);
         buttonAbeSpearowL9.setMargin(new Insets(1,0,1,0));
-        buttonAbeSpearowL9.setFont(new Font(this.font, Font.BOLD, 12));
+        buttonAbeSpearowL9.setFont(new Font(getFontName(), Font.BOLD, 12));
         FoePokemon abeSpearowL9 = new FoePokemon(Species.SPEAROW, 9, FoeType.TRAINER);
         buttonAbeSpearowL9.addActionListener(new DVPanelActionListener(this, this.getStarter(), new TrainerPokeAdapter(abeSpearowL9, buttonAbeSpearowL9)));
         this.add(buttonAbeSpearowL9);
@@ -264,7 +264,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         // ROD
         JLabel labelRod = new JLabel("ROD");
         labelRod.setBounds(501,283,124,24);
-        labelRod.setFont(new Font(this.font,Font.BOLD,11));
+        labelRod.setFont(new Font(getFontName(),Font.BOLD,11));
         this.add(labelRod);
         buttonRodPidgeyL7_1 = new JButton("L7");
         buttonRodPidgeyL7_1.setVerticalAlignment(JLabel.CENTER);
@@ -273,7 +273,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonRodPidgeyL7_1.setIcon(new ImageIcon(getClass().getResource("/gold/pidgey.png")));
         buttonRodPidgeyL7_1.setBounds(566,270,73,50);
         buttonRodPidgeyL7_1.setMargin(new Insets(1,0,1,0));
-        buttonRodPidgeyL7_1.setFont(new Font(this.font, Font.BOLD, 12));
+        buttonRodPidgeyL7_1.setFont(new Font(getFontName(), Font.BOLD, 12));
         FoePokemon rodPidgeyL7_1 = new FoePokemon(Species.PIDGEY, 7, FoeType.TRAINER);
         buttonRodPidgeyL7_1.addActionListener(new DVPanelActionListener(this, this.getStarter(), new TrainerPokeAdapter(rodPidgeyL7_1, buttonRodPidgeyL7_1)));
         this.add(buttonRodPidgeyL7_1);
@@ -285,7 +285,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonRodPidgeyL7_2.setIcon(new ImageIcon(getClass().getResource("/gold/pidgey.png")));
         buttonRodPidgeyL7_2.setBounds(639,270,73,50);
         buttonRodPidgeyL7_2.setMargin(new Insets(1,0,1,0));
-        buttonRodPidgeyL7_2.setFont(new Font(this.font, Font.BOLD, 12));
+        buttonRodPidgeyL7_2.setFont(new Font(getFontName(), Font.BOLD, 12));
         FoePokemon rodPidgeyL7_2 = new FoePokemon(Species.PIDGEY, 7, FoeType.TRAINER);
         buttonRodPidgeyL7_2.addActionListener(new DVPanelActionListener(this, this.getStarter(), new TrainerPokeAdapter(rodPidgeyL7_2, buttonRodPidgeyL7_2)));
         this.add(buttonRodPidgeyL7_2);
@@ -293,7 +293,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         // FALKNER
         JLabel labelFalkner = new JLabel("FALKNER");
         labelFalkner.setBounds(501,335,124,24);
-        labelFalkner.setFont(new Font(this.font,Font.BOLD,11));
+        labelFalkner.setFont(new Font(getFontName(),Font.BOLD,11));
         this.add(labelFalkner);
         buttonFalknerPidgeyL7 = new JButton("L7");
         buttonFalknerPidgeyL7.setVerticalAlignment(JLabel.CENTER);
@@ -302,7 +302,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonFalknerPidgeyL7.setIcon(new ImageIcon(getClass().getResource("/gold/pidgey.png")));
         buttonFalknerPidgeyL7.setBounds(566,322,73,50);
         buttonFalknerPidgeyL7.setMargin(new Insets(1,0,1,0));
-        buttonFalknerPidgeyL7.setFont(new Font(this.font, Font.BOLD, 12));
+        buttonFalknerPidgeyL7.setFont(new Font(getFontName(), Font.BOLD, 12));
         FoePokemon falknerPidgeyL7 = new FoePokemon(Species.PIDGEY, 7, FoeType.TRAINER);
         buttonFalknerPidgeyL7.addActionListener(new DVPanelActionListener(this, this.getStarter(), new TrainerPokeAdapter(falknerPidgeyL7, buttonFalknerPidgeyL7)));
         this.add(buttonFalknerPidgeyL7);
@@ -314,7 +314,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonFalknerPidgeottoL9.setIcon(new ImageIcon(getClass().getResource("/gold/pidgeotto.png")));
         buttonFalknerPidgeottoL9.setBounds(639,322,73,50);
         buttonFalknerPidgeottoL9.setMargin(new Insets(1,0,1,0));
-        buttonFalknerPidgeottoL9.setFont(new Font(this.font, Font.BOLD, 12));
+        buttonFalknerPidgeottoL9.setFont(new Font(getFontName(), Font.BOLD, 12));
         FoePokemon falknerPidgeottoL9 = new FoePokemon(Species.PIDGEOTTO, 9, FoeType.TRAINER);
         buttonFalknerPidgeottoL9.addActionListener(new DVPanelActionListener(this, this.getStarter(), new TrainerPokeAdapter(falknerPidgeottoL9, buttonFalknerPidgeottoL9)));
         this.add(buttonFalknerPidgeottoL9);
@@ -322,7 +322,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         // ALBERT
         JLabel labelAlbert = new JLabel("ALBERT");
         labelAlbert.setBounds(501,387,124,24);
-        labelAlbert.setFont(new Font(this.font,Font.BOLD,11));
+        labelAlbert.setFont(new Font(getFontName(),Font.BOLD,11));
         this.add(labelAlbert);
         buttonAlbertRattataL6 = new JButton("L6");
         buttonAlbertRattataL6.setVerticalAlignment(JLabel.CENTER);
@@ -331,7 +331,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonAlbertRattataL6.setIcon(new ImageIcon(getClass().getResource("/gold/rattata.png")));
         buttonAlbertRattataL6.setBounds(566,374,73,50);
         buttonAlbertRattataL6.setMargin(new Insets(1,0,1,0));
-        buttonAlbertRattataL6.setFont(new Font(this.font, Font.BOLD, 12));
+        buttonAlbertRattataL6.setFont(new Font(getFontName(), Font.BOLD, 12));
         FoePokemon albertRattataL6 = new FoePokemon(Species.RATTATA, 6, FoeType.TRAINER);
         buttonAlbertRattataL6.addActionListener(new DVPanelActionListener(this, this.getStarter(), new TrainerPokeAdapter(albertRattataL6, buttonAlbertRattataL6)));
         this.add(buttonAlbertRattataL6);
@@ -343,7 +343,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonAlbertZubatL8.setIcon(new ImageIcon(getClass().getResource("/gold/zubat.png")));
         buttonAlbertZubatL8.setBounds(639,374,73,50);
         buttonAlbertZubatL8.setMargin(new Insets(1,0,1,0));
-        buttonAlbertZubatL8.setFont(new Font(this.font, Font.BOLD, 12));
+        buttonAlbertZubatL8.setFont(new Font(getFontName(), Font.BOLD, 12));
         FoePokemon albertZubatL8 = new FoePokemon(Species.ZUBAT, 8, FoeType.TRAINER);
         buttonAlbertZubatL8.addActionListener(new DVPanelActionListener(this, this.getStarter(), new TrainerPokeAdapter(albertZubatL8, buttonAlbertZubatL8)));
         this.add(buttonAlbertZubatL8);
@@ -351,7 +351,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         // RALPH
         JLabel labelRalph = new JLabel("RALPH");
         labelRalph.setBounds(501,439,124,24);
-        labelRalph.setFont(new Font(this.font,Font.BOLD,11));
+        labelRalph.setFont(new Font(getFontName(),Font.BOLD,11));
         this.add(labelRalph);
         buttonRalphGoldeenL10 = new JButton("L10");
         buttonRalphGoldeenL10.setVerticalAlignment(JLabel.CENTER);
@@ -360,7 +360,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonRalphGoldeenL10.setIcon(new ImageIcon(getClass().getResource("/gold/goldeen.png")));
         buttonRalphGoldeenL10.setBounds(566,426,73,50);
         buttonRalphGoldeenL10.setMargin(new Insets(1,0,1,0));
-        buttonRalphGoldeenL10.setFont(new Font(this.font, Font.BOLD, 12));
+        buttonRalphGoldeenL10.setFont(new Font(getFontName(), Font.BOLD, 12));
         FoePokemon ralphGoldeenL10 = new FoePokemon(Species.GOLDEEN, 10, FoeType.TRAINER);
         buttonRalphGoldeenL10.addActionListener(new DVPanelActionListener(this, this.getStarter(), new TrainerPokeAdapter(ralphGoldeenL10, buttonRalphGoldeenL10)));
         this.add(buttonRalphGoldeenL10);
@@ -368,7 +368,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         // DANIEL
         JLabel labelDaniel = new JLabel("DANIEL");
         labelDaniel.setBounds(501,491,124,24);
-        labelDaniel.setFont(new Font(this.font,Font.BOLD,11));
+        labelDaniel.setFont(new Font(getFontName(),Font.BOLD,11));
         this.add(labelDaniel);
         buttonDanielOnixL11 = new JButton("L11");
         buttonDanielOnixL11.setVerticalAlignment(JLabel.CENTER);
@@ -377,7 +377,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonDanielOnixL11.setIcon(new ImageIcon(getClass().getResource("/gold/onix.png")));
         buttonDanielOnixL11.setBounds(566,478,73,50);
         buttonDanielOnixL11.setMargin(new Insets(1,0,1,0));
-        buttonDanielOnixL11.setFont(new Font(this.font, Font.BOLD, 12));
+        buttonDanielOnixL11.setFont(new Font(getFontName(), Font.BOLD, 12));
         FoePokemon danielOnixL11 = new FoePokemon(Species.ONIX, 11, FoeType.TRAINER);
         buttonDanielOnixL11.addActionListener(new DVPanelActionListener(this, this.getStarter(), new TrainerPokeAdapter(danielOnixL11, buttonDanielOnixL11)));
         this.add(buttonDanielOnixL11);
@@ -385,7 +385,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         // RUSSELL
         JLabel labelRussell = new JLabel("RUSSELL");
         labelRussell.setBounds(501,543,124,24);
-        labelRussell.setFont(new Font(this.font,Font.BOLD,11));
+        labelRussell.setFont(new Font(getFontName(),Font.BOLD,11));
         this.add(labelRussell);
         buttonRussellGeodudeL4 = new JButton("L4");
         buttonRussellGeodudeL4.setVerticalAlignment(JLabel.CENTER);
@@ -394,7 +394,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonRussellGeodudeL4.setIcon(new ImageIcon(getClass().getResource("/gold/geodude.png")));
         buttonRussellGeodudeL4.setBounds(566,530,73,50);
         buttonRussellGeodudeL4.setMargin(new Insets(1,0,1,0));
-        buttonRussellGeodudeL4.setFont(new Font(this.font, Font.BOLD, 12));
+        buttonRussellGeodudeL4.setFont(new Font(getFontName(), Font.BOLD, 12));
         FoePokemon russellGeodudeL4 = new FoePokemon(Species.GEODUDE, 4, FoeType.TRAINER);
         buttonRussellGeodudeL4.addActionListener(new DVPanelActionListener(this, this.getStarter(), new TrainerPokeAdapter(russellGeodudeL4, buttonRussellGeodudeL4)));
         this.add(buttonRussellGeodudeL4);
@@ -406,7 +406,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonRussellGeodudeL6.setIcon(new ImageIcon(getClass().getResource("/gold/geodude.png")));
         buttonRussellGeodudeL6.setBounds(639,530,73,50);
         buttonRussellGeodudeL6.setMargin(new Insets(1,0,1,0));
-        buttonRussellGeodudeL6.setFont(new Font(this.font, Font.BOLD, 12));
+        buttonRussellGeodudeL6.setFont(new Font(getFontName(), Font.BOLD, 12));
         FoePokemon russellGeodudeL6 = new FoePokemon(Species.GEODUDE, 6, FoeType.TRAINER);
         buttonRussellGeodudeL6.addActionListener(new DVPanelActionListener(this, this.getStarter(), new TrainerPokeAdapter(russellGeodudeL6, buttonRussellGeodudeL6)));
         this.add(buttonRussellGeodudeL6);
@@ -418,7 +418,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonRussellGeodudeL8.setIcon(new ImageIcon(getClass().getResource("/gold/geodude.png")));
         buttonRussellGeodudeL8.setBounds(712,530,73,50);
         buttonRussellGeodudeL8.setMargin(new Insets(1,0,1,0));
-        buttonRussellGeodudeL8.setFont(new Font(this.font, Font.BOLD, 12));
+        buttonRussellGeodudeL8.setFont(new Font(getFontName(), Font.BOLD, 12));
         FoePokemon russellGeodudeL8 = new FoePokemon(Species.GEODUDE, 8, FoeType.TRAINER);
         buttonRussellGeodudeL8.addActionListener(new DVPanelActionListener(this, this.getStarter(), new TrainerPokeAdapter(russellGeodudeL8, buttonRussellGeodudeL8)));
         this.add(buttonRussellGeodudeL8);

@@ -7,22 +7,23 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
     private Game game;
     private HelperFrame parent;
     private JLabel labelTotoLevel;
-    boolean[] redHP = new boolean[16];
-    boolean[] redAtk = new boolean[16];
-    boolean[] redDef = new boolean[16];
-    boolean[] redSpd = new boolean[16];
-    boolean[] redSpc = new boolean[16];
-    ArrayList<StatButton> hpStats;
-    ArrayList<StatButton> atkStats;
-    ArrayList<StatButton> defStats;
-    ArrayList<StatButton> spdStats;
-    ArrayList<StatButton> spcStats;
-    String font;
-    public GSCDVCalculatorPanel(HelperFrame parent, Game game, PartyPokemon starter, String font) {
+    private boolean[] redHP = new boolean[16];
+    private boolean[] redAtk = new boolean[16];
+    private boolean[] redDef = new boolean[16];
+    private boolean[] redSpd = new boolean[16];
+    private boolean[] redSpc = new boolean[16];
+    private ArrayList<StatButton> hpStats;
+    private ArrayList<StatButton> atkStats;
+    private ArrayList<StatButton> defStats;
+    private ArrayList<StatButton> spdStats;
+    private ArrayList<StatButton> spcStats;
+    private String fontName;
+
+    public GSCDVCalculatorPanel(HelperFrame parent, Game game, PartyPokemon starter, String fontName) {
         this.parent = parent;
         this.game = game;
         this.starter = starter;
-        this.font = font;
+        this.fontName = fontName;
         this.setLayout(null);
         this.setBounds(0, 0, 792, 594);
         this.setBackground(null);
@@ -30,9 +31,15 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         this.initStatButtons();
         this.updateStats();
     }
+
     public PartyPokemon getStarter() {
         return starter;
     }
+
+    public String getFontName() {
+        return fontName;
+    }
+
     public void init() {
         for (int i = 0; i < 16; ++i) {
             this.redHP[i] = false;
@@ -43,27 +50,27 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         }
         JLabel labelHP = new JLabel("HP");
         labelHP.setBounds(14, 51, 70, 50);
-        labelHP.setFont(new Font(this.font, Font.BOLD, 19));
+        labelHP.setFont(new Font(this.fontName, Font.BOLD, 19));
         labelHP.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(labelHP);
         JLabel labelAtk = new JLabel("Atk");
         labelAtk.setBounds(104, 51, 70, 50);
-        labelAtk.setFont(new Font(this.font, Font.BOLD, 19));
+        labelAtk.setFont(new Font(this.fontName, Font.BOLD, 19));
         labelAtk.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(labelAtk);
         JLabel labelDef = new JLabel("Def");
         labelDef.setBounds(194, 51, 70, 50);
-        labelDef.setFont(new Font(this.font, Font.BOLD, 19));
+        labelDef.setFont(new Font(this.fontName, Font.BOLD, 19));
         labelDef.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(labelDef);
         JLabel labelSpd = new JLabel("Spd");
         labelSpd.setBounds(374, 51, 70, 50);
-        labelSpd.setFont(new Font(this.font, Font.BOLD, 19));
+        labelSpd.setFont(new Font(this.fontName, Font.BOLD, 19));
         labelSpd.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(labelSpd);
         JLabel labelSpc = new JLabel("Spc");
         labelSpc.setBounds(284, 51, 70, 50);
-        labelSpc.setFont(new Font(this.font, Font.BOLD, 19));
+        labelSpc.setFont(new Font(this.fontName, Font.BOLD, 19));
         labelSpc.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(labelSpc);
         JLabel labelTotoIcon = new JLabel(new ImageIcon(getClass().getResource("/" + game.name().toLowerCase() + "/" + starter.getSpecies().getBackspriteFilename())));
@@ -71,7 +78,7 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         this.add(labelTotoIcon);
         this.labelTotoLevel = new JLabel("Level: " + starter.getLevel());
         this.labelTotoLevel.setBounds(196,4,150,48);
-        this.labelTotoLevel.setFont(new Font(this.font,Font.BOLD,29));
+        this.labelTotoLevel.setFont(new Font(this.fontName,Font.BOLD,29));
         this.add(this.labelTotoLevel);
     }
     public void removeStat(int column, int index) {
