@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-class StatButton {
+public class StatButton {
     private GSCDVCalculatorPanel dvCalcPanel;
     private int value;
     private int dv;
