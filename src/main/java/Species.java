@@ -1,4 +1,4 @@
-public enum PokemonSpecies {
+public enum Species {
     BULBASAUR("Bulbasaur", 1, Type.GRASS, Type.POISON, 45, 49, 49, 65, 65, 45, 64, ExpCurve.MEDIUM_SLOW),
     IVYSAUR("Ivysaur", 2, Type.GRASS, Type.POISON, 60, 62, 63, 80, 80, 60, 141, ExpCurve.MEDIUM_SLOW),
     VENUSAUR("Venusaur", 3, Type.GRASS, Type.POISON, 80, 82, 83, 100, 100, 80, 208, ExpCurve.MEDIUM_SLOW),
@@ -250,6 +250,7 @@ public enum PokemonSpecies {
     LUGIA("Lugia", 249, Type.PSYCHIC, Type.FLYING, 106, 90, 130, 90, 154, 110, 220, ExpCurve.SLOW),
     HOOH("Ho-Oh", 250, Type.FIRE, Type.FLYING, 106, 130, 90, 110, 154, 90, 220, ExpCurve.SLOW),
     CELEBI("Celebi", 251, Type.PSYCHIC, Type.GRASS, 100, 100, 100, 100, 100, 100, 64, ExpCurve.MEDIUM_SLOW);
+
     private String name;
     private int dexNum;
     private Type type1;
@@ -262,7 +263,8 @@ public enum PokemonSpecies {
     private int baseSpd;
     private int killExp;
     private ExpCurve expCurve;
-    PokemonSpecies(String name, int dexNum, Type type1, Type type2, int baseHP, int baseAtk, int baseDef, int baseSpcAtk, int baseSpcDef, int baseSpd, int killExp, ExpCurve expCurve) {
+
+    Species(String name, int dexNum, Type type1, Type type2, int baseHP, int baseAtk, int baseDef, int baseSpcAtk, int baseSpcDef, int baseSpd, int killExp, ExpCurve expCurve) {
         this.name = name;
         this.dexNum = dexNum;
         this.type1 = type1;

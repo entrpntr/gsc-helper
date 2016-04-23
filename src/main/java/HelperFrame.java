@@ -111,7 +111,7 @@ extends JFrame {
     private JRadioButton radioCrystal;
     private ButtonGroup radioGSC;
 //    private boolean international;
-    private boolean isCrystal;
+    private Game game;
     private boolean initializing = true;
     private String executionPath;
     private boolean[] redHP = new boolean[16];
@@ -147,7 +147,7 @@ extends JFrame {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             }
-            catch (Exception var2_2) {
+            catch (Exception exc) {
                 // empty catch block
             }
         }
@@ -167,8 +167,11 @@ extends JFrame {
         this.main = new JPanel();
         this.main.setLayout(null);
         this.main.setBounds(0, 0, baseWidth, baseHeight + Math.max(0, this.totoHeight - 100));
-        goldCalc = new GoldDVCalculatorPanel(HelperFrame.this, new PartyPokemon(PokemonSpecies.TOTODILE, 5), this.font);
-        crystalCalc = new CrystalDVCalculatorPanel(HelperFrame.this, new PartyPokemon(PokemonSpecies.TOTODILE, 5), this.font);
+
+        // TODO: Allow for other choices besides Totodile.
+        goldCalc = new GoldDVCalculatorPanel(HelperFrame.this, new PartyPokemon(Species.TOTODILE, 5), this.font);
+        crystalCalc = new CrystalDVCalculatorPanel(HelperFrame.this, new PartyPokemon(Species.TOTODILE, 5), this.font);
+
         this.calc = crystalCalc;
         this.settings = new JPanel();
         this.settings.setLayout(null);
@@ -241,7 +244,7 @@ extends JFrame {
         radioCrystal.setForeground(crystal);
         radioCrystal.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(!HelperFrame.this.isCrystal) {
+                if(HelperFrame.this.game != Game.CRYSTAL) {
                     HelperFrame.this.goldCalc.reset();
                     HelperFrame.this.main.remove(calc);
                     HelperFrame.this.calc = crystalCalc;
@@ -249,7 +252,7 @@ extends JFrame {
                     HelperFrame.this.reset();
                     HelperFrame.this.repaint();
                     HelperFrame.this.revalidate();
-                    HelperFrame.this.isCrystal = true;
+                    HelperFrame.this.game = Game.CRYSTAL;
                 }
             }
         });
@@ -260,7 +263,7 @@ extends JFrame {
         radioGold.setForeground(gold);
         radioGold.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(HelperFrame.this.isCrystal) {
+                if(HelperFrame.this.game != Game.GOLD) {
                     HelperFrame.this.crystalCalc.reset();
                     HelperFrame.this.main.remove(calc);
                     HelperFrame.this.calc = goldCalc;
@@ -268,7 +271,7 @@ extends JFrame {
                     HelperFrame.this.reset();
                     HelperFrame.this.repaint();
                     HelperFrame.this.revalidate();
-                    HelperFrame.this.isCrystal = false;
+                    HelperFrame.this.game = Game.GOLD;
                 }
             }
         });
@@ -283,7 +286,7 @@ extends JFrame {
         this.main.add(this.totodile);
         this.add(this.main);
 //        this.international = true;
-        this.isCrystal = true;
+        this.game = Game.CRYSTAL;
         this.load();
         this.initializing = false;
         this.updateTotoLookAndFeel();
@@ -564,7 +567,7 @@ extends JFrame {
             }
         });
         this.editTotoDialog.add(this.labelButtonTotoTitleColor);
-        JLabel labelColumnHeaders = new JLabel("Column Headers");
+        JLabel labelColumnHeaders = new JLabel("DVColumn Headers");
         labelColumnHeaders.setBounds(5, 175, 150, 20);
         labelColumnHeaders.setFont(new Font(this.font, Font.BOLD, 14));
         this.editTotoDialog.add(labelColumnHeaders);
@@ -804,17 +807,26 @@ extends JFrame {
                     this.setInternational(false);
                     continue;
                 } */
-                if (sp[0].equals("Game") && sp[1].equals("Gold")) {
-                    this.setGame(false);
-                    this.crystalCalc.reset();
-                    this.main.remove(calc);
-                    this.calc = goldCalc;
-                    this.main.add(calc);
-                    this.radioGold.setSelected(true);
-                    this.radioCrystal.setSelected(false);
-                    this.reset();
-                    this.repaint();
-                    this.revalidate();
+                if (sp[0].equals("Game")) {
+                    try {
+                        Game game = Game.valueOf(sp[1].toUpperCase());
+                        if(game != Game.CRYSTAL) {
+                            this.setGame(game);
+                            this.crystalCalc.reset();
+                            this.main.remove(calc);
+
+                            // TODO: Support switching between multiple saved configurations.
+                            this.calc = goldCalc;
+                            this.main.add(calc);
+                            this.radioGold.setSelected(true);
+                            this.radioCrystal.setSelected(false);
+                            this.reset();
+                            this.repaint();
+                            this.revalidate();
+                        }
+                    } catch(Exception e) {
+                        // empty catch block
+                    }
                     continue;
                 }
                 if (sp[0].equals("totoWidth") && HelperFrame.isInteger(sp[1], 0, this.maxWidth)) {
@@ -922,7 +934,7 @@ extends JFrame {
                     out = new BufferedWriter(fw);
                     out.write("Location=" + this.getLocation().x + "," + this.getLocation().y);
                     out.newLine();
-                    String game = this.isCrystal ? "Crystal" : "Gold";
+                    String game = this.game.name().toLowerCase();
                     out.write("Game=" + game);
                     out.newLine();
                     out.write(";Toto Look-and-feel Settings:");
@@ -1066,7 +1078,7 @@ extends JFrame {
         if (first < 0 || first > 15 || last < 0 || last > 15) {
             return;
         }
-        JLabel labelColumn = null;
+        JLabel labelColumn;
         if (column == 0) {
             labelColumn = this.labelHPDV;
         } else if (column == 1) {
@@ -1133,7 +1145,9 @@ extends JFrame {
             if (!redSpc[i]) continue;
             this.redSpc[i] = redSpc[i];
         }
-        while (this.removeByRanges()) {}
+        while (this.removeByRanges()) {
+            // empty while loop
+        }
         this.setOnlyDV();
         this.updateLabels();
     }
@@ -1433,8 +1447,8 @@ extends JFrame {
         this.international = international;
     }
 */
-    public void setGame(boolean isCrystal) {
-        this.isCrystal = isCrystal;
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     private void about() {

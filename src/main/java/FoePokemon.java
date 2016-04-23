@@ -1,14 +1,14 @@
 public class FoePokemon {
-    private PokemonSpecies species;
+    private Species species;
     private int level;
 	private FoeType foeType;
-	public FoePokemon(PokemonSpecies species, int level, FoeType foeType) {
+	public FoePokemon(Species species, int level, FoeType foeType) {
 		this.species = species;
         this.level = level;
 		this.foeType = foeType;
 	}
 
-    public PokemonSpecies getSpecies() {
+    public Species getSpecies() {
         return species;
     }
 

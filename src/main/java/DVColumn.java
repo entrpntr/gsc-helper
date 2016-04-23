@@ -1,4 +1,4 @@
-public enum Column {
+public enum DVColumn {
     HP,
     ATK,
     DEF,

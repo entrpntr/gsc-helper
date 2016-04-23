@@ -3,16 +3,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-class Stat {
+class StatButton {
     public GSCDVCalculatorPanel dvCalcPanel;
     public int value;
     public int dv;
     public JButton button;
     public JLabel label;
-    public Column column;
+    public DVColumn column;
     public boolean possible;
 
-    public Stat(GSCDVCalculatorPanel dvCalcPanel, Column column, int dv, int value, int x, int y) {
+    public StatButton(GSCDVCalculatorPanel dvCalcPanel, DVColumn column, int dv, int value, int x, int y) {
         this.dvCalcPanel = dvCalcPanel;
         this.possible = true;
         this.column = column;

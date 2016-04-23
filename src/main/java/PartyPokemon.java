@@ -1,5 +1,5 @@
 public class PartyPokemon {
-    private PokemonSpecies species;
+    private Species species;
     private int level;
     private int exp;
     private final int startLevel;
@@ -20,7 +20,7 @@ public class PartyPokemon {
     private int baseSpD = 48;
     private int baseSpe = 43;
 
-    public PartyPokemon(PokemonSpecies species, int level) {
+    public PartyPokemon(Species species, int level) {
         this.species = species;
         this.level = level;
         this.startLevel = level;
@@ -31,7 +31,7 @@ public class PartyPokemon {
         return level;
     }
 
-    public PokemonSpecies getSpecies() {
+    public Species getSpecies() {
         return species;
     }
 
@@ -91,10 +91,6 @@ public class PartyPokemon {
         exp = ExpCurve.lowestExpForLevel(species.getExpCurve(), level);
     }
 
-    public static int lowestExpForLevel(int n) {
-        return 6*n*n*n/5 - 15*n*n + 100*n - 140;
-    }
-
     public static int expGiven(FoePokemon foe) {
         return (foe.getSpecies().getKillExp()) * foe.getLevel() / 7 * 3
                 / (foe.getFoeType() == FoeType.WILD ? 3 : 2);
@@ -108,7 +104,7 @@ public class PartyPokemon {
         boolean gainedLevel = false;
         addStatExp(foe.getSpecies(), nrOfPokemon);
         exp += expGiven(foe);
-        while(lowestExpForLevel(level + 1) <= exp) {
+        while(ExpCurve.lowestExpForLevel(species.getExpCurve(), level + 1) <= exp) {
             level++;
             hp_ev_used = hpStatExp;
             atk_ev_used = atkStatExp;
@@ -120,7 +116,7 @@ public class PartyPokemon {
         return gainedLevel;
     }
 
-    public void addStatExp(PokemonSpecies species, int nrOfPokemon) {
+    public void addStatExp(Species species, int nrOfPokemon) {
         this.hpStatExp += (int)Math.floor(species.getBaseHP() / nrOfPokemon);
         this.atkStatExp += (int)Math.floor(species.getBaseAtk() / nrOfPokemon);
         this.defStatExp += (int)Math.floor(species.getBaseDef() / nrOfPokemon);
