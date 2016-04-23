@@ -428,8 +428,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.add(buttonRussellGeodudeL8);
     }
 
-    public void reset() {
-        super.reset();
+    public void resetAction() {
         this.labelPidgeyAmount.setText("×0");
         this.labelSentretAmount.setText("×0");
         this.labelRattataAmount.setText("×0");

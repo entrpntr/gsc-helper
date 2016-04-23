@@ -156,7 +156,12 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
             this.add(stat.button);
         }
     }
+    public abstract void resetAction();
     public void reset() {
+        resetStats();
+        resetAction();
+    }
+    public void resetStats() {
         int i;
         totodile.reset();
         for (i = 0; i < 16; ++i) {

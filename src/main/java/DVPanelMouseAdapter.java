@@ -20,17 +20,20 @@ public class DVPanelMouseAdapter extends MouseAdapter {
     public void mouseEntered(MouseEvent e) {
         label.setForeground(Color.GREEN);
         button.setBorder(BorderFactory.createLineBorder(Color.GREEN, 1, true));
+        button.setBackground(Color.GREEN);
     }
     @Override
     public void mouseExited(MouseEvent e) {
         label.setForeground(Color.BLACK);
         button.setBorder(UIManager.getBorder("Button.border"));
+        button.setBackground((Color)UIManager.getBorder("Button.background"));
     }
     @Override
     public void mouseClicked(MouseEvent e)
     {
         label.setForeground(Color.BLACK);
         button.setBorder(UIManager.getBorder("Button.border"));
+        button.setBackground((Color)UIManager.getBorder("Button.background"));
         parent.manuallySelectDV(column.ordinal(),dv);
     }
 }

@@ -468,8 +468,7 @@ public class CrystalDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.add(buttonGruntRattataL9_2);
     }
 
-    public void reset() {
-        super.reset();
+    public void resetAction() {
         this.labelPidgeyAmount.setText("×0");
         this.labelSentretAmount.setText("×0");
         this.labelRattataAmount.setText("×0");
