@@ -4,13 +4,37 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 class StatButton {
-    public GSCDVCalculatorPanel dvCalcPanel;
-    public int value;
-    public int dv;
-    public JButton button;
-    public JLabel label;
-    public DVColumn column;
-    public boolean possible;
+    private GSCDVCalculatorPanel dvCalcPanel;
+    private int value;
+    private int dv;
+    private JButton button;
+    private JLabel label;
+    private DVColumn column;
+    private boolean possible;
+
+    public boolean isPossible() {
+        return possible;
+    }
+
+    public JLabel getLabel() {
+        return label;
+    }
+
+    public JButton getButton() {
+        return button;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setPossible(boolean possible) {
+        this.possible = possible;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
 
     public StatButton(GSCDVCalculatorPanel dvCalcPanel, DVColumn column, int dv, int value, int x, int y) {
         this.dvCalcPanel = dvCalcPanel;

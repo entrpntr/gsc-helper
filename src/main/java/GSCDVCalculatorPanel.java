@@ -83,25 +83,25 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
     }
     public void removeStat(int column, int index) {
         if (column == 0) {
-            this.hpStats.get(index).possible = false;
-            this.hpStats.get(index).button.setVisible(false);
-            this.hpStats.get(index).label.setVisible(false);
+            this.hpStats.get(index).setPossible(false);
+            this.hpStats.get(index).getButton().setVisible(false);
+            this.hpStats.get(index).getLabel().setVisible(false);
         } else if (column == 1) {
-            this.atkStats.get(index).possible = false;
-            this.atkStats.get(index).button.setVisible(false);
-            this.atkStats.get(index).label.setVisible(false);
+            this.atkStats.get(index).setPossible(false);
+            this.atkStats.get(index).getButton().setVisible(false);
+            this.atkStats.get(index).getLabel().setVisible(false);
         } else if (column == 2) {
-            this.defStats.get(index).possible = false;
-            this.defStats.get(index).button.setVisible(false);
-            this.defStats.get(index).label.setVisible(false);
+            this.defStats.get(index).setPossible(false);
+            this.defStats.get(index).getButton().setVisible(false);
+            this.defStats.get(index).getLabel().setVisible(false);
         } else if (column == 3) {
-            this.spdStats.get(index).possible = false;
-            this.spdStats.get(index).button.setVisible(false);
-            this.spdStats.get(index).label.setVisible(false);
+            this.spdStats.get(index).setPossible(false);
+            this.spdStats.get(index).getButton().setVisible(false);
+            this.spdStats.get(index).getLabel().setVisible(false);
         } else if (column == 4) {
-            this.spcStats.get(index).possible = false;
-            this.spcStats.get(index).button.setVisible(false);
-            this.spcStats.get(index).label.setVisible(false);
+            this.spcStats.get(index).setPossible(false);
+            this.spcStats.get(index).getButton().setVisible(false);
+            this.spcStats.get(index).getLabel().setVisible(false);
         }
     }
     public void initStatButtons() {
@@ -118,8 +118,8 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
             statValue = Math.floor(((double)((starter.getBaseHP() + i + 50) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 10.0);
             stat = new StatButton(this, DVColumn.HP, i, (int)statValue, 30, 11 + i * 22);
             this.hpStats.add(stat);
-            this.add(stat.label);
-            this.add(stat.button);
+            this.add(stat.getLabel());
+            this.add(stat.getButton());
         }
         this.atkStats = new ArrayList<StatButton>();
         for (i = 0; i < 16; ++i) {
@@ -130,8 +130,8 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
             statValue = Math.floor(((double)((starter.getBaseAtk() + i) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 5.0);
             stat = new StatButton(this, DVColumn.ATK, i, (int)statValue, 120, 11 + i * 22);
             this.atkStats.add(stat);
-            this.add(stat.label);
-            this.add(stat.button);
+            this.add(stat.getLabel());
+            this.add(stat.getButton());
         }
         this.defStats = new ArrayList<StatButton>();
         for (i = 0; i < 16; ++i) {
@@ -142,8 +142,8 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
             statValue = Math.floor(((double)((starter.getBaseDef() + i) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 5.0);
             stat = new StatButton(this, DVColumn.DEF, i, (int)statValue, 210, 11 + i * 22);
             this.defStats.add(stat);
-            this.add(stat.label);
-            this.add(stat.button);
+            this.add(stat.getLabel());
+            this.add(stat.getButton());
         }
         this.spdStats = new ArrayList<StatButton>();
         for (i = 0; i < 16; ++i) {
@@ -154,8 +154,8 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
             statValue = Math.floor(((double)((starter.getBaseSpe() + i) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 5.0);
             stat = new StatButton(this, DVColumn.SPD, i, (int)statValue, 390, 11 + i * 22);
             this.spdStats.add(stat);
-            this.add(stat.label);
-            this.add(stat.button);
+            this.add(stat.getLabel());
+            this.add(stat.getButton());
         }
         this.spcStats = new ArrayList<StatButton>();
         for (i = 0; i < 16; ++i) {
@@ -167,8 +167,8 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
             double spcDefValue = Math.floor(((double)((starter.getBaseSpD() + i) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 5.0);
             stat = new StatButton(this, DVColumn.SPC, i, (int)statValue*(int)spcDefValue, 300, 11 + i * 22);
             this.spcStats.add(stat);
-            this.add(stat.label);
-            this.add(stat.button);
+            this.add(stat.getLabel());
+            this.add(stat.getButton());
         }
     }
     public abstract void resetAction();
@@ -180,21 +180,21 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         int i;
         starter.reset();
         for (i = 0; i < 16; ++i) {
-            this.hpStats.get(i).possible = true;
-            this.hpStats.get(i).label.setVisible(true);
-            this.hpStats.get(i).button.setVisible(true);
-            this.atkStats.get(i).possible = true;
-            this.atkStats.get(i).label.setVisible(true);
-            this.atkStats.get(i).button.setVisible(true);
-            this.defStats.get(i).possible = true;
-            this.defStats.get(i).label.setVisible(true);
-            this.defStats.get(i).button.setVisible(true);
-            this.spdStats.get(i).possible = true;
-            this.spdStats.get(i).label.setVisible(true);
-            this.spdStats.get(i).button.setVisible(true);
-            this.spcStats.get(i).possible = true;
-            this.spcStats.get(i).label.setVisible(true);
-            this.spcStats.get(i).button.setVisible(true);
+            this.hpStats.get(i).setPossible(true);
+            this.hpStats.get(i).getLabel().setVisible(true);
+            this.hpStats.get(i).getButton().setVisible(true);
+            this.atkStats.get(i).setPossible(true);
+            this.atkStats.get(i).getLabel().setVisible(true);
+            this.atkStats.get(i).getButton().setVisible(true);
+            this.defStats.get(i).setPossible(true);
+            this.defStats.get(i).getLabel().setVisible(true);
+            this.defStats.get(i).getButton().setVisible(true);
+            this.spdStats.get(i).setPossible(true);
+            this.spdStats.get(i).getLabel().setVisible(true);
+            this.spdStats.get(i).getButton().setVisible(true);
+            this.spcStats.get(i).setPossible(true);
+            this.spcStats.get(i).getLabel().setVisible(true);
+            this.spcStats.get(i).getButton().setVisible(true);
         }
         for (i = 0; i < 16; ++i) {
             this.redHP[i] = false;
@@ -217,8 +217,8 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
                 extraStats = Math.floor(Math.floor(Math.sqrt(starter.getHpStatExp() - 1) + 1.0) / 4.0);
             }
             statValue = Math.floor(((double)((starter.getBaseHP() + i + 50) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 10.0);
-            this.hpStats.get(i).button.setText("" + (int)statValue);
-            this.hpStats.get(i).value = (int)statValue;
+            this.hpStats.get(i).getButton().setText("" + (int)statValue);
+            this.hpStats.get(i).setValue((int)statValue);
         }
         for (i = 0; i < 16; ++i) {
             extraStats = 0.0;
@@ -226,8 +226,8 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
                 extraStats = Math.floor(Math.floor(Math.sqrt(starter.getAtkStatExp() - 1) + 1.0) / 4.0);
             }
             statValue = Math.floor(((double)((starter.getBaseAtk() + i) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 5.0);
-            this.atkStats.get(i).button.setText("" + (int)statValue);
-            this.atkStats.get(i).value = (int)statValue;
+            this.atkStats.get(i).getButton().setText("" + (int)statValue);
+            this.atkStats.get(i).setValue((int)statValue);
         }
         for (i = 0; i < 16; ++i) {
             extraStats = 0.0;
@@ -235,8 +235,8 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
                 extraStats = Math.floor(Math.floor(Math.sqrt(starter.getDefStatExp() - 1) + 1.0) / 4.0);
             }
             statValue = Math.floor(((double)((starter.getBaseDef() + i) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 5.0);
-            this.defStats.get(i).button.setText("" + (int)statValue);
-            this.defStats.get(i).value = (int)statValue;
+            this.defStats.get(i).getButton().setText("" + (int)statValue);
+            this.defStats.get(i).setValue((int)statValue);
         }
         for (i = 0; i < 16; ++i) {
             extraStats = 0.0;
@@ -244,8 +244,8 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
                 extraStats = Math.floor(Math.floor(Math.sqrt(starter.getSpdStatExp() - 1) + 1.0) / 4.0);
             }
             statValue = Math.floor(((double)((starter.getBaseSpe() + i) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 5.0);
-            this.spdStats.get(i).button.setText("" + (int)statValue);
-            this.spdStats.get(i).value = (int)statValue;
+            this.spdStats.get(i).getButton().setText("" + (int)statValue);
+            this.spdStats.get(i).setValue((int)statValue);
         }
         for (i = 0; i < 16; ++i) {
             extraStats = 0.0;
@@ -254,8 +254,8 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
             }
             statValue = Math.floor(((double)((starter.getBaseSpA() + i) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 5.0);
             double spcDefValue = Math.floor(((double)((starter.getBaseSpD() + i) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 5.0);
-            this.spcStats.get(i).button.setText("" + (int)statValue + "/" + (int)spcDefValue);
-            this.spcStats.get(i).value = (int)statValue*(int)spcDefValue;
+            this.spcStats.get(i).getButton().setText("" + (int)statValue + "/" + (int)spcDefValue);
+            this.spcStats.get(i).setValue((int)statValue*(int)spcDefValue);
         }
     }
     public HelperFrame getHelperFrame() {
@@ -267,112 +267,112 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         if (column == DVColumn.ATK) {
             for (i = 0; i < 16; ++i) {
                 stat = this.atkStats.get(i);
-                if (!stat.possible || value == stat.value) continue;
+                if (!stat.isPossible() || value == stat.getValue()) continue;
                 this.redAtk[i] = true;
-                stat.possible = false;
-                stat.label.setVisible(false);
-                stat.button.setVisible(false);
+                stat.setPossible(false);
+                stat.getLabel().setVisible(false);
+                stat.getButton().setVisible(false);
             }
             if (!this.hasEven(this.atkStats)) {
                 for (i = 0; i < 8; ++i) {
                     this.redHP[i] = true;
                     stat = this.hpStats.get(i);
-                    stat.possible = false;
-                    stat.label.setVisible(false);
-                    stat.button.setVisible(false);
+                    stat.setPossible(false);
+                    stat.getLabel().setVisible(false);
+                    stat.getButton().setVisible(false);
                 }
             }
             if (!this.hasOdd(this.atkStats)) {
                 for (i = 0; i < 8; ++i) {
                     this.redHP[i + 8] = true;
                     stat = this.hpStats.get(i + 8);
-                    stat.possible = false;
-                    stat.label.setVisible(false);
-                    stat.button.setVisible(false);
+                    stat.setPossible(false);
+                    stat.getLabel().setVisible(false);
+                    stat.getButton().setVisible(false);
                 }
             }
         }
         if (column == DVColumn.DEF) {
             for (i = 0; i < 16; ++i) {
                 stat = this.defStats.get(i);
-                if (!stat.possible || value == stat.value) continue;
+                if (!stat.isPossible() || value == stat.getValue()) continue;
                 this.redDef[i] = true;
-                stat.possible = false;
-                stat.label.setVisible(false);
-                stat.button.setVisible(false);
+                stat.setPossible(false);
+                stat.getLabel().setVisible(false);
+                stat.getButton().setVisible(false);
             }
             if (!this.hasEven(this.defStats)) {
                 for (i = 0; i < 8; ++i) {
                     this.redHP[i / 4 * 8 + i % 4] = true;
                     stat = this.hpStats.get(i / 4 * 8 + i % 4);
-                    stat.possible = false;
-                    stat.label.setVisible(false);
-                    stat.button.setVisible(false);
+                    stat.setPossible(false);
+                    stat.getLabel().setVisible(false);
+                    stat.getButton().setVisible(false);
                 }
             }
             if (!this.hasOdd(this.defStats)) {
                 for (i = 0; i < 8; ++i) {
                     this.redHP[i / 4 * 8 + i % 4 + 4] = true;
                     stat = this.hpStats.get(i / 4 * 8 + i % 4 + 4);
-                    stat.possible = false;
-                    stat.label.setVisible(false);
-                    stat.button.setVisible(false);
+                    stat.setPossible(false);
+                    stat.getLabel().setVisible(false);
+                    stat.getButton().setVisible(false);
                 }
             }
         }
         if (column == DVColumn.SPD) {
             for (i = 0; i < 16; ++i) {
                 stat = this.spdStats.get(i);
-                if (!stat.possible || value == stat.value) continue;
+                if (!stat.isPossible() || value == stat.getValue()) continue;
                 this.redSpd[i] = true;
-                stat.possible = false;
-                stat.label.setVisible(false);
-                stat.button.setVisible(false);
+                stat.setPossible(false);
+                stat.getLabel().setVisible(false);
+                stat.getButton().setVisible(false);
             }
             if (!this.hasEven(this.spdStats)) {
                 for (i = 0; i < 8; ++i) {
                     this.redHP[i / 2 * 4 + i % 2] = true;
                     stat = this.hpStats.get(i / 2 * 4 + i % 2);
-                    stat.possible = false;
-                    stat.label.setVisible(false);
-                    stat.button.setVisible(false);
+                    stat.setPossible(false);
+                    stat.getLabel().setVisible(false);
+                    stat.getButton().setVisible(false);
                 }
             }
             if (!this.hasOdd(this.spdStats)) {
                 for (i = 0; i < 8; ++i) {
                     this.redHP[i / 2 * 4 + i % 2 + 2] = true;
                     stat = this.hpStats.get(i / 2 * 4 + i % 2 + 2);
-                    stat.possible = false;
-                    stat.label.setVisible(false);
-                    stat.button.setVisible(false);
+                    stat.setPossible(false);
+                    stat.getLabel().setVisible(false);
+                    stat.getButton().setVisible(false);
                 }
             }
         }
         if (column == DVColumn.SPC) {
             for (i = 0; i < 16; ++i) {
                 stat = this.spcStats.get(i);
-                if (!stat.possible || value == stat.value) continue;
+                if (!stat.isPossible() || value == stat.getValue()) continue;
                 this.redSpc[i] = true;
-                stat.possible = false;
-                stat.label.setVisible(false);
-                stat.button.setVisible(false);
+                stat.setPossible(false);
+                stat.getLabel().setVisible(false);
+                stat.getButton().setVisible(false);
             }
             if (!this.hasEven(this.spcStats)) {
                 for (i = 0; i < 8; ++i) {
                     this.redHP[i * 2 ] = true;
                     stat = this.hpStats.get(i * 2);
-                    stat.possible = false;
-                    stat.label.setVisible(false);
-                    stat.button.setVisible(false);
+                    stat.setPossible(false);
+                    stat.getLabel().setVisible(false);
+                    stat.getButton().setVisible(false);
                 }
             }
             if (!this.hasOdd(this.spcStats)) {
                 for (i = 0; i < 8; ++i) {
                     this.redHP[i * 2 + 1] = true;
                     stat = this.hpStats.get(i * 2 + 1);
-                    stat.possible = false;
-                    stat.label.setVisible(false);
-                    stat.button.setVisible(false);
+                    stat.setPossible(false);
+                    stat.getLabel().setVisible(false);
+                    stat.getButton().setVisible(false);
                 }
             }
         }
@@ -389,12 +389,12 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
             boolean removeOddSpc = true;
             for (i2 = 0; i2 < 16; ++i2) {
                 stat2 = this.hpStats.get(i2);
-                if (!stat2.possible) continue;
-                if (value != stat2.value) {
+                if (!stat2.isPossible()) continue;
+                if (value != stat2.getValue()) {
                     this.redHP[i2] = true;
-                    stat2.possible = false;
-                    stat2.label.setVisible(false);
-                    stat2.button.setVisible(false);
+                    stat2.setPossible(false);
+                    stat2.getLabel().setVisible(false);
+                    stat2.getButton().setVisible(false);
                     continue;
                 }
                 if (i2 < 8) {
@@ -422,72 +422,72 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
                 for (i2 = 0; i2 < 8; ++i2) {
                     this.redAtk[i2 * 2] = true;
                     stat2 = this.atkStats.get(i2 * 2);
-                    stat2.possible = false;
-                    stat2.label.setVisible(false);
-                    stat2.button.setVisible(false);
+                    stat2.setPossible(false);
+                    stat2.getLabel().setVisible(false);
+                    stat2.getButton().setVisible(false);
                 }
             }
             if (removeOddAtk) {
                 for (i2 = 0; i2 < 8; ++i2) {
                     this.redAtk[i2 * 2 + 1] = true;
                     stat2 = this.atkStats.get(i2 * 2 + 1);
-                    stat2.possible = false;
-                    stat2.label.setVisible(false);
-                    stat2.button.setVisible(false);
+                    stat2.setPossible(false);
+                    stat2.getLabel().setVisible(false);
+                    stat2.getButton().setVisible(false);
                 }
             }
             if (removeEvenDef) {
                 for (i2 = 0; i2 < 8; ++i2) {
                     this.redDef[i2 * 2] = true;
                     stat2 = this.defStats.get(i2 * 2);
-                    stat2.possible = false;
-                    stat2.label.setVisible(false);
-                    stat2.button.setVisible(false);
+                    stat2.setPossible(false);
+                    stat2.getLabel().setVisible(false);
+                    stat2.getButton().setVisible(false);
                 }
             }
             if (removeOddDef) {
                 for (i2 = 0; i2 < 8; ++i2) {
                     this.redDef[i2 * 2 + 1] = true;
                     stat2 = this.defStats.get(i2 * 2 + 1);
-                    stat2.possible = false;
-                    stat2.label.setVisible(false);
-                    stat2.button.setVisible(false);
+                    stat2.setPossible(false);
+                    stat2.getLabel().setVisible(false);
+                    stat2.getButton().setVisible(false);
                 }
             }
             if (removeEvenSpd) {
                 for (i2 = 0; i2 < 8; ++i2) {
                     this.redSpd[i2 * 2] = true;
                     stat2 = this.spdStats.get(i2 * 2);
-                    stat2.possible = false;
-                    stat2.label.setVisible(false);
-                    stat2.button.setVisible(false);
+                    stat2.setPossible(false);
+                    stat2.getLabel().setVisible(false);
+                    stat2.getButton().setVisible(false);
                 }
             }
             if (removeOddSpd) {
                 for (i2 = 0; i2 < 8; ++i2) {
                     this.redSpd[i2 * 2 + 1] = true;
                     stat2 = this.spdStats.get(i2 * 2 + 1);
-                    stat2.possible = false;
-                    stat2.label.setVisible(false);
-                    stat2.button.setVisible(false);
+                    stat2.setPossible(false);
+                    stat2.getLabel().setVisible(false);
+                    stat2.getButton().setVisible(false);
                 }
             }
             if (removeEvenSpc) {
                 for (i2 = 0; i2 < 8; ++i2) {
                     this.redSpc[i2 * 2] = true;
                     stat2 = this.spcStats.get(i2 * 2);
-                    stat2.possible = false;
-                    stat2.label.setVisible(false);
-                    stat2.button.setVisible(false);
+                    stat2.setPossible(false);
+                    stat2.getLabel().setVisible(false);
+                    stat2.getButton().setVisible(false);
                 }
             }
             if (removeOddSpc) {
                 for (i2 = 0; i2 < 8; ++i2) {
                     this.redSpc[i2 * 2 + 1] = true;
                     stat2 = this.spcStats.get(i2 * 2 + 1);
-                    stat2.possible = false;
-                    stat2.label.setVisible(false);
-                    stat2.button.setVisible(false);
+                    stat2.setPossible(false);
+                    stat2.getLabel().setVisible(false);
+                    stat2.getButton().setVisible(false);
                 }
             }
         }
@@ -497,7 +497,7 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
     private boolean hasEven(ArrayList<StatButton> list) {
         boolean even = false;
         for (int i = 0; i < 8; ++i) {
-            if (!list.get((i * 2)).possible) continue;
+            if (!list.get((i * 2)).isPossible()) continue;
             even = true;
             break;
         }
@@ -507,7 +507,7 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
     private boolean hasOdd(ArrayList<StatButton> list) {
         boolean odd = false;
         for (int i = 0; i < 8; ++i) {
-            if (!list.get((i * 2 + 1)).possible) continue;
+            if (!list.get((i * 2 + 1)).isPossible()) continue;
             odd = true;
             break;
         }

@@ -61,10 +61,10 @@ extends JFrame {
     private int baseHeight = 740;
     private int totoWidth = 240;
     private int totoHeight = 80;
-    int maxWidth = 432;
-    int maxHeight = 108;
+    private int maxWidth = 432;
+    private int maxHeight = 108;
     private Color totoBackgroundColor = new Color(255, 255, 255);
-    String totoTitleText = "Toto DVs (0-15)";
+    private String totoTitleText = "Toto DVs (0-15)";
     private int totoTitleFontSize = 20;
     private String totoTitleFont = this.font;
     private int totoTitleFontExtra = Font.BOLD;

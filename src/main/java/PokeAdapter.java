@@ -1,5 +1,5 @@
 public abstract class PokeAdapter {
-    FoePokemon poke;
+    private FoePokemon poke;
     public PokeAdapter(FoePokemon poke) {
         this.poke = poke;
     }

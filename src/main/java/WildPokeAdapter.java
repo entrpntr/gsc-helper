@@ -1,7 +1,7 @@
 import javax.swing.*;
 
 public class WildPokeAdapter extends PokeAdapter {
-    FoePokemon poke;
+    private FoePokemon poke;
     private JLabel amountLabel;
 
     public WildPokeAdapter(FoePokemon poke, JLabel amountLabel) {
