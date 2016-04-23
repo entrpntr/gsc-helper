@@ -47,9 +47,8 @@ public class CrystalDVCalculatorPanel extends GSCDVCalculatorPanel {
         super(parent, Game.CRYSTAL, totodile, font);
     }
 
-    public void init() {
-        super.init();
-
+    @Override
+    public void initAction() {
         JLabel labelWild = new JLabel("Wild Pokes");
         labelWild.setBounds(155,459,190,42);
         labelWild.setFont(new Font(getFontName(),Font.BOLD,29));
@@ -464,6 +463,7 @@ public class CrystalDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.add(buttonGruntRattataL9_2);
     }
 
+    @Override
     public void resetAction() {
         this.labelPidgeyAmount.setText("×0");
         this.labelSentretAmount.setText("×0");

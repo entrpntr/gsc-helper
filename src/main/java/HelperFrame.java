@@ -47,7 +47,6 @@ extends JFrame {
     private JPanel settings;
     private JPanel totodile;
     private JPanel totodileDVSPanel;
-//    private JDialog optionDialog;
     private GSCDVCalculatorPanel calc;
     private final GoldDVCalculatorPanel goldCalc;
     private final CrystalDVCalculatorPanel crystalCalc;
@@ -110,7 +109,6 @@ extends JFrame {
     private JRadioButton radioGold;
     private JRadioButton radioCrystal;
     private ButtonGroup radioGSC;
-//    private boolean international;
     private Game game;
     private boolean initializing = true;
     private String executionPath;
@@ -200,20 +198,12 @@ extends JFrame {
                 editTotoDialog.setLocation(HelperFrame.this.getLocation().x + 285, HelperFrame.this.getLocation().y + 140);
                 HelperFrame.this.editTotoDialog.setVisible(true);
             }
-/*
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                optionDialog.setLocation(optionDialog.getParent().getLocation().x + 285, optionDialog.getParent().getLocation().y + 140);
-                HelperFrame.this.optionDialog.setVisible(true);
-            }
-*/
         });
         this.settings.add(this.buttonOptions);
         JButton buttonAbout = new JButton("About");
         buttonAbout.setBounds(115, 71, 80, 28);
         buttonAbout.setFont(new Font(font, Font.BOLD, 13));
         buttonAbout.addActionListener(new ActionListener(){
-
             @Override
             public void actionPerformed(ActionEvent evt) {
                 HelperFrame.this.about();
@@ -229,7 +219,6 @@ extends JFrame {
         buttonReset.setOpaque(false);
         buttonReset.setCursor(new Cursor(Cursor.HAND_CURSOR));
         buttonReset.addActionListener(new ActionListener(){
-
             @Override
             public void actionPerformed(ActionEvent evt) {
                 HelperFrame.this.reset();
@@ -285,7 +274,6 @@ extends JFrame {
         this.main.add(this.settings);
         this.main.add(this.totodile);
         this.add(this.main);
-//        this.international = true;
         this.game = Game.CRYSTAL;
         this.load();
         this.initializing = false;
@@ -340,76 +328,6 @@ extends JFrame {
     }
 
     private void initOptions() {
-        /*
-        this.optionDialog = new JDialog(this);
-        this.optionDialog.setResizable(false);
-        this.optionDialog.setLayout(null);
-        this.optionDialog.setBackground(null);
-        this.optionDialog.setModal(true);
-        this.optionDialog.setAlwaysOnTop(true);
-        this.optionDialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-        this.optionDialog.setBounds(this.getLocation().x + 285, this.getLocation().y + 140, 150, 155);
-        this.optionDialog.setTitle("Options");
-        this.optionDialog.addWindowListener(new WindowAdapter(){
-
-            @Override
-            public void windowClosing(WindowEvent e) {
-                e.getWindow().dispose();
-            }
-        });
-
-        ImageIcon iconInternational = new ImageIcon(getClass().getResource("international.png"));
-        ImageIcon iconGermany = new ImageIcon(getClass().getResource("germany.png"));
-        JButton buttonInternational = new JButton(iconInternational);
-        buttonInternational.setBounds(5, 5, 32, 32);
-        buttonInternational.setBorderPainted(false);
-        buttonInternational.setContentAreaFilled(false);
-        buttonInternational.setFocusPainted(false);
-        buttonInternational.setOpaque(false);
-        buttonInternational.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        buttonInternational.addActionListener(new ActionListener(){
-
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                HelperFrame.this.setInternational(true);
-            }
-        });
-        this.optionDialog.add(buttonInternational);
-        JButton buttonGermany = new JButton(iconGermany);
-        buttonGermany.setBounds(45, 5, 32, 32);
-        buttonGermany.setBorderPainted(false);
-        buttonGermany.setContentAreaFilled(false);
-        buttonGermany.setFocusPainted(false);
-        buttonGermany.setOpaque(false);
-        buttonGermany.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        buttonGermany.addActionListener(new ActionListener(){
-
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                HelperFrame.this.setInternational(false);
-            }
-        });
-        this.optionDialog.add(buttonGermany);
-
-        JLabel labelDVSelection = new JLabel("<html><u>DV Selection</u></html>");
-        labelDVSelection.setBounds(5, 40, 150, 20);
-        labelDVSelection.setFont(new Font(this.font, Font.BOLD, 14));
-        this.optionDialog.add(labelDVSelection);
-        JButton buttonEditToto = new JButton("Edit Toto Look");
-        buttonEditToto.setFont(new Font(this.font, Font.BOLD, 12));
-        buttonEditToto.setMargin(new Insets(2, 0, 2, 0));
-        buttonEditToto.setBounds(5, 90, 130, 30);
-        buttonEditToto.addActionListener(new ActionListener(){
-
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                editTotoDialog.setLocation(optionDialog.getLocation().x, optionDialog.getLocation().y);
-                HelperFrame.this.editTotoDialog.setVisible(true);
-            }
-        });
-        this.optionDialog.add(buttonEditToto);
-        */
-//        this.editTotoDialog = new JDialog(this.optionDialog);
         this.editTotoDialog = new JDialog(this);
         this.editTotoDialog.setResizable(false);
         this.editTotoDialog.setLayout(null);
@@ -420,7 +338,6 @@ extends JFrame {
         this.editTotoDialog.setBounds(this.getLocation().x, this.getLocation().y, 220, 440);
         this.editTotoDialog.setTitle("Toto look-and-feel");
         this.editTotoDialog.addWindowListener(new WindowAdapter(){
-
             @Override
             public void windowClosing(WindowEvent e) {
                 e.getWindow().dispose();
@@ -430,7 +347,6 @@ extends JFrame {
         String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         String[] fontsExtra = new String[]{"Plain", "Bold", "Italic"};
         ChangeListener changeListenerToto = new ChangeListener(){
-
             @Override
             public void stateChanged(ChangeEvent changeEvent) {
                 HelperFrame.this.updateTotoLookAndFeel();
@@ -465,7 +381,6 @@ extends JFrame {
         this.labelButtonTotoBackgroundColor.setOpaque(true);
         this.labelButtonTotoBackgroundColor.setBounds(120, 45, 40, 20);
         this.labelButtonTotoBackgroundColor.addMouseListener(new MouseAdapter(){
-
             @Override
             public void mouseClicked(MouseEvent e) {
                 HelperFrame.changeLastButtonPressed(HelperFrame.this, HelperFrame.this.labelButtonTotoBackgroundColor);
@@ -500,7 +415,6 @@ extends JFrame {
         this.textFieldTotoTitleText.setFont(new Font(this.font, Font.PLAIN, 11));
         this.textFieldTotoTitleText.setBounds(50, 90, 150, 20);
         this.textFieldTotoTitleText.getDocument().addDocumentListener(new DocumentListener(){
-
             @Override
             public void changedUpdate(DocumentEvent e) {
                 this.update();
@@ -525,7 +439,6 @@ extends JFrame {
         this.comboBoxTotoTitleFont.setFont(new Font(this.font, 0, 11));
         this.comboBoxTotoTitleFont.setBounds(50, 110, 150, 20);
         this.comboBoxTotoTitleFont.addItemListener(new ItemListener(){
-
             @Override
             public void itemStateChanged(ItemEvent arg0) {
                 HelperFrame.this.updateTotoLookAndFeel();
@@ -537,7 +450,6 @@ extends JFrame {
         this.comboBoxTotoTitleFontExtra.setFont(new Font(this.font, 0, 11));
         this.comboBoxTotoTitleFontExtra.setBounds(140, 130, 60, 20);
         this.comboBoxTotoTitleFontExtra.addItemListener(new ItemListener(){
-
             @Override
             public void itemStateChanged(ItemEvent arg0) {
                 HelperFrame.this.updateTotoLookAndFeel();
@@ -556,7 +468,6 @@ extends JFrame {
         this.labelButtonTotoTitleColor.setOpaque(true);
         this.labelButtonTotoTitleColor.setBounds(80, 150, 40, 20);
         this.labelButtonTotoTitleColor.addMouseListener(new MouseAdapter(){
-
             @Override
             public void mouseClicked(MouseEvent e) {
                 HelperFrame.changeLastButtonPressed(HelperFrame.this, HelperFrame.this.labelButtonTotoTitleColor);
@@ -587,7 +498,6 @@ extends JFrame {
         this.comboBoxTotoColumnHeadersFont.setFont(new Font(this.font, Font.PLAIN, 11));
         this.comboBoxTotoColumnHeadersFont.setBounds(50, 195, 150, 20);
         this.comboBoxTotoColumnHeadersFont.addItemListener(new ItemListener(){
-
             @Override
             public void itemStateChanged(ItemEvent arg0) {
                 HelperFrame.this.updateTotoLookAndFeel();
@@ -599,7 +509,6 @@ extends JFrame {
         this.comboBoxTotoColumnHeadersFontExtra.setFont(new Font(this.font, Font.PLAIN, 11));
         this.comboBoxTotoColumnHeadersFontExtra.setBounds(140, 215, 60, 20);
         this.comboBoxTotoColumnHeadersFontExtra.addItemListener(new ItemListener(){
-
             @Override
             public void itemStateChanged(ItemEvent arg0) {
                 HelperFrame.this.updateTotoLookAndFeel();
@@ -618,7 +527,6 @@ extends JFrame {
         this.labelButtonTotoColumnHeadersColor.setOpaque(true);
         this.labelButtonTotoColumnHeadersColor.setBounds(80, 235, 40, 20);
         this.labelButtonTotoColumnHeadersColor.addMouseListener(new MouseAdapter(){
-
             @Override
             public void mouseClicked(MouseEvent e) {
                 HelperFrame.changeLastButtonPressed(HelperFrame.this, HelperFrame.this.labelButtonTotoColumnHeadersColor);
@@ -653,7 +561,6 @@ extends JFrame {
         this.comboBoxTotoDVNumbersFont.setFont(new Font(this.font, Font.PLAIN, 11));
         this.comboBoxTotoDVNumbersFont.setBounds(50, 280, 150, 20);
         this.comboBoxTotoDVNumbersFont.addItemListener(new ItemListener(){
-
             @Override
             public void itemStateChanged(ItemEvent arg0) {
                 HelperFrame.this.updateTotoLookAndFeel();
@@ -665,7 +572,6 @@ extends JFrame {
         this.comboBoxTotoDVNumbersFontExtra.setFont(new Font(this.font, Font.PLAIN, 11));
         this.comboBoxTotoDVNumbersFontExtra.setBounds(140, 300, 60, 20);
         this.comboBoxTotoDVNumbersFontExtra.addItemListener(new ItemListener(){
-
             @Override
             public void itemStateChanged(ItemEvent arg0) {
                 HelperFrame.this.updateTotoLookAndFeel();
@@ -690,7 +596,6 @@ extends JFrame {
         this.labelButtonTotoDVNumbersColor.setOpaque(true);
         this.labelButtonTotoDVNumbersColor.setBounds(80, 340, 40, 20);
         this.labelButtonTotoDVNumbersColor.addMouseListener(new MouseAdapter(){
-
             @Override
             public void mouseClicked(MouseEvent e) {
                 HelperFrame.changeLastButtonPressed(HelperFrame.this, HelperFrame.this.labelButtonTotoDVNumbersColor);
@@ -706,7 +611,6 @@ extends JFrame {
         buttonResetDefault.setMargin(new Insets(2, 0, 2, 0));
         buttonResetDefault.setBounds(10, 370, 110, 30);
         buttonResetDefault.addActionListener(new ActionListener(){
-
             @Override
             public void actionPerformed(ActionEvent evt) {
                 HelperFrame.this.spinnerTotoAreaWidth.setValue(240);
@@ -731,7 +635,6 @@ extends JFrame {
         });
         this.editTotoDialog.add(buttonResetDefault);
         this.okListener = new ActionListener(){
-
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (HelperFrame.this.cc.getColor() != null) {
@@ -803,10 +706,6 @@ extends JFrame {
                     this.setLocation(Integer.parseInt(location[0]), Integer.parseInt(location[1]));
                     continue;
                 }
-/*                if (sp[0].equals("International") && sp[1].equals("false")) {
-                    this.setInternational(false);
-                    continue;
-                } */
                 if (sp[0].equals("Game")) {
                     try {
                         Game game = Game.valueOf(sp[1].toUpperCase());
@@ -1442,11 +1341,7 @@ extends JFrame {
         this.labelSpcDV.setText("?");
         this.labelSpcDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
     }
-/*
-    public void setInternational(boolean international) {
-        this.international = international;
-    }
-*/
+
     public void setGame(Game game) {
         this.game = game;
     }
@@ -1461,7 +1356,6 @@ extends JFrame {
         ep.setText(s);
         ep.setAlignmentX(0.0f);
         ep.addHyperlinkListener(new HyperlinkListener(){
-
             @Override
             public void hyperlinkUpdate(HyperlinkEvent e) {
                 if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED && Desktop.isDesktopSupported()) {
@@ -1506,8 +1400,7 @@ extends JFrame {
         helperFrame.totoDVNumbersColor = color;
     }
 
-    public class PreviewPane
-    extends JPanel {
+    public class PreviewPane extends JPanel {
         private static final long serialVersionUID = 3424012701561505236L;
         private JLabel labelBackground;
 
@@ -1561,6 +1454,4 @@ extends JFrame {
             return size;
         }
     }
-
 }
-

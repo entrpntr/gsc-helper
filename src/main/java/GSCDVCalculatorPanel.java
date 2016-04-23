@@ -32,6 +32,9 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         this.updateStats();
     }
 
+    public abstract void initAction();
+    public abstract void resetAction();
+
     public PartyPokemon getStarter() {
         return starter;
     }
@@ -41,6 +44,11 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
     }
 
     public void init() {
+        initMainPanel();
+        initAction();
+    }
+
+    private void initMainPanel() {
         for (int i = 0; i < 16; ++i) {
             this.redHP[i] = false;
             this.redAtk[i] = false;
@@ -81,6 +89,7 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         this.labelTotoLevel.setFont(new Font(this.fontName,Font.BOLD,29));
         this.add(this.labelTotoLevel);
     }
+
     public void removeStat(int column, int index) {
         if (column == 0) {
             this.hpStats.get(index).setPossible(false);
@@ -104,6 +113,7 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
             this.spcStats.get(index).getLabel().setVisible(false);
         }
     }
+
     public void initStatButtons() {
         double extraStats;
         int i;
@@ -171,11 +181,12 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
             this.add(stat.getButton());
         }
     }
-    public abstract void resetAction();
+
     public void reset() {
         resetStats();
         resetAction();
     }
+
     public void resetStats() {
         int i;
         starter.reset();
