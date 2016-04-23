@@ -46,7 +46,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
     public void init() {
         super.init();
 
-        JLabel labelTotoIcon = new JLabel(new ImageIcon(getClass().getResource("/gold/totodile.png")));
+        JLabel labelTotoIcon = new JLabel(new ImageIcon(getClass().getResource("/gold/totodile_back.png")));
         labelTotoIcon.setBounds(134, 4, 48, 48);
         this.add(labelTotoIcon);
 
@@ -67,7 +67,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.buttonPidgeyL2.setBounds(14, 509, 26, 26);
         this.buttonPidgeyL2.setMargin(new Insets(1, 1, 1, 1));
         this.buttonPidgeyL2.setFont(new Font(this.font, Font.BOLD, 14));
-        FoePokemon pidgeyL2 = new FoePokemon(Pokemon.Pkmn.PIDGEY, 2, true);
+        FoePokemon pidgeyL2 = new FoePokemon(PokemonSpecies.PIDGEY, 2, FoeType.WILD);
         buttonPidgeyL2.addActionListener(new DVPanelActionListener(this, totodile, new WildPokeAdapter(pidgeyL2, labelPidgeyAmount)));
         this.add(this.buttonPidgeyL2);
 
@@ -75,7 +75,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.buttonPidgeyL3.setBounds(42, 509, 26, 26);
         this.buttonPidgeyL3.setMargin(new Insets(1, 1, 1, 1));
         this.buttonPidgeyL3.setFont(new Font(this.font, Font.BOLD, 14));
-        FoePokemon pidgeyL3 = new FoePokemon(Pokemon.Pkmn.PIDGEY, 3, true);
+        FoePokemon pidgeyL3 = new FoePokemon(PokemonSpecies.PIDGEY, 3, FoeType.WILD);
         buttonPidgeyL3.addActionListener(new DVPanelActionListener(this, totodile, new WildPokeAdapter(pidgeyL3, labelPidgeyAmount)));
         this.add(this.buttonPidgeyL3);
 
@@ -83,7 +83,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.buttonPidgeyL4.setBounds(70, 509, 26, 26);
         this.buttonPidgeyL4.setMargin(new Insets(1, 1, 1, 1));
         this.buttonPidgeyL4.setFont(new Font(this.font, Font.BOLD, 14));
-        FoePokemon pidgeyL4 = new FoePokemon(Pokemon.Pkmn.PIDGEY, 4, true);
+        FoePokemon pidgeyL4 = new FoePokemon(PokemonSpecies.PIDGEY, 4, FoeType.WILD);
         buttonPidgeyL4.addActionListener(new DVPanelActionListener(this, totodile, new WildPokeAdapter(pidgeyL4, labelPidgeyAmount)));
         this.add(this.buttonPidgeyL4);
 
@@ -99,7 +99,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.buttonSentretL2.setBounds(14, 555, 26, 26);
         this.buttonSentretL2.setMargin(new Insets(1, 1, 1, 1));
         this.buttonSentretL2.setFont(new Font(this.font, Font.BOLD, 14));
-        FoePokemon sentretL2 = new FoePokemon(Pokemon.Pkmn.SENTRET, 2, true);
+        FoePokemon sentretL2 = new FoePokemon(PokemonSpecies.SENTRET, 2, FoeType.WILD);
         buttonSentretL2.addActionListener(new DVPanelActionListener(this, totodile, new WildPokeAdapter(sentretL2, labelSentretAmount)));
         this.add(this.buttonSentretL2);
 
@@ -107,7 +107,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.buttonSentretL3.setBounds(42, 555, 26, 26);
         this.buttonSentretL3.setMargin(new Insets(1, 1, 1, 1));
         this.buttonSentretL3.setFont(new Font(this.font, Font.BOLD, 14));
-        FoePokemon sentretL3 = new FoePokemon(Pokemon.Pkmn.SENTRET, 3, true);
+        FoePokemon sentretL3 = new FoePokemon(PokemonSpecies.SENTRET, 3, FoeType.WILD);
         buttonSentretL3.addActionListener(new DVPanelActionListener(this, totodile, new WildPokeAdapter(sentretL3, labelSentretAmount)));
         this.add(this.buttonSentretL3);
 
@@ -123,7 +123,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.buttonRattataL4.setBounds(217, 509, 26, 26);
         this.buttonRattataL4.setMargin(new Insets(1, 1, 1, 1));
         this.buttonRattataL4.setFont(new Font(this.font, Font.BOLD, 14));
-        FoePokemon rattataL4 = new FoePokemon(Pokemon.Pkmn.RATTATA, 4, true);
+        FoePokemon rattataL4 = new FoePokemon(PokemonSpecies.RATTATA, 4, FoeType.WILD);
         buttonRattataL4.addActionListener(new DVPanelActionListener(this, totodile, new WildPokeAdapter(rattataL4, labelRattataAmount)));
         this.add(this.buttonRattataL4);
 
@@ -139,7 +139,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.buttonCaterpieL3.setBounds(189, 555, 26, 26);
         this.buttonCaterpieL3.setMargin(new Insets(1, 1, 1, 1));
         this.buttonCaterpieL3.setFont(new Font(this.font, Font.BOLD, 14));
-        FoePokemon caterpieL3 = new FoePokemon(Pokemon.Pkmn.CATERPIE, 3, true);
+        FoePokemon caterpieL3 = new FoePokemon(PokemonSpecies.CATERPIE, 3, FoeType.WILD);
         buttonCaterpieL3.addActionListener(new DVPanelActionListener(this, totodile, new WildPokeAdapter(caterpieL3, labelCaterpieAmount)));
         this.add(this.buttonCaterpieL3);
 
@@ -147,7 +147,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.buttonCaterpieL4.setBounds(217, 555, 26, 26);
         this.buttonCaterpieL4.setMargin(new Insets(1, 1, 1, 1));
         this.buttonCaterpieL4.setFont(new Font(this.font, Font.BOLD, 14));
-        FoePokemon caterpieL4 = new FoePokemon(Pokemon.Pkmn.CATERPIE, 4, true);
+        FoePokemon caterpieL4 = new FoePokemon(PokemonSpecies.CATERPIE, 4, FoeType.WILD);
         buttonCaterpieL4.addActionListener(new DVPanelActionListener(this, totodile, new WildPokeAdapter(caterpieL4, labelCaterpieAmount)));
         this.add(this.buttonCaterpieL4);
 
@@ -163,7 +163,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.buttonHoppipL6.setBounds(336, 509, 26, 26);
         this.buttonHoppipL6.setMargin(new Insets(1, 1, 1, 1));
         this.buttonHoppipL6.setFont(new Font(this.font, Font.BOLD, 14));
-        FoePokemon hoppipL6 = new FoePokemon(Pokemon.Pkmn.HOPPIP, 4, true);
+        FoePokemon hoppipL6 = new FoePokemon(PokemonSpecies.HOPPIP, 6, FoeType.WILD);
         buttonHoppipL6.addActionListener(new DVPanelActionListener(this, totodile, new WildPokeAdapter(hoppipL6, labelHoppipAmount)));
         this.add(this.buttonHoppipL6);
 
@@ -186,7 +186,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonRivalChikoritaL5.setBounds(566,62,73,50);
         buttonRivalChikoritaL5.setMargin(new Insets(1,0,1,0));
         buttonRivalChikoritaL5.setFont(new Font(this.font, Font.BOLD, 12));
-        FoePokemon rivalChikoritaL5 = new FoePokemon(Pokemon.Pkmn.CHIKORITA, 5, false);
+        FoePokemon rivalChikoritaL5 = new FoePokemon(PokemonSpecies.CHIKORITA, 5, FoeType.TRAINER);
         buttonRivalChikoritaL5.addActionListener(new DVPanelActionListener(this, totodile, new TrainerPokeAdapter(rivalChikoritaL5, buttonRivalChikoritaL5)));
         this.add(buttonRivalChikoritaL5);
 
@@ -203,7 +203,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonMikeyPidgeyL2.setBounds(566,114,73,50);
         buttonMikeyPidgeyL2.setMargin(new Insets(1,0,1,0));
         buttonMikeyPidgeyL2.setFont(new Font(this.font, Font.BOLD, 12));
-        FoePokemon mikeyPidgeyL2 = new FoePokemon(Pokemon.Pkmn.PIDGEY, 2, false);
+        FoePokemon mikeyPidgeyL2 = new FoePokemon(PokemonSpecies.PIDGEY, 2, FoeType.TRAINER);
         buttonMikeyPidgeyL2.addActionListener(new DVPanelActionListener(this, totodile, new TrainerPokeAdapter(mikeyPidgeyL2, buttonMikeyPidgeyL2)));
         this.add(buttonMikeyPidgeyL2);
 
@@ -215,7 +215,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonMikeyRattataL4.setBounds(639,114,73,50);
         buttonMikeyRattataL4.setMargin(new Insets(1,0,1,0));
         buttonMikeyRattataL4.setFont(new Font(this.font, Font.BOLD, 12));
-        FoePokemon mikeyRattataL4 = new FoePokemon(Pokemon.Pkmn.RATTATA, 4, false);
+        FoePokemon mikeyRattataL4 = new FoePokemon(PokemonSpecies.RATTATA, 4, FoeType.TRAINER);
         buttonMikeyRattataL4.addActionListener(new DVPanelActionListener(this, totodile, new TrainerPokeAdapter(mikeyRattataL4, buttonMikeyRattataL4)));
         this.add(buttonMikeyRattataL4);
 
@@ -232,7 +232,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonDonCaterpieL3_1.setBounds(566,166,73,50);
         buttonDonCaterpieL3_1.setMargin(new Insets(1,0,1,0));
         buttonDonCaterpieL3_1.setFont(new Font(this.font, Font.BOLD, 12));
-        FoePokemon donCaterpieL3_1 = new FoePokemon(Pokemon.Pkmn.CATERPIE, 3, false);
+        FoePokemon donCaterpieL3_1 = new FoePokemon(PokemonSpecies.CATERPIE, 3, FoeType.TRAINER);
         buttonDonCaterpieL3_1.addActionListener(new DVPanelActionListener(this, totodile, new TrainerPokeAdapter(donCaterpieL3_1, buttonDonCaterpieL3_1)));
         this.add(buttonDonCaterpieL3_1);
 
@@ -244,7 +244,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonDonCaterpieL3_2.setBounds(639,166,73,50);
         buttonDonCaterpieL3_2.setMargin(new Insets(1,0,1,0));
         buttonDonCaterpieL3_2.setFont(new Font(this.font, Font.BOLD, 12));
-        FoePokemon donCaterpieL3_2 = new FoePokemon(Pokemon.Pkmn.CATERPIE, 3, false);
+        FoePokemon donCaterpieL3_2 = new FoePokemon(PokemonSpecies.CATERPIE, 3, FoeType.TRAINER);
         buttonDonCaterpieL3_2.addActionListener(new DVPanelActionListener(this, totodile, new TrainerPokeAdapter(donCaterpieL3_2, buttonDonCaterpieL3_2)));
         this.add(buttonDonCaterpieL3_2);
 
@@ -261,7 +261,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonAbeSpearowL9.setBounds(566,218,73,50);
         buttonAbeSpearowL9.setMargin(new Insets(1,0,1,0));
         buttonAbeSpearowL9.setFont(new Font(this.font, Font.BOLD, 12));
-        FoePokemon abeSpearowL9 = new FoePokemon(Pokemon.Pkmn.SPEAROW, 9, false);
+        FoePokemon abeSpearowL9 = new FoePokemon(PokemonSpecies.SPEAROW, 9, FoeType.TRAINER);
         buttonAbeSpearowL9.addActionListener(new DVPanelActionListener(this, totodile, new TrainerPokeAdapter(abeSpearowL9, buttonAbeSpearowL9)));
         this.add(buttonAbeSpearowL9);
 
@@ -278,7 +278,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonRodPidgeyL7_1.setBounds(566,270,73,50);
         buttonRodPidgeyL7_1.setMargin(new Insets(1,0,1,0));
         buttonRodPidgeyL7_1.setFont(new Font(this.font, Font.BOLD, 12));
-        FoePokemon rodPidgeyL7_1 = new FoePokemon(Pokemon.Pkmn.PIDGEY, 7, false);
+        FoePokemon rodPidgeyL7_1 = new FoePokemon(PokemonSpecies.PIDGEY, 7, FoeType.TRAINER);
         buttonRodPidgeyL7_1.addActionListener(new DVPanelActionListener(this, totodile, new TrainerPokeAdapter(rodPidgeyL7_1, buttonRodPidgeyL7_1)));
         this.add(buttonRodPidgeyL7_1);
 
@@ -290,7 +290,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonRodPidgeyL7_2.setBounds(639,270,73,50);
         buttonRodPidgeyL7_2.setMargin(new Insets(1,0,1,0));
         buttonRodPidgeyL7_2.setFont(new Font(this.font, Font.BOLD, 12));
-        FoePokemon rodPidgeyL7_2 = new FoePokemon(Pokemon.Pkmn.PIDGEY, 7, false);
+        FoePokemon rodPidgeyL7_2 = new FoePokemon(PokemonSpecies.PIDGEY, 7, FoeType.TRAINER);
         buttonRodPidgeyL7_2.addActionListener(new DVPanelActionListener(this, totodile, new TrainerPokeAdapter(rodPidgeyL7_2, buttonRodPidgeyL7_2)));
         this.add(buttonRodPidgeyL7_2);
 
@@ -307,7 +307,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonFalknerPidgeyL7.setBounds(566,322,73,50);
         buttonFalknerPidgeyL7.setMargin(new Insets(1,0,1,0));
         buttonFalknerPidgeyL7.setFont(new Font(this.font, Font.BOLD, 12));
-        FoePokemon falknerPidgeyL7 = new FoePokemon(Pokemon.Pkmn.PIDGEY, 7, false);
+        FoePokemon falknerPidgeyL7 = new FoePokemon(PokemonSpecies.PIDGEY, 7, FoeType.TRAINER);
         buttonFalknerPidgeyL7.addActionListener(new DVPanelActionListener(this, totodile, new TrainerPokeAdapter(falknerPidgeyL7, buttonFalknerPidgeyL7)));
         this.add(buttonFalknerPidgeyL7);
 
@@ -319,7 +319,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonFalknerPidgeottoL9.setBounds(639,322,73,50);
         buttonFalknerPidgeottoL9.setMargin(new Insets(1,0,1,0));
         buttonFalknerPidgeottoL9.setFont(new Font(this.font, Font.BOLD, 12));
-        FoePokemon falknerPidgeottoL9 = new FoePokemon(Pokemon.Pkmn.PIDGEOTTO, 9, false);
+        FoePokemon falknerPidgeottoL9 = new FoePokemon(PokemonSpecies.PIDGEOTTO, 9, FoeType.TRAINER);
         buttonFalknerPidgeottoL9.addActionListener(new DVPanelActionListener(this, totodile, new TrainerPokeAdapter(falknerPidgeottoL9, buttonFalknerPidgeottoL9)));
         this.add(buttonFalknerPidgeottoL9);
 
@@ -336,7 +336,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonAlbertRattataL6.setBounds(566,374,73,50);
         buttonAlbertRattataL6.setMargin(new Insets(1,0,1,0));
         buttonAlbertRattataL6.setFont(new Font(this.font, Font.BOLD, 12));
-        FoePokemon albertRattataL6 = new FoePokemon(Pokemon.Pkmn.RATTATA, 6, false);
+        FoePokemon albertRattataL6 = new FoePokemon(PokemonSpecies.RATTATA, 6, FoeType.TRAINER);
         buttonAlbertRattataL6.addActionListener(new DVPanelActionListener(this, totodile, new TrainerPokeAdapter(albertRattataL6, buttonAlbertRattataL6)));
         this.add(buttonAlbertRattataL6);
 
@@ -348,7 +348,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonAlbertZubatL8.setBounds(639,374,73,50);
         buttonAlbertZubatL8.setMargin(new Insets(1,0,1,0));
         buttonAlbertZubatL8.setFont(new Font(this.font, Font.BOLD, 12));
-        FoePokemon albertZubatL8 = new FoePokemon(Pokemon.Pkmn.ZUBAT, 8, false);
+        FoePokemon albertZubatL8 = new FoePokemon(PokemonSpecies.ZUBAT, 8, FoeType.TRAINER);
         buttonAlbertZubatL8.addActionListener(new DVPanelActionListener(this, totodile, new TrainerPokeAdapter(albertZubatL8, buttonAlbertZubatL8)));
         this.add(buttonAlbertZubatL8);
 
@@ -365,7 +365,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonRalphGoldeenL10.setBounds(566,426,73,50);
         buttonRalphGoldeenL10.setMargin(new Insets(1,0,1,0));
         buttonRalphGoldeenL10.setFont(new Font(this.font, Font.BOLD, 12));
-        FoePokemon ralphGoldeenL10 = new FoePokemon(Pokemon.Pkmn.GOLDEEN, 10, false);
+        FoePokemon ralphGoldeenL10 = new FoePokemon(PokemonSpecies.GOLDEEN, 10, FoeType.TRAINER);
         buttonRalphGoldeenL10.addActionListener(new DVPanelActionListener(this, totodile, new TrainerPokeAdapter(ralphGoldeenL10, buttonRalphGoldeenL10)));
         this.add(buttonRalphGoldeenL10);
 
@@ -382,7 +382,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonDanielOnixL11.setBounds(566,478,73,50);
         buttonDanielOnixL11.setMargin(new Insets(1,0,1,0));
         buttonDanielOnixL11.setFont(new Font(this.font, Font.BOLD, 12));
-        FoePokemon danielOnixL11 = new FoePokemon(Pokemon.Pkmn.ONIX, 11, false);
+        FoePokemon danielOnixL11 = new FoePokemon(PokemonSpecies.ONIX, 11, FoeType.TRAINER);
         buttonDanielOnixL11.addActionListener(new DVPanelActionListener(this, totodile, new TrainerPokeAdapter(danielOnixL11, buttonDanielOnixL11)));
         this.add(buttonDanielOnixL11);
 
@@ -399,7 +399,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonRussellGeodudeL4.setBounds(566,530,73,50);
         buttonRussellGeodudeL4.setMargin(new Insets(1,0,1,0));
         buttonRussellGeodudeL4.setFont(new Font(this.font, Font.BOLD, 12));
-        FoePokemon russellGeodudeL4 = new FoePokemon(Pokemon.Pkmn.GEODUDE, 4, false);
+        FoePokemon russellGeodudeL4 = new FoePokemon(PokemonSpecies.GEODUDE, 4, FoeType.TRAINER);
         buttonRussellGeodudeL4.addActionListener(new DVPanelActionListener(this, totodile, new TrainerPokeAdapter(russellGeodudeL4, buttonRussellGeodudeL4)));
         this.add(buttonRussellGeodudeL4);
 
@@ -411,7 +411,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonRussellGeodudeL6.setBounds(639,530,73,50);
         buttonRussellGeodudeL6.setMargin(new Insets(1,0,1,0));
         buttonRussellGeodudeL6.setFont(new Font(this.font, Font.BOLD, 12));
-        FoePokemon russellGeodudeL6 = new FoePokemon(Pokemon.Pkmn.GEODUDE, 6, false);
+        FoePokemon russellGeodudeL6 = new FoePokemon(PokemonSpecies.GEODUDE, 6, FoeType.TRAINER);
         buttonRussellGeodudeL6.addActionListener(new DVPanelActionListener(this, totodile, new TrainerPokeAdapter(russellGeodudeL6, buttonRussellGeodudeL6)));
         this.add(buttonRussellGeodudeL6);
 
@@ -423,7 +423,7 @@ public class GoldDVCalculatorPanel extends GSCDVCalculatorPanel {
         buttonRussellGeodudeL8.setBounds(712,530,73,50);
         buttonRussellGeodudeL8.setMargin(new Insets(1,0,1,0));
         buttonRussellGeodudeL8.setFont(new Font(this.font, Font.BOLD, 12));
-        FoePokemon russellGeodudeL8 = new FoePokemon(Pokemon.Pkmn.GEODUDE, 8, false);
+        FoePokemon russellGeodudeL8 = new FoePokemon(PokemonSpecies.GEODUDE, 8, FoeType.TRAINER);
         buttonRussellGeodudeL8.addActionListener(new DVPanelActionListener(this, totodile, new TrainerPokeAdapter(russellGeodudeL8, buttonRussellGeodudeL8)));
         this.add(buttonRussellGeodudeL8);
     }

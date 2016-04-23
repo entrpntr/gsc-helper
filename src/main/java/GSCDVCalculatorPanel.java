@@ -61,7 +61,7 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         labelSpc.setFont(new Font(this.font, Font.BOLD, 19));
         labelSpc.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(labelSpc);
-        this.labelTotoLevel = new JLabel("Level: " + totodile.level);
+        this.labelTotoLevel = new JLabel("Level: " + totodile.getLevel());
         this.labelTotoLevel.setBounds(196,4,150,48);
         this.labelTotoLevel.setFont(new Font(this.font,Font.BOLD,29));
         this.add(this.labelTotoLevel);
@@ -97,10 +97,10 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         this.hpStats = new ArrayList<Stat>();
         for (i = 0; i < 16; ++i) {
             extraStats = 0.0;
-            if (totodile.hpStatExp - 1 >= 0) {
-                extraStats = Math.floor(Math.floor(Math.sqrt(totodile.hpStatExp - 1) + 1.0) / 4.0);
+            if (totodile.getHpStatExp() - 1 >= 0) {
+                extraStats = Math.floor(Math.floor(Math.sqrt(totodile.getHpStatExp() - 1) + 1.0) / 4.0);
             }
-            statValue = Math.floor(((double)((totodile.baseHP + i + 50) * 2) + extraStats) * (double)totodile.level / 100.0 + 10.0);
+            statValue = Math.floor(((double)((totodile.getBaseHP() + i + 50) * 2) + extraStats) * (double)totodile.getLevel() / 100.0 + 10.0);
             stat = new Stat(this, Column.HP, i, (int)statValue, 30, 11 + i * 22);
             this.hpStats.add(stat);
             this.add(stat.label);
@@ -109,10 +109,10 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         this.atkStats = new ArrayList<Stat>();
         for (i = 0; i < 16; ++i) {
             extraStats = 0.0;
-            if (totodile.atkStatExp - 1 >= 0) {
-                extraStats = Math.floor(Math.floor(Math.sqrt(totodile.atkStatExp - 1) + 1.0) / 4.0);
+            if (totodile.getAtkStatExp() - 1 >= 0) {
+                extraStats = Math.floor(Math.floor(Math.sqrt(totodile.getAtkStatExp() - 1) + 1.0) / 4.0);
             }
-            statValue = Math.floor(((double)((totodile.baseAtk + i) * 2) + extraStats) * (double)totodile.level / 100.0 + 5.0);
+            statValue = Math.floor(((double)((totodile.getBaseAtk() + i) * 2) + extraStats) * (double)totodile.getLevel() / 100.0 + 5.0);
             stat = new Stat(this, Column.ATK, i, (int)statValue, 120, 11 + i * 22);
             this.atkStats.add(stat);
             this.add(stat.label);
@@ -121,10 +121,10 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         this.defStats = new ArrayList<Stat>();
         for (i = 0; i < 16; ++i) {
             extraStats = 0.0;
-            if (totodile.defStatExp - 1 >= 0) {
-                extraStats = Math.floor(Math.floor(Math.sqrt(totodile.defStatExp - 1) + 1.0) / 4.0);
+            if (totodile.getDefStatExp() - 1 >= 0) {
+                extraStats = Math.floor(Math.floor(Math.sqrt(totodile.getDefStatExp() - 1) + 1.0) / 4.0);
             }
-            statValue = Math.floor(((double)((totodile.baseDef + i) * 2) + extraStats) * (double)totodile.level / 100.0 + 5.0);
+            statValue = Math.floor(((double)((totodile.getBaseDef() + i) * 2) + extraStats) * (double)totodile.getLevel() / 100.0 + 5.0);
             stat = new Stat(this, Column.DEF, i, (int)statValue, 210, 11 + i * 22);
             this.defStats.add(stat);
             this.add(stat.label);
@@ -133,10 +133,10 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         this.spdStats = new ArrayList<Stat>();
         for (i = 0; i < 16; ++i) {
             extraStats = 0.0;
-            if (totodile.spdStatExp - 1 >= 0) {
-                extraStats = Math.floor(Math.floor(Math.sqrt(totodile.spdStatExp - 1) + 1.0) / 4.0);
+            if (totodile.getSpdStatExp() - 1 >= 0) {
+                extraStats = Math.floor(Math.floor(Math.sqrt(totodile.getSpdStatExp() - 1) + 1.0) / 4.0);
             }
-            statValue = Math.floor(((double)((totodile.baseSpe + i) * 2) + extraStats) * (double)totodile.level / 100.0 + 5.0);
+            statValue = Math.floor(((double)((totodile.getBaseSpe() + i) * 2) + extraStats) * (double)totodile.getLevel() / 100.0 + 5.0);
             stat = new Stat(this, Column.SPD, i, (int)statValue, 390, 11 + i * 22);
             this.spdStats.add(stat);
             this.add(stat.label);
@@ -145,11 +145,11 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         this.spcStats = new ArrayList<Stat>();
         for (i = 0; i < 16; ++i) {
             extraStats = 0.0;
-            if (totodile.spcStatExp - 1 >= 0) {
-                extraStats = Math.floor(Math.floor(Math.sqrt(totodile.spcStatExp - 1) + 1.0) / 4.0);
+            if (totodile.getSpcStatExp() - 1 >= 0) {
+                extraStats = Math.floor(Math.floor(Math.sqrt(totodile.getSpcStatExp() - 1) + 1.0) / 4.0);
             }
-            statValue = Math.floor(((double)((totodile.baseSpA + i) * 2) + extraStats) * (double)totodile.level / 100.0 + 5.0);
-            double spcDefValue = Math.floor(((double)((totodile.baseSpD + i) * 2) + extraStats) * (double)totodile.level / 100.0 + 5.0);
+            statValue = Math.floor(((double)((totodile.getBaseSpA() + i) * 2) + extraStats) * (double)totodile.getLevel() / 100.0 + 5.0);
+            double spcDefValue = Math.floor(((double)((totodile.getBaseSpD() + i) * 2) + extraStats) * (double)totodile.getLevel() / 100.0 + 5.0);
             stat = new Stat(this, Column.SPC, i, (int)statValue*(int)spcDefValue, 300, 11 + i * 22);
             this.spcStats.add(stat);
             this.add(stat.label);
@@ -194,51 +194,51 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         double extraStats;
         int i;
         double statValue;
-        this.labelTotoLevel.setText("Level: " + totodile.level);
+        this.labelTotoLevel.setText("Level: " + totodile.getLevel());
 
         for (i = 0; i < 16; ++i) {
             extraStats = 0.0;
-            if (totodile.hpStatExp - 1 >= 0) {
-                extraStats = Math.floor(Math.floor(Math.sqrt(totodile.hpStatExp - 1) + 1.0) / 4.0);
+            if (totodile.getHpStatExp() - 1 >= 0) {
+                extraStats = Math.floor(Math.floor(Math.sqrt(totodile.getHpStatExp() - 1) + 1.0) / 4.0);
             }
-            statValue = Math.floor(((double)((totodile.baseHP + i + 50) * 2) + extraStats) * (double)totodile.level / 100.0 + 10.0);
+            statValue = Math.floor(((double)((totodile.getBaseHP() + i + 50) * 2) + extraStats) * (double)totodile.getLevel() / 100.0 + 10.0);
             this.hpStats.get(i).button.setText("" + (int)statValue);
             this.hpStats.get(i).value = (int)statValue;
         }
         for (i = 0; i < 16; ++i) {
             extraStats = 0.0;
-            if (totodile.atkStatExp - 1 >= 0) {
-                extraStats = Math.floor(Math.floor(Math.sqrt(totodile.atkStatExp - 1) + 1.0) / 4.0);
+            if (totodile.getAtkStatExp() - 1 >= 0) {
+                extraStats = Math.floor(Math.floor(Math.sqrt(totodile.getAtkStatExp() - 1) + 1.0) / 4.0);
             }
-            statValue = Math.floor(((double)((totodile.baseAtk + i) * 2) + extraStats) * (double)totodile.level / 100.0 + 5.0);
+            statValue = Math.floor(((double)((totodile.getBaseAtk() + i) * 2) + extraStats) * (double)totodile.getLevel() / 100.0 + 5.0);
             this.atkStats.get(i).button.setText("" + (int)statValue);
             this.atkStats.get(i).value = (int)statValue;
         }
         for (i = 0; i < 16; ++i) {
             extraStats = 0.0;
-            if (totodile.defStatExp - 1 >= 0) {
-                extraStats = Math.floor(Math.floor(Math.sqrt(totodile.defStatExp - 1) + 1.0) / 4.0);
+            if (totodile.getDefStatExp() - 1 >= 0) {
+                extraStats = Math.floor(Math.floor(Math.sqrt(totodile.getDefStatExp() - 1) + 1.0) / 4.0);
             }
-            statValue = Math.floor(((double)((totodile.baseDef + i) * 2) + extraStats) * (double)totodile.level / 100.0 + 5.0);
+            statValue = Math.floor(((double)((totodile.getBaseDef() + i) * 2) + extraStats) * (double)totodile.getLevel() / 100.0 + 5.0);
             this.defStats.get(i).button.setText("" + (int)statValue);
             this.defStats.get(i).value = (int)statValue;
         }
         for (i = 0; i < 16; ++i) {
             extraStats = 0.0;
-            if (totodile.spdStatExp - 1 >= 0) {
-                extraStats = Math.floor(Math.floor(Math.sqrt(totodile.spdStatExp - 1) + 1.0) / 4.0);
+            if (totodile.getSpdStatExp() - 1 >= 0) {
+                extraStats = Math.floor(Math.floor(Math.sqrt(totodile.getSpdStatExp() - 1) + 1.0) / 4.0);
             }
-            statValue = Math.floor(((double)((totodile.baseSpe + i) * 2) + extraStats) * (double)totodile.level / 100.0 + 5.0);
+            statValue = Math.floor(((double)((totodile.getBaseSpe() + i) * 2) + extraStats) * (double)totodile.getLevel() / 100.0 + 5.0);
             this.spdStats.get(i).button.setText("" + (int)statValue);
             this.spdStats.get(i).value = (int)statValue;
         }
         for (i = 0; i < 16; ++i) {
             extraStats = 0.0;
-            if (totodile.spcStatExp - 1 >= 0) {
-                extraStats = Math.floor(Math.floor(Math.sqrt(totodile.spcStatExp - 1) + 1.0) / 4.0);
+            if (totodile.getSpcStatExp() - 1 >= 0) {
+                extraStats = Math.floor(Math.floor(Math.sqrt(totodile.getSpcStatExp() - 1) + 1.0) / 4.0);
             }
-            statValue = Math.floor(((double)((totodile.baseSpA + i) * 2) + extraStats) * (double)totodile.level / 100.0 + 5.0);
-            double spcDefValue = Math.floor(((double)((totodile.baseSpD + i) * 2) + extraStats) * (double)totodile.level / 100.0 + 5.0);
+            statValue = Math.floor(((double)((totodile.getBaseSpA() + i) * 2) + extraStats) * (double)totodile.getLevel() / 100.0 + 5.0);
+            double spcDefValue = Math.floor(((double)((totodile.getBaseSpD() + i) * 2) + extraStats) * (double)totodile.getLevel() / 100.0 + 5.0);
             this.spcStats.get(i).button.setText("" + (int)statValue + "/" + (int)spcDefValue);
             this.spcStats.get(i).value = (int)statValue*(int)spcDefValue;
         }

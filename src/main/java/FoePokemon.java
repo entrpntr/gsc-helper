@@ -1,11 +1,22 @@
-
 public class FoePokemon {
-	public Pokemon.Pkmn poke;
-	public int level;
-	public boolean isWild;
-	public FoePokemon(Pokemon.Pkmn poke, int level, boolean isWild) {
-		this.poke = poke;
-		this.level = level;
-		this.isWild = isWild;
+    private PokemonSpecies species;
+    private int level;
+	private FoeType foeType;
+	public FoePokemon(PokemonSpecies species, int level, FoeType foeType) {
+		this.species = species;
+        this.level = level;
+		this.foeType = foeType;
 	}
+
+    public PokemonSpecies getSpecies() {
+        return species;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public FoeType getFoeType() {
+        return foeType;
+    }
 }

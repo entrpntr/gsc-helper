@@ -47,7 +47,7 @@ extends JFrame {
     private JPanel settings;
     private JPanel totodile;
     private JPanel totodileDVSPanel;
-    private JDialog optionDialog;
+//    private JDialog optionDialog;
     private GSCDVCalculatorPanel calc;
     private final GoldDVCalculatorPanel goldCalc;
     private final CrystalDVCalculatorPanel crystalCalc;
@@ -110,7 +110,7 @@ extends JFrame {
     private JRadioButton radioGold;
     private JRadioButton radioCrystal;
     private ButtonGroup radioGSC;
-    private boolean international;
+//    private boolean international;
     private boolean isCrystal;
     private boolean initializing = true;
     private String executionPath;
@@ -167,8 +167,8 @@ extends JFrame {
         this.main = new JPanel();
         this.main.setLayout(null);
         this.main.setBounds(0, 0, baseWidth, baseHeight + Math.max(0, this.totoHeight - 100));
-        goldCalc = new GoldDVCalculatorPanel(HelperFrame.this, new PartyPokemon(), this.font);
-        crystalCalc = new CrystalDVCalculatorPanel(HelperFrame.this, new PartyPokemon(), this.font);
+        goldCalc = new GoldDVCalculatorPanel(HelperFrame.this, new PartyPokemon(PokemonSpecies.TOTODILE, 5), this.font);
+        crystalCalc = new CrystalDVCalculatorPanel(HelperFrame.this, new PartyPokemon(PokemonSpecies.TOTODILE, 5), this.font);
         this.calc = crystalCalc;
         this.settings = new JPanel();
         this.settings.setLayout(null);
@@ -194,7 +194,7 @@ extends JFrame {
         this.buttonOptions.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt) {
-                editTotoDialog.setLocation(optionDialog.getLocation().x, optionDialog.getLocation().y);
+                editTotoDialog.setLocation(HelperFrame.this.getLocation().x + 285, HelperFrame.this.getLocation().y + 140);
                 HelperFrame.this.editTotoDialog.setVisible(true);
             }
 /*
@@ -282,7 +282,7 @@ extends JFrame {
         this.main.add(this.settings);
         this.main.add(this.totodile);
         this.add(this.main);
-        this.international = true;
+//        this.international = true;
         this.isCrystal = true;
         this.load();
         this.initializing = false;
@@ -337,6 +337,7 @@ extends JFrame {
     }
 
     private void initOptions() {
+        /*
         this.optionDialog = new JDialog(this);
         this.optionDialog.setResizable(false);
         this.optionDialog.setLayout(null);
@@ -386,6 +387,7 @@ extends JFrame {
             }
         });
         this.optionDialog.add(buttonGermany);
+
         JLabel labelDVSelection = new JLabel("<html><u>DV Selection</u></html>");
         labelDVSelection.setBounds(5, 40, 150, 20);
         labelDVSelection.setFont(new Font(this.font, Font.BOLD, 14));
@@ -403,14 +405,16 @@ extends JFrame {
             }
         });
         this.optionDialog.add(buttonEditToto);
-        this.editTotoDialog = new JDialog(this.optionDialog);
+        */
+//        this.editTotoDialog = new JDialog(this.optionDialog);
+        this.editTotoDialog = new JDialog(this);
         this.editTotoDialog.setResizable(false);
         this.editTotoDialog.setLayout(null);
         this.editTotoDialog.setBackground(null);
         this.editTotoDialog.setModal(true);
         this.editTotoDialog.setAlwaysOnTop(true);
         this.editTotoDialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-        this.editTotoDialog.setBounds(this.optionDialog.getLocation().x, this.optionDialog.getLocation().y, 220, 440);
+        this.editTotoDialog.setBounds(this.getLocation().x, this.getLocation().y, 220, 440);
         this.editTotoDialog.setTitle("Toto look-and-feel");
         this.editTotoDialog.addWindowListener(new WindowAdapter(){
 
@@ -796,10 +800,10 @@ extends JFrame {
                     this.setLocation(Integer.parseInt(location[0]), Integer.parseInt(location[1]));
                     continue;
                 }
-                if (sp[0].equals("International") && sp[1].equals("false")) {
+/*                if (sp[0].equals("International") && sp[1].equals("false")) {
                     this.setInternational(false);
                     continue;
-                }
+                } */
                 if (sp[0].equals("Game") && sp[1].equals("Gold")) {
                     this.setGame(false);
                     this.crystalCalc.reset();
@@ -917,8 +921,6 @@ extends JFrame {
                     FileWriter fw = new FileWriter(file, false);
                     out = new BufferedWriter(fw);
                     out.write("Location=" + this.getLocation().x + "," + this.getLocation().y);
-                    out.newLine();
-                    out.write("International=" + this.international);
                     out.newLine();
                     String game = this.isCrystal ? "Crystal" : "Gold";
                     out.write("Game=" + game);
@@ -1426,11 +1428,11 @@ extends JFrame {
         this.labelSpcDV.setText("?");
         this.labelSpcDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
     }
-
+/*
     public void setInternational(boolean international) {
         this.international = international;
     }
-
+*/
     public void setGame(boolean isCrystal) {
         this.isCrystal = isCrystal;
     }

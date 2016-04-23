@@ -1,29 +1,94 @@
-import java.io.*;
-import java.util.ArrayList;
-
 public class PartyPokemon {
-    int level = 5;
-    int exp = lowestExpForLevel(5);
-    int hp_ev_used = 0;
-    int atk_ev_used = 0;
-    int def_ev_used = 0;
-    int spd_ev_used = 0;
-    int spc_ev_used = 0;
-    int hpStatExp = 0;
-    int atkStatExp = 0;
-    int defStatExp = 0;
-    int spdStatExp = 0;
-    int spcStatExp = 0;
-    int baseHP = 50;
-    int baseAtk = 65;
-    int baseDef = 64;
-    int baseSpA = 44;
-    int baseSpD = 48;
-    int baseSpe = 43;
-    private static ArrayList<Pokemon> pokedex;
+    private PokemonSpecies species;
+    private int level;
+    private int exp;
+    private final int startLevel;
+    private int hp_ev_used = 0;
+    private int atk_ev_used = 0;
+    private int def_ev_used = 0;
+    private int spd_ev_used = 0;
+    private int spc_ev_used = 0;
+    private int hpStatExp = 0;
+    private int atkStatExp = 0;
+    private int defStatExp = 0;
+    private int spdStatExp = 0;
+    private int spcStatExp = 0;
+    private int baseHP = 50;
+    private int baseAtk = 65;
+    private int baseDef = 64;
+    private int baseSpA = 44;
+    private int baseSpD = 48;
+    private int baseSpe = 43;
 
-    public PartyPokemon() {
-        initPokemon();
+    public PartyPokemon(PokemonSpecies species, int level) {
+        this.species = species;
+        this.level = level;
+        this.startLevel = level;
+        setExpForLevel(level);
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public PokemonSpecies getSpecies() {
+        return species;
+    }
+
+    public int getExp() {
+        return exp;
+    }
+
+    public int getStartLevel() {
+        return startLevel;
+    }
+
+    public int getHpStatExp() {
+        return hpStatExp;
+    }
+
+    public int getAtkStatExp() {
+        return atkStatExp;
+    }
+
+    public int getDefStatExp() {
+        return defStatExp;
+    }
+
+    public int getSpdStatExp() {
+        return spdStatExp;
+    }
+
+    public int getSpcStatExp() {
+        return spcStatExp;
+    }
+
+    public int getBaseHP() {
+        return baseHP;
+    }
+
+    public int getBaseAtk() {
+        return baseAtk;
+    }
+
+    public int getBaseDef() {
+        return baseDef;
+    }
+
+    public int getBaseSpA() {
+        return baseSpA;
+    }
+
+    public int getBaseSpD() {
+        return baseSpD;
+    }
+
+    public int getBaseSpe() {
+        return baseSpe;
+    }
+
+    private void setExpForLevel(int level) {
+        exp = ExpCurve.lowestExpForLevel(species.getExpCurve(), level);
     }
 
     public static int lowestExpForLevel(int n) {
@@ -31,8 +96,8 @@ public class PartyPokemon {
     }
 
     public static int expGiven(FoePokemon foe) {
-        return (pokedex.get(foe.poke.ordinal()).expGiven) * foe.level / 7 * 3
-                / (foe.isWild ? 3 : 2);
+        return (foe.getSpecies().getKillExp()) * foe.getLevel() / 7 * 3
+                / (foe.getFoeType() == FoeType.WILD ? 3 : 2);
     }
 
     public boolean rekt(FoePokemon foe) {
@@ -41,7 +106,7 @@ public class PartyPokemon {
 
     public boolean rekt(FoePokemon foe, int nrOfPokemon) {
         boolean gainedLevel = false;
-        addStatExp(foe.poke, nrOfPokemon);
+        addStatExp(foe.getSpecies(), nrOfPokemon);
         exp += expGiven(foe);
         while(lowestExpForLevel(level + 1) <= exp) {
             level++;
@@ -55,18 +120,17 @@ public class PartyPokemon {
         return gainedLevel;
     }
 
-    public void addStatExp(Pokemon.Pkmn name, int nrOfPokemon) {
-        Pokemon poke = this.pokedex.get(name.ordinal());
-        this.hpStatExp += (int)Math.floor(poke.hp / nrOfPokemon);
-        this.atkStatExp += (int)Math.floor(poke.atk / nrOfPokemon);
-        this.defStatExp += (int)Math.floor(poke.def / nrOfPokemon);
-        this.spdStatExp += (int)Math.floor(poke.spd / nrOfPokemon);
-        this.spcStatExp += (int)Math.floor(poke.spc / nrOfPokemon);
+    public void addStatExp(PokemonSpecies species, int nrOfPokemon) {
+        this.hpStatExp += (int)Math.floor(species.getBaseHP() / nrOfPokemon);
+        this.atkStatExp += (int)Math.floor(species.getBaseAtk() / nrOfPokemon);
+        this.defStatExp += (int)Math.floor(species.getBaseDef() / nrOfPokemon);
+        this.spdStatExp += (int)Math.floor(species.getBaseSpd() / nrOfPokemon);
+        this.spcStatExp += (int)Math.floor(species.getBaseSpcAtk() / nrOfPokemon);
     }
 
     public void reset() {
-        this.level = 5;
-        this.exp = lowestExpForLevel(5);
+        this.level = startLevel;
+        this.exp = ExpCurve.lowestExpForLevel(species.getExpCurve(), startLevel);
         this.hpStatExp = 0;
         this.atkStatExp = 0;
         this.defStatExp = 0;
@@ -77,78 +141,11 @@ public class PartyPokemon {
         this.def_ev_used = 0;
         this.spc_ev_used = 0;
         this.spd_ev_used = 0;
-        baseHP = 50;
-        baseAtk = 65;
-        baseDef = 64;
-        baseSpA = 44;
-        baseSpD = 48;
-        baseSpe = 43;
-    }
-
-    private void initPokemon() {
-        this.pokedex = new ArrayList();
-        BufferedReader br = null;
-        int lineNr = 0;
-        int pokedexEntry = 0;
-        try {
-            try {
-                br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("pokemon.txt")));
-                String line = br.readLine();
-                while (line != null) {
-                    ++lineNr;
-                    if (!line.equals("") && !line.substring(0, 2).equals("//")) {
-                        String[] s = line.split(";");
-                        Pokemon poke = new Pokemon(Pokemon.Pkmn.values()[pokedexEntry], s[0], Integer.parseInt(s[1]), Integer.parseInt(s[2]), Integer.parseInt(s[3]), Integer.parseInt(s[4]), Integer.parseInt(s[5]), Integer.parseInt(s[6]));
-                        this.pokedex.add(poke);
-                        ++pokedexEntry;
-                    }
-                    line = br.readLine();
-                }
-                return;
-            }
-            catch (FileNotFoundException e) {
-                e.printStackTrace();
-                try {
-                    br.close();
-                    return;
-                }
-                catch (IOException e2) {
-                    e2.printStackTrace();
-                }
-                return;
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-                try {
-                    br.close();
-                    return;
-                }
-                catch (IOException e2) {
-                    e2.printStackTrace();
-                }
-                return;
-            }
-            catch (Exception e) {
-                System.out.println("Syntax error in pokemon.txt on line: " + lineNr);
-                e.printStackTrace();
-
-                try {
-                    br.close();
-                    return;
-                }
-                catch (IOException e2) {
-                    e2.printStackTrace();
-                }
-                return;
-            }
-        }
-        finally {
-            try {
-                br.close();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        baseHP = species.getBaseHP();
+        baseAtk = species.getBaseAtk();
+        baseDef = species.getBaseDef();
+        baseSpA = species.getBaseSpcAtk();
+        baseSpD = species.getBaseSpcDef();
+        baseSpe = species.getBaseSpd();
     }
 }
