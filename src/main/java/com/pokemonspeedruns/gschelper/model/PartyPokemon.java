@@ -15,6 +15,7 @@ public class PartyPokemon {
     private int defStatExp = 0;
     private int spdStatExp = 0;
     private int spcStatExp = 0;
+    // TODO: This shouldn't be hardcoded.
     private int baseHP = 50;
     private int baseAtk = 65;
     private int baseDef = 64;
@@ -108,6 +109,7 @@ public class PartyPokemon {
     public boolean rekt(FoePokemon foe, int nrOfPokemon) {
         boolean gainedLevel = false;
         addStatExp(foe.getSpecies(), nrOfPokemon);
+        // TODO: Fix this apparent bug; doesn't seem to account for number of participants
         exp += expGiven(foe);
         while (ExpCurve.lowestExpForLevel(species.getExpCurve(), level + 1) <= exp) {
             level++;
