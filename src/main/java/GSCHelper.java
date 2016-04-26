@@ -1,8 +1,9 @@
-import java.awt.Font;
-import java.awt.GraphicsEnvironment;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class GSCHelper {
+    public static String FONT = "";
+
     public GSCHelper() {
         HelperFrame ui;
         ArrayList<String> fonts = new ArrayList<String>();
@@ -10,38 +11,37 @@ public class GSCHelper {
             if (fonts.contains(f.getFamily())) continue;
             fonts.add(f.getFamily());
         }
-        String font = "";
         if (fonts.contains("Arial")) {
-            font = "Arial";
+            FONT = "Arial";
         } else if (fonts.contains("Helvetica")) {
-            font = "Helvetica";
+            FONT = "Helvetica";
         } else if (fonts.contains("Gill Sans")) {
-            font = "Gill Sans";
+            FONT = "Gill Sans";
         } else if (fonts.contains("Tahoma")) {
-            font = "Tahoma";
+            FONT = "Tahoma";
         } else if (fonts.contains("SansSerif")) {
-            font = "SansSerif";
+            FONT = "SansSerif";
         } else if (fonts.contains("Ubuntu Condensed")) {
-            font = "Ubuntu Condensed";
+            FONT = "Ubuntu Condensed";
         } else if (fonts.contains("DejaVu Sans Condensed")) {
-            font = "DejaVu Sans Condensed";
+            FONT = "DejaVu Sans Condensed";
         } else if (fonts.contains("Liberation Sans")) {
-            font = "Liberation Sans";
+            FONT = "Liberation Sans";
         } else if (fonts.contains("FreeSans")) {
-            font = "FreeSans";
+            FONT = "FreeSans";
         } else if (fonts.contains("Phetsarath OT")) {
-            font = "Phetsarath OT";
+            FONT = "Phetsarath OT";
         } else if (fonts.contains("Bitstream Vera Sans")) {
-            font = "Bitstream Vera Sans";
+            FONT = "Bitstream Vera Sans";
         } else if (fonts.contains("Garuda")) {
-            font = "Garuda";
+            FONT = "Garuda";
         }
-        if (font.equals("")) {
+        if (FONT.equals("")) {
             System.out.println("No usable font found! Using system default, this can get ugly!");
         } else {
-            System.out.println("Selected font: " + font);
+            System.out.println("Selected font: " + FONT);
         }
-        ui = new HelperFrame(font);
+        ui = new HelperFrame();
         ui.setVisible(true);
     }
 
@@ -49,4 +49,3 @@ public class GSCHelper {
         new GSCHelper();
     }
 }
-

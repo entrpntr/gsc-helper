@@ -1,11 +1,27 @@
 public enum Type {
-    NORMAL, FIGHTING, FLYING, POISON, GROUND, ROCK, BUG, GHOST, FIRE, WATER, GRASS, ELECTRIC, PSYCHIC, ICE, DRAGON, STEEL, DARK, NONE;
+    NORMAL,
+    FIGHTING,
+    FLYING,
+    POISON,
+    GROUND,
+    ROCK,
+    BUG,
+    GHOST,
+    FIRE,
+    WATER,
+    GRASS,
+    ELECTRIC,
+    PSYCHIC,
+    ICE,
+    DRAGON,
+    STEEL,
+    DARK,
+    NONE;
+
     // returns the type effectiveness multiplier.
     // defType2 should be Type.NONE if the defending pokemon has only one type
-    public static double effectiveness(Type atkType, Type defType1,
-                                       Type defType2) {
-        return effectiveness(atkType, defType1)
-                * effectiveness(atkType, defType2);
+    public static double effectiveness(Type atkType, Type defType1, Type defType2) {
+        return effectiveness(atkType, defType1) * effectiveness(atkType, defType2);
     }
 
     private static double effectiveness(Type atkType, Type defType) {
@@ -15,7 +31,6 @@ public enum Type {
             int val = typeTable[typeIndex(atkType)][typeIndex(defType)];
             return (val == 5) ? 0.5 : val; // i am coding master
         }
-
     }
 
     // returns index associated with this type (in the order written)
@@ -64,27 +79,27 @@ public enum Type {
     // typeTable[i][j] is type i's effectiveness against type j, with 5
     // representing 0.5
     private static final int[][] typeTable = {
-            { 1, 1, 1, 1, 1, 5, 1, 0, 1, 1, 1, 1, 1, 1, 1, 5, 1 },
-            { 2, 1, 5, 5, 1, 2, 5, 0, 1, 1, 1, 1, 5, 2, 1, 2, 2 },
-            { 1, 2, 1, 1, 1, 5, 2, 1, 1, 1, 2, 5, 1, 1, 1, 5, 1 },
-            { 1, 1, 1, 5, 5, 5, 1, 5, 1, 1, 2, 1, 1, 1, 1, 0, 1 },
-            { 1, 1, 0, 2, 1, 2, 5, 1, 2, 1, 5, 2, 1, 1, 1, 2, 1 },
-            { 1, 5, 2, 1, 5, 1, 2, 1, 2, 1, 1, 1, 1, 2, 1, 5, 1 },
-            { 1, 5, 5, 5, 1, 1, 1, 5, 5, 1, 2, 1, 2, 1, 1, 5, 2 },
-            { 0, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 5, 5 },
-            { 1, 1, 1, 1, 1, 5, 2, 1, 5, 5, 2, 1, 1, 2, 5, 2, 1 },
-            { 1, 1, 1, 1, 2, 2, 1, 1, 2, 5, 5, 1, 1, 1, 5, 1, 1 },
-            { 1, 1, 5, 5, 2, 2, 5, 1, 5, 2, 5, 1, 1, 1, 5, 5, 1 },
-            { 1, 1, 2, 1, 0, 1, 1, 1, 1, 2, 5, 5, 1, 1, 5, 1, 1 },
-            { 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 5, 1, 1, 5, 0 },
-            { 1, 1, 2, 1, 2, 1, 1, 1, 5, 5, 2, 1, 1, 5, 2, 5, 1 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 5, 1 },
-            { 1, 1, 1, 1, 1, 2, 1, 1, 5, 5, 1, 5, 1, 2, 1, 5, 1 },
-            { 1, 5, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 5, 5 }, };
+            {1, 1, 1, 1, 1, 5, 1, 0, 1, 1, 1, 1, 1, 1, 1, 5, 1},
+            {2, 1, 5, 5, 1, 2, 5, 0, 1, 1, 1, 1, 5, 2, 1, 2, 2},
+            {1, 2, 1, 1, 1, 5, 2, 1, 1, 1, 2, 5, 1, 1, 1, 5, 1},
+            {1, 1, 1, 5, 5, 5, 1, 5, 1, 1, 2, 1, 1, 1, 1, 0, 1},
+            {1, 1, 0, 2, 1, 2, 5, 1, 2, 1, 5, 2, 1, 1, 1, 2, 1},
+            {1, 5, 2, 1, 5, 1, 2, 1, 2, 1, 1, 1, 1, 2, 1, 5, 1},
+            {1, 5, 5, 5, 1, 1, 1, 5, 5, 1, 2, 1, 2, 1, 1, 5, 2},
+            {0, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 5, 5},
+            {1, 1, 1, 1, 1, 5, 2, 1, 5, 5, 2, 1, 1, 2, 5, 2, 1},
+            {1, 1, 1, 1, 2, 2, 1, 1, 2, 5, 5, 1, 1, 1, 5, 1, 1},
+            {1, 1, 5, 5, 2, 2, 5, 1, 5, 2, 5, 1, 1, 1, 5, 5, 1},
+            {1, 1, 2, 1, 0, 1, 1, 1, 1, 2, 5, 5, 1, 1, 5, 1, 1},
+            {1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 5, 1, 1, 5, 0},
+            {1, 1, 2, 1, 2, 1, 1, 1, 5, 5, 2, 1, 1, 5, 2, 5, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 5, 1},
+            {1, 1, 1, 1, 1, 2, 1, 1, 5, 5, 1, 5, 1, 2, 1, 5, 1},
+            {1, 5, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 5, 5},
+    };
 
     public static boolean isPhysicalType(Type t) {
         return (typeIndex(t) >= typeIndex(Type.NORMAL) && typeIndex(t) <= typeIndex(Type.GHOST))
                 || t == Type.STEEL;
     }
-
 }

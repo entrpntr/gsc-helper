@@ -3,6 +3,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class GSCDVCalculatorPanel extends JPanel {
+    private static final Font DV_LABEL_FONT = new Font(GSCHelper.FONT, Font.BOLD, 19);
     private PartyPokemon starter;
     private Game game;
     private HelperFrame parent;
@@ -17,13 +18,11 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
     private ArrayList<StatButton> defStats;
     private ArrayList<StatButton> spdStats;
     private ArrayList<StatButton> spcStats;
-    private String fontName;
 
-    public GSCDVCalculatorPanel(HelperFrame parent, Game game, PartyPokemon starter, String fontName) {
+    public GSCDVCalculatorPanel(HelperFrame parent, Game game, PartyPokemon starter) {
         this.parent = parent;
         this.game = game;
         this.starter = starter;
-        this.fontName = fontName;
         this.setLayout(null);
         this.setBounds(0, 0, 792, 594);
         this.setBackground(null);
@@ -33,14 +32,11 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
     }
 
     public abstract void initAction();
+
     public abstract void resetAction();
 
     public PartyPokemon getStarter() {
         return starter;
-    }
-
-    public String getFontName() {
-        return fontName;
     }
 
     public void init() {
@@ -58,35 +54,38 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         }
         JLabel labelHP = new JLabel("HP");
         labelHP.setBounds(14, 51, 70, 50);
-        labelHP.setFont(new Font(this.fontName, Font.BOLD, 19));
+        labelHP.setFont(DV_LABEL_FONT);
         labelHP.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(labelHP);
         JLabel labelAtk = new JLabel("Atk");
         labelAtk.setBounds(104, 51, 70, 50);
-        labelAtk.setFont(new Font(this.fontName, Font.BOLD, 19));
+        labelAtk.setFont(DV_LABEL_FONT);
         labelAtk.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(labelAtk);
         JLabel labelDef = new JLabel("Def");
         labelDef.setBounds(194, 51, 70, 50);
-        labelDef.setFont(new Font(this.fontName, Font.BOLD, 19));
+        labelDef.setFont(DV_LABEL_FONT);
         labelDef.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(labelDef);
         JLabel labelSpd = new JLabel("Spd");
         labelSpd.setBounds(374, 51, 70, 50);
-        labelSpd.setFont(new Font(this.fontName, Font.BOLD, 19));
+        labelSpd.setFont(DV_LABEL_FONT);
         labelSpd.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(labelSpd);
         JLabel labelSpc = new JLabel("Spc");
         labelSpc.setBounds(284, 51, 70, 50);
-        labelSpc.setFont(new Font(this.fontName, Font.BOLD, 19));
+        labelSpc.setFont(DV_LABEL_FONT);
         labelSpc.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(labelSpc);
-        JLabel labelTotoIcon = new JLabel(new ImageIcon(getClass().getResource("/" + game.name().toLowerCase() + "/" + starter.getSpecies().getBackspriteFilename())));
+        JLabel labelTotoIcon =
+                new JLabel(
+                        new ImageIcon(
+                                getClass().getResource(starter.getSpecies().getBackspriteFilename(game))));
         labelTotoIcon.setBounds(134, 4, 48, 48);
         this.add(labelTotoIcon);
         this.labelTotoLevel = new JLabel("Level: " + starter.getLevel());
-        this.labelTotoLevel.setBounds(196,4,150,48);
-        this.labelTotoLevel.setFont(new Font(this.fontName,Font.BOLD,29));
+        this.labelTotoLevel.setBounds(196, 4, 150, 48);
+        this.labelTotoLevel.setFont(new Font(GSCHelper.FONT, Font.BOLD, 29));
         this.add(this.labelTotoLevel);
     }
 
@@ -125,8 +124,13 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
             if (starter.getHpStatExp() - 1 >= 0) {
                 extraStats = Math.floor(Math.floor(Math.sqrt(starter.getHpStatExp() - 1) + 1.0) / 4.0);
             }
-            statValue = Math.floor(((double)((starter.getBaseHP() + i + 50) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 10.0);
-            stat = new StatButton(this, DVColumn.HP, i, (int)statValue, 30, 11 + i * 22);
+            statValue =
+                    Math.floor(
+                            ((double) ((starter.getBaseHP() + i + 50) * 2) + extraStats)
+                                    * (double) starter.getLevel()
+                                    / 100.0
+                                    + 10.0);
+            stat = new StatButton(this, DVColumn.HP, i, (int) statValue, 30, 11 + i * 22);
             this.hpStats.add(stat);
             this.add(stat.getLabel());
             this.add(stat.getButton());
@@ -137,8 +141,13 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
             if (starter.getAtkStatExp() - 1 >= 0) {
                 extraStats = Math.floor(Math.floor(Math.sqrt(starter.getAtkStatExp() - 1) + 1.0) / 4.0);
             }
-            statValue = Math.floor(((double)((starter.getBaseAtk() + i) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 5.0);
-            stat = new StatButton(this, DVColumn.ATK, i, (int)statValue, 120, 11 + i * 22);
+            statValue =
+                    Math.floor(
+                            ((double) ((starter.getBaseAtk() + i) * 2) + extraStats)
+                                    * (double) starter.getLevel()
+                                    / 100.0
+                                    + 5.0);
+            stat = new StatButton(this, DVColumn.ATK, i, (int) statValue, 120, 11 + i * 22);
             this.atkStats.add(stat);
             this.add(stat.getLabel());
             this.add(stat.getButton());
@@ -149,8 +158,13 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
             if (starter.getDefStatExp() - 1 >= 0) {
                 extraStats = Math.floor(Math.floor(Math.sqrt(starter.getDefStatExp() - 1) + 1.0) / 4.0);
             }
-            statValue = Math.floor(((double)((starter.getBaseDef() + i) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 5.0);
-            stat = new StatButton(this, DVColumn.DEF, i, (int)statValue, 210, 11 + i * 22);
+            statValue =
+                    Math.floor(
+                            ((double) ((starter.getBaseDef() + i) * 2) + extraStats)
+                                    * (double) starter.getLevel()
+                                    / 100.0
+                                    + 5.0);
+            stat = new StatButton(this, DVColumn.DEF, i, (int) statValue, 210, 11 + i * 22);
             this.defStats.add(stat);
             this.add(stat.getLabel());
             this.add(stat.getButton());
@@ -161,8 +175,13 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
             if (starter.getSpdStatExp() - 1 >= 0) {
                 extraStats = Math.floor(Math.floor(Math.sqrt(starter.getSpdStatExp() - 1) + 1.0) / 4.0);
             }
-            statValue = Math.floor(((double)((starter.getBaseSpe() + i) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 5.0);
-            stat = new StatButton(this, DVColumn.SPD, i, (int)statValue, 390, 11 + i * 22);
+            statValue =
+                    Math.floor(
+                            ((double) ((starter.getBaseSpe() + i) * 2) + extraStats)
+                                    * (double) starter.getLevel()
+                                    / 100.0
+                                    + 5.0);
+            stat = new StatButton(this, DVColumn.SPD, i, (int) statValue, 390, 11 + i * 22);
             this.spdStats.add(stat);
             this.add(stat.getLabel());
             this.add(stat.getButton());
@@ -173,9 +192,21 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
             if (starter.getSpcStatExp() - 1 >= 0) {
                 extraStats = Math.floor(Math.floor(Math.sqrt(starter.getSpcStatExp() - 1) + 1.0) / 4.0);
             }
-            statValue = Math.floor(((double)((starter.getBaseSpA() + i) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 5.0);
-            double spcDefValue = Math.floor(((double)((starter.getBaseSpD() + i) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 5.0);
-            stat = new StatButton(this, DVColumn.SPC, i, (int)statValue*(int)spcDefValue, 300, 11 + i * 22);
+            statValue =
+                    Math.floor(
+                            ((double) ((starter.getBaseSpA() + i) * 2) + extraStats)
+                                    * (double) starter.getLevel()
+                                    / 100.0
+                                    + 5.0);
+            double spcDefValue =
+                    Math.floor(
+                            ((double) ((starter.getBaseSpD() + i) * 2) + extraStats)
+                                    * (double) starter.getLevel()
+                                    / 100.0
+                                    + 5.0);
+            stat =
+                    new StatButton(
+                            this, DVColumn.SPC, i, (int) statValue * (int) spcDefValue, 300, 11 + i * 22);
             this.spcStats.add(stat);
             this.add(stat.getLabel());
             this.add(stat.getButton());
@@ -185,6 +216,10 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
     public void reset() {
         resetStats();
         resetAction();
+    }
+
+    public Game getGame() {
+        return game;
     }
 
     public void resetStats() {
@@ -202,6 +237,7 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
             this.defStats.get(i).getButton().setVisible(true);
             this.spdStats.get(i).setPossible(true);
             this.spdStats.get(i).getLabel().setVisible(true);
+
             this.spdStats.get(i).getButton().setVisible(true);
             this.spcStats.get(i).setPossible(true);
             this.spcStats.get(i).getLabel().setVisible(true);
@@ -216,6 +252,7 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         }
         this.updateStats();
     }
+
     public void updateStats() {
         double extraStats;
         int i;
@@ -227,51 +264,83 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
             if (starter.getHpStatExp() - 1 >= 0) {
                 extraStats = Math.floor(Math.floor(Math.sqrt(starter.getHpStatExp() - 1) + 1.0) / 4.0);
             }
-            statValue = Math.floor(((double)((starter.getBaseHP() + i + 50) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 10.0);
-            this.hpStats.get(i).getButton().setText("" + (int)statValue);
-            this.hpStats.get(i).setValue((int)statValue);
+            statValue =
+                    Math.floor(
+                            ((double) ((starter.getBaseHP() + i + 50) * 2) + extraStats)
+                                    * (double) starter.getLevel()
+                                    / 100.0
+                                    + 10.0);
+            this.hpStats.get(i).getButton().setText("" + (int) statValue);
+            this.hpStats.get(i).setValue((int) statValue);
         }
         for (i = 0; i < 16; ++i) {
             extraStats = 0.0;
             if (starter.getAtkStatExp() - 1 >= 0) {
                 extraStats = Math.floor(Math.floor(Math.sqrt(starter.getAtkStatExp() - 1) + 1.0) / 4.0);
             }
-            statValue = Math.floor(((double)((starter.getBaseAtk() + i) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 5.0);
-            this.atkStats.get(i).getButton().setText("" + (int)statValue);
-            this.atkStats.get(i).setValue((int)statValue);
+            statValue =
+                    Math.floor(
+                            ((double) ((starter.getBaseAtk() + i) * 2) + extraStats)
+                                    * (double) starter.getLevel()
+                                    / 100.0
+                                    + 5.0);
+            this.atkStats.get(i).getButton().setText("" + (int) statValue);
+            this.atkStats.get(i).setValue((int) statValue);
         }
         for (i = 0; i < 16; ++i) {
             extraStats = 0.0;
             if (starter.getDefStatExp() - 1 >= 0) {
                 extraStats = Math.floor(Math.floor(Math.sqrt(starter.getDefStatExp() - 1) + 1.0) / 4.0);
             }
-            statValue = Math.floor(((double)((starter.getBaseDef() + i) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 5.0);
-            this.defStats.get(i).getButton().setText("" + (int)statValue);
-            this.defStats.get(i).setValue((int)statValue);
+            statValue =
+                    Math.floor(
+                            ((double) ((starter.getBaseDef() + i) * 2) + extraStats)
+                                    * (double) starter.getLevel()
+                                    / 100.0
+                                    + 5.0);
+            this.defStats.get(i).getButton().setText("" + (int) statValue);
+            this.defStats.get(i).setValue((int) statValue);
         }
         for (i = 0; i < 16; ++i) {
             extraStats = 0.0;
             if (starter.getSpdStatExp() - 1 >= 0) {
                 extraStats = Math.floor(Math.floor(Math.sqrt(starter.getSpdStatExp() - 1) + 1.0) / 4.0);
             }
-            statValue = Math.floor(((double)((starter.getBaseSpe() + i) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 5.0);
-            this.spdStats.get(i).getButton().setText("" + (int)statValue);
-            this.spdStats.get(i).setValue((int)statValue);
+            statValue =
+                    Math.floor(
+                            ((double) ((starter.getBaseSpe() + i) * 2) + extraStats)
+                                    * (double) starter.getLevel()
+                                    / 100.0
+                                    + 5.0);
+            this.spdStats.get(i).getButton().setText("" + (int) statValue);
+            this.spdStats.get(i).setValue((int) statValue);
         }
         for (i = 0; i < 16; ++i) {
             extraStats = 0.0;
             if (starter.getSpcStatExp() - 1 >= 0) {
                 extraStats = Math.floor(Math.floor(Math.sqrt(starter.getSpcStatExp() - 1) + 1.0) / 4.0);
             }
-            statValue = Math.floor(((double)((starter.getBaseSpA() + i) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 5.0);
-            double spcDefValue = Math.floor(((double)((starter.getBaseSpD() + i) * 2) + extraStats) * (double) starter.getLevel() / 100.0 + 5.0);
-            this.spcStats.get(i).getButton().setText("" + (int)statValue + "/" + (int)spcDefValue);
-            this.spcStats.get(i).setValue((int)statValue*(int)spcDefValue);
+            statValue =
+                    Math.floor(
+                            ((double) ((starter.getBaseSpA() + i) * 2) + extraStats)
+                                    * (double) starter.getLevel()
+                                    / 100.0
+                                    + 5.0);
+            double spcDefValue =
+                    Math.floor(
+                            ((double) ((starter.getBaseSpD() + i) * 2) + extraStats)
+                                    * (double) starter.getLevel()
+                                    / 100.0
+                                    + 5.0);
+            this.spcStats.get(i).getButton().setText("" + (int) statValue + "/" + (int) spcDefValue);
+            this.spcStats.get(i).setValue((int) statValue * (int) spcDefValue);
         }
     }
+
     public HelperFrame getHelperFrame() {
         return parent;
     }
+
     public void updateButtons(DVColumn column, int value) {
         StatButton stat;
         int i;
@@ -370,7 +439,7 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
             }
             if (!this.hasEven(this.spcStats)) {
                 for (i = 0; i < 8; ++i) {
-                    this.redHP[i * 2 ] = true;
+                    this.redHP[i * 2] = true;
                     stat = this.hpStats.get(i * 2);
                     stat.setPossible(false);
                     stat.getLabel().setVisible(false);

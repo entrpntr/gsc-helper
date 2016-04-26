@@ -1,46 +1,18 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Desktop;
-import java.awt.Dialog;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.GraphicsEnvironment;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.colorchooser.AbstractColorChooserPanel;
+import javax.swing.event.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.Arrays;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.colorchooser.AbstractColorChooserPanel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
 
-public class HelperFrame
-extends JFrame {
+public class HelperFrame extends JFrame {
     private static final long serialVersionUID = 6359843786380885160L;
     private static final double version = 1.0;
     private JPanel main;
@@ -48,8 +20,8 @@ extends JFrame {
     private JPanel totodile;
     private JPanel totodileDVSPanel;
     private GSCDVCalculatorPanel calc;
-    private final GoldDVCalculatorPanel goldCalc;
-    private final CrystalDVCalculatorPanel crystalCalc;
+    private final GoldTotoDVCalculatorPanel goldCalc;
+    private final CrystalTotoDVCalculatorPanel crystalCalc;
     private String font = "";
     private JButton buttonOptions;
     private PreviewPane previewPane;
@@ -132,31 +104,30 @@ extends JFrame {
             URL location = HelperFrame.class.getProtectionDomain().getCodeSource().getLocation();
             File fh = new File(URLDecoder.decode(location.getFile(), "UTF-8")).getParentFile();
             this.executionPath = String.valueOf(fh.getAbsolutePath()) + File.separator;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             this.executionPath = "./";
         }
     }
 
-    public HelperFrame(String font) {
+    public HelperFrame() {
         super("Pok\u00e9mon GSC DV Helper");
         if (UIManager.getSystemLookAndFeelClassName().contains("windows")) {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            }
-            catch (Exception exc) {
+            } catch (Exception exc) {
                 // empty catch block
             }
         }
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.addWindowListener(new WindowAdapter(){
+        this.addWindowListener(
+                new WindowAdapter() {
 
-            @Override
-            public void windowClosing(WindowEvent e) {
-                HelperFrame.this.save();
-            }
-        });
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        HelperFrame.this.save();
+                    }
+                });
         this.setResizable(false);
         this.setBounds(0, 0, baseWidth, baseHeight + Math.max(0, this.totoHeight - 100));
         this.setLocationRelativeTo(null);
@@ -167,8 +138,10 @@ extends JFrame {
         this.main.setBounds(0, 0, baseWidth, baseHeight + Math.max(0, this.totoHeight - 100));
 
         // TODO: Allow for other choices besides Totodile.
-        goldCalc = new GoldDVCalculatorPanel(HelperFrame.this, new PartyPokemon(Species.TOTODILE, 5), this.font);
-        crystalCalc = new CrystalDVCalculatorPanel(HelperFrame.this, new PartyPokemon(Species.TOTODILE, 5), this.font);
+        goldCalc =
+                new GoldTotoDVCalculatorPanel(HelperFrame.this, new PartyPokemon(Species.TOTODILE, 5));
+        crystalCalc =
+                new CrystalTotoDVCalculatorPanel(HelperFrame.this, new PartyPokemon(Species.TOTODILE, 5));
 
         this.calc = crystalCalc;
         this.settings = new JPanel();
@@ -192,23 +165,26 @@ extends JFrame {
         this.buttonOptions.setMargin(new Insets(1, 1, 1, 1));
         this.buttonOptions.setFont(new Font(font, Font.BOLD, 13));
         this.buttonOptions.setBounds(115, 39, 80, 28);
-        this.buttonOptions.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                editTotoDialog.setLocation(HelperFrame.this.getLocation().x + 285, HelperFrame.this.getLocation().y + 140);
-                HelperFrame.this.editTotoDialog.setVisible(true);
-            }
-        });
+        this.buttonOptions.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        editTotoDialog.setLocation(
+                                HelperFrame.this.getLocation().x + 285, HelperFrame.this.getLocation().y + 140);
+                        HelperFrame.this.editTotoDialog.setVisible(true);
+                    }
+                });
         this.settings.add(this.buttonOptions);
         JButton buttonAbout = new JButton("About");
         buttonAbout.setBounds(115, 71, 80, 28);
         buttonAbout.setFont(new Font(font, Font.BOLD, 13));
-        buttonAbout.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                HelperFrame.this.about();
-            }
-        });
+        buttonAbout.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        HelperFrame.this.about();
+                    }
+                });
         this.settings.add(buttonAbout);
         ImageIcon iconReset = new ImageIcon(getClass().getResource("reset.png"));
         JButton buttonReset = new JButton(iconReset);
@@ -218,52 +194,55 @@ extends JFrame {
         buttonReset.setFocusPainted(false);
         buttonReset.setOpaque(false);
         buttonReset.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        buttonReset.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                HelperFrame.this.reset();
-            }
-        });
+        buttonReset.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        HelperFrame.this.reset();
+                    }
+                });
         this.settings.add(buttonReset);
         radioCrystal = new JRadioButton("Crystal");
-        radioCrystal.setBounds(220,39,80,28);
+        radioCrystal.setBounds(220, 39, 80, 28);
         radioCrystal.setSelected(true);
         radioCrystal.setFont(new Font(font, Font.BOLD, 14));
-        Color crystal = new Color(113,158,179);
+        Color crystal = new Color(113, 158, 179);
         radioCrystal.setForeground(crystal);
-        radioCrystal.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if(HelperFrame.this.game != Game.CRYSTAL) {
-                    HelperFrame.this.goldCalc.reset();
-                    HelperFrame.this.main.remove(calc);
-                    HelperFrame.this.calc = crystalCalc;
-                    HelperFrame.this.main.add(calc);
-                    HelperFrame.this.reset();
-                    HelperFrame.this.repaint();
-                    HelperFrame.this.revalidate();
-                    HelperFrame.this.game = Game.CRYSTAL;
-                }
-            }
-        });
+        radioCrystal.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (HelperFrame.this.game != Game.CRYSTAL) {
+                            HelperFrame.this.goldCalc.reset();
+                            HelperFrame.this.main.remove(calc);
+                            HelperFrame.this.calc = crystalCalc;
+                            HelperFrame.this.main.add(calc);
+                            HelperFrame.this.reset();
+                            HelperFrame.this.repaint();
+                            HelperFrame.this.revalidate();
+                            HelperFrame.this.game = Game.CRYSTAL;
+                        }
+                    }
+                });
         radioGold = new JRadioButton("Gold");
-        radioGold.setBounds(220,71,80,28);
+        radioGold.setBounds(220, 71, 80, 28);
         radioGold.setFont(new Font(font, Font.BOLD, 14));
-        Color gold = new Color(179,151,0);
+        Color gold = new Color(179, 151, 0);
         radioGold.setForeground(gold);
-        radioGold.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if(HelperFrame.this.game != Game.GOLD) {
-                    HelperFrame.this.crystalCalc.reset();
-                    HelperFrame.this.main.remove(calc);
-                    HelperFrame.this.calc = goldCalc;
-                    HelperFrame.this.main.add(calc);
-                    HelperFrame.this.reset();
-                    HelperFrame.this.repaint();
-                    HelperFrame.this.revalidate();
-                    HelperFrame.this.game = Game.GOLD;
-                }
-            }
-        });
+        radioGold.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (HelperFrame.this.game != Game.GOLD) {
+                            HelperFrame.this.crystalCalc.reset();
+                            HelperFrame.this.main.remove(calc);
+                            HelperFrame.this.calc = goldCalc;
+                            HelperFrame.this.main.add(calc);
+                            HelperFrame.this.reset();
+                            HelperFrame.this.repaint();
+                            HelperFrame.this.revalidate();
+                            HelperFrame.this.game = Game.GOLD;
+                        }
+                    }
+                });
         radioGSC = new ButtonGroup();
         radioGSC.add(radioCrystal);
         radioGSC.add(radioGold);
@@ -287,41 +266,72 @@ extends JFrame {
         this.totodile.setLayout(new BorderLayout());
         this.totodile.setBorder(new EmptyBorder(5, 5, 0, 5));
         this.labelTitle = new JLabel(this.totoTitleText, SwingConstants.CENTER);
-        this.labelTitle.setFont(new Font(this.totoTitleFont, this.totoTitleFontExtra, this.totoTitleFontSize));
+        this.labelTitle.setFont(
+                new Font(this.totoTitleFont, this.totoTitleFontExtra, this.totoTitleFontSize));
         this.totodile.add(this.labelTitle, "North");
         this.totodileDVSPanel = new JPanel();
         this.totodileDVSPanel.setBackground(this.totoBackgroundColor);
         this.totodileDVSPanel.setLayout(new GridLayout(2, 3));
         this.totodileDVSPanel.setBorder(new EmptyBorder(5, 0, 5, 0));
         this.labelHP = new JLabel("HP", SwingConstants.CENTER);
-        this.labelHP.setFont(new Font(this.totoColumnHeadersFont, this.totoColumnHeadersFontExtra, this.totoColumnHeadersFontSize));
+        this.labelHP.setFont(
+                new Font(
+                        this.totoColumnHeadersFont,
+                        this.totoColumnHeadersFontExtra,
+                        this.totoColumnHeadersFontSize));
         this.totodileDVSPanel.add(this.labelHP);
         this.labelAtk = new JLabel("ATK", SwingConstants.CENTER);
-        this.labelAtk.setFont(new Font(this.totoColumnHeadersFont, this.totoColumnHeadersFontExtra, this.totoColumnHeadersFontSize));
+        this.labelAtk.setFont(
+                new Font(
+                        this.totoColumnHeadersFont,
+                        this.totoColumnHeadersFontExtra,
+                        this.totoColumnHeadersFontSize));
         this.totodileDVSPanel.add(this.labelAtk);
         this.labelDef = new JLabel("DEF", SwingConstants.CENTER);
-        this.labelDef.setFont(new Font(this.totoColumnHeadersFont, this.totoColumnHeadersFontExtra, this.totoColumnHeadersFontSize));
+        this.labelDef.setFont(
+                new Font(
+                        this.totoColumnHeadersFont,
+                        this.totoColumnHeadersFontExtra,
+                        this.totoColumnHeadersFontSize));
         this.totodileDVSPanel.add(this.labelDef);
         this.labelSpd = new JLabel("SPD", SwingConstants.CENTER);
-        this.labelSpd.setFont(new Font(this.totoColumnHeadersFont, this.totoColumnHeadersFontExtra, this.totoColumnHeadersFontSize));
+        this.labelSpd.setFont(
+                new Font(
+                        this.totoColumnHeadersFont,
+                        this.totoColumnHeadersFontExtra,
+                        this.totoColumnHeadersFontSize));
         this.totodileDVSPanel.add(this.labelSpd);
         this.labelSpc = new JLabel("SPC", SwingConstants.CENTER);
-        this.labelSpc.setFont(new Font(this.totoColumnHeadersFont, this.totoColumnHeadersFontExtra, this.totoColumnHeadersFontSize));
+        this.labelSpc.setFont(
+                new Font(
+                        this.totoColumnHeadersFont,
+                        this.totoColumnHeadersFontExtra,
+                        this.totoColumnHeadersFontSize));
         this.totodileDVSPanel.add(this.labelSpc);
         this.labelHPDV = new JLabel("?", SwingConstants.CENTER);
-        this.labelHPDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
+        this.labelHPDV.setFont(
+                new Font(
+                        this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
         this.totodileDVSPanel.add(this.labelHPDV);
         this.labelAtkDV = new JLabel("?", SwingConstants.CENTER);
-        this.labelAtkDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
+        this.labelAtkDV.setFont(
+                new Font(
+                        this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
         this.totodileDVSPanel.add(this.labelAtkDV);
         this.labelDefDV = new JLabel("?", SwingConstants.CENTER);
-        this.labelDefDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
+        this.labelDefDV.setFont(
+                new Font(
+                        this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
         this.totodileDVSPanel.add(this.labelDefDV);
         this.labelSpdDV = new JLabel("?", SwingConstants.CENTER);
-        this.labelSpdDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
+        this.labelSpdDV.setFont(
+                new Font(
+                        this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
         this.totodileDVSPanel.add(this.labelSpdDV);
         this.labelSpcDV = new JLabel("?", SwingConstants.CENTER);
-        this.labelSpcDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
+        this.labelSpcDV.setFont(
+                new Font(
+                        this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
         this.totodileDVSPanel.add(this.labelSpcDV);
         this.totodile.add(this.totodileDVSPanel, "Center");
         this.settings.add(this.totodile);
@@ -337,21 +347,24 @@ extends JFrame {
         this.editTotoDialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         this.editTotoDialog.setBounds(this.getLocation().x, this.getLocation().y, 220, 440);
         this.editTotoDialog.setTitle("Toto look-and-feel");
-        this.editTotoDialog.addWindowListener(new WindowAdapter(){
-            @Override
-            public void windowClosing(WindowEvent e) {
-                e.getWindow().dispose();
-            }
-        });
+        this.editTotoDialog.addWindowListener(
+                new WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        e.getWindow().dispose();
+                    }
+                });
 
-        String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+        String[] fonts =
+                GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         String[] fontsExtra = new String[]{"Plain", "Bold", "Italic"};
-        ChangeListener changeListenerToto = new ChangeListener(){
-            @Override
-            public void stateChanged(ChangeEvent changeEvent) {
-                HelperFrame.this.updateTotoLookAndFeel();
-            }
-        };
+        ChangeListener changeListenerToto =
+                new ChangeListener() {
+                    @Override
+                    public void stateChanged(ChangeEvent changeEvent) {
+                        HelperFrame.this.updateTotoLookAndFeel();
+                    }
+                };
         JLabel labelTotoAreaWidth = new JLabel("Width (max " + maxWidth + ")");
         labelTotoAreaWidth.setBounds(5, 5, 120, 20);
         labelTotoAreaWidth.setFont(new Font(this.font, Font.BOLD, 12));
@@ -380,16 +393,27 @@ extends JFrame {
         this.labelButtonTotoBackgroundColor.setBackground(this.totoBackgroundColor);
         this.labelButtonTotoBackgroundColor.setOpaque(true);
         this.labelButtonTotoBackgroundColor.setBounds(120, 45, 40, 20);
-        this.labelButtonTotoBackgroundColor.addMouseListener(new MouseAdapter(){
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                HelperFrame.changeLastButtonPressed(HelperFrame.this, HelperFrame.this.labelButtonTotoBackgroundColor);
-                HelperFrame.this.cc.setColor(HelperFrame.this.labelButtonTotoBackgroundColor.getBackground());
-                HelperFrame.this.previewPane.setForeground(HelperFrame.this.labelButtonTotoBackgroundColor.getBackground());
-                JDialog d = JColorChooser.createDialog(HelperFrame.this.editTotoDialog, "Choose a color", true, HelperFrame.this.cc, HelperFrame.this.okListener, null);
-                d.setVisible(true);
-            }
-        });
+        this.labelButtonTotoBackgroundColor.addMouseListener(
+                new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        HelperFrame.changeLastButtonPressed(
+                                HelperFrame.this, HelperFrame.this.labelButtonTotoBackgroundColor);
+                        HelperFrame.this.cc.setColor(
+                                HelperFrame.this.labelButtonTotoBackgroundColor.getBackground());
+                        HelperFrame.this.previewPane.setForeground(
+                                HelperFrame.this.labelButtonTotoBackgroundColor.getBackground());
+                        JDialog d =
+                                JColorChooser.createDialog(
+                                        HelperFrame.this.editTotoDialog,
+                                        "Choose a color",
+                                        true,
+                                        HelperFrame.this.cc,
+                                        HelperFrame.this.okListener,
+                                        null);
+                        d.setVisible(true);
+                    }
+                });
         this.editTotoDialog.add(this.labelButtonTotoBackgroundColor);
         JLabel labelTitle = new JLabel("Title");
         labelTitle.setBounds(5, 70, 150, 20);
@@ -414,50 +438,56 @@ extends JFrame {
         this.textFieldTotoTitleText = new JTextField(this.totoTitleText);
         this.textFieldTotoTitleText.setFont(new Font(this.font, Font.PLAIN, 11));
         this.textFieldTotoTitleText.setBounds(50, 90, 150, 20);
-        this.textFieldTotoTitleText.getDocument().addDocumentListener(new DocumentListener(){
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                this.update();
-            }
+        this.textFieldTotoTitleText
+                .getDocument()
+                .addDocumentListener(
+                        new DocumentListener() {
+                            @Override
+                            public void changedUpdate(DocumentEvent e) {
+                                this.update();
+                            }
 
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                this.update();
-            }
+                            @Override
+                            public void removeUpdate(DocumentEvent e) {
+                                this.update();
+                            }
 
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                this.update();
-            }
+                            @Override
+                            public void insertUpdate(DocumentEvent e) {
+                                this.update();
+                            }
 
-            public void update() {
-                HelperFrame.this.updateTotoLookAndFeel();
-            }
-        });
+                            public void update() {
+                                HelperFrame.this.updateTotoLookAndFeel();
+                            }
+                        });
         this.editTotoDialog.add(this.textFieldTotoTitleText);
         this.comboBoxTotoTitleFont = new JComboBox<String>(fonts);
         this.comboBoxTotoTitleFont.setFont(new Font(this.font, 0, 11));
         this.comboBoxTotoTitleFont.setBounds(50, 110, 150, 20);
-        this.comboBoxTotoTitleFont.addItemListener(new ItemListener(){
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {
-                HelperFrame.this.updateTotoLookAndFeel();
-            }
-        });
+        this.comboBoxTotoTitleFont.addItemListener(
+                new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent arg0) {
+                        HelperFrame.this.updateTotoLookAndFeel();
+                    }
+                });
         this.comboBoxTotoTitleFont.setSelectedItem(this.totoTitleFont);
         this.editTotoDialog.add(this.comboBoxTotoTitleFont);
         this.comboBoxTotoTitleFontExtra = new JComboBox<String>(fontsExtra);
         this.comboBoxTotoTitleFontExtra.setFont(new Font(this.font, 0, 11));
         this.comboBoxTotoTitleFontExtra.setBounds(140, 130, 60, 20);
-        this.comboBoxTotoTitleFontExtra.addItemListener(new ItemListener(){
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {
-                HelperFrame.this.updateTotoLookAndFeel();
-            }
-        });
+        this.comboBoxTotoTitleFontExtra.addItemListener(
+                new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent arg0) {
+                        HelperFrame.this.updateTotoLookAndFeel();
+                    }
+                });
         this.comboBoxTotoTitleFontExtra.setSelectedIndex(this.totoTitleFontExtra);
         this.editTotoDialog.add(this.comboBoxTotoTitleFontExtra);
-        SpinnerNumberModel totoTitleSizeModel = new SpinnerNumberModel(this.totoTitleFontSize, 0, 100, 1);
+        SpinnerNumberModel totoTitleSizeModel =
+                new SpinnerNumberModel(this.totoTitleFontSize, 0, 100, 1);
         this.spinnerTotoTitleSize = new JSpinner(totoTitleSizeModel);
         this.spinnerTotoTitleSize.setFont(new Font(this.font, 0, 11));
         this.spinnerTotoTitleSize.setBounds(80, 130, 40, 20);
@@ -467,16 +497,27 @@ extends JFrame {
         this.labelButtonTotoTitleColor.setBackground(this.totoTitleColor);
         this.labelButtonTotoTitleColor.setOpaque(true);
         this.labelButtonTotoTitleColor.setBounds(80, 150, 40, 20);
-        this.labelButtonTotoTitleColor.addMouseListener(new MouseAdapter(){
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                HelperFrame.changeLastButtonPressed(HelperFrame.this, HelperFrame.this.labelButtonTotoTitleColor);
-                HelperFrame.this.cc.setColor(HelperFrame.this.labelButtonTotoTitleColor.getBackground());
-                HelperFrame.this.previewPane.setForeground(HelperFrame.this.labelButtonTotoTitleColor.getBackground());
-                JDialog d = JColorChooser.createDialog(HelperFrame.this.editTotoDialog, "Choose a color", true, HelperFrame.this.cc, HelperFrame.this.okListener, null);
-                d.setVisible(true);
-            }
-        });
+        this.labelButtonTotoTitleColor.addMouseListener(
+                new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        HelperFrame.changeLastButtonPressed(
+                                HelperFrame.this, HelperFrame.this.labelButtonTotoTitleColor);
+                        HelperFrame.this.cc.setColor(
+                                HelperFrame.this.labelButtonTotoTitleColor.getBackground());
+                        HelperFrame.this.previewPane.setForeground(
+                                HelperFrame.this.labelButtonTotoTitleColor.getBackground());
+                        JDialog d =
+                                JColorChooser.createDialog(
+                                        HelperFrame.this.editTotoDialog,
+                                        "Choose a color",
+                                        true,
+                                        HelperFrame.this.cc,
+                                        HelperFrame.this.okListener,
+                                        null);
+                        d.setVisible(true);
+                    }
+                });
         this.editTotoDialog.add(this.labelButtonTotoTitleColor);
         JLabel labelColumnHeaders = new JLabel("DVColumn Headers");
         labelColumnHeaders.setBounds(5, 175, 150, 20);
@@ -497,26 +538,29 @@ extends JFrame {
         this.comboBoxTotoColumnHeadersFont = new JComboBox<String>(fonts);
         this.comboBoxTotoColumnHeadersFont.setFont(new Font(this.font, Font.PLAIN, 11));
         this.comboBoxTotoColumnHeadersFont.setBounds(50, 195, 150, 20);
-        this.comboBoxTotoColumnHeadersFont.addItemListener(new ItemListener(){
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {
-                HelperFrame.this.updateTotoLookAndFeel();
-            }
-        });
+        this.comboBoxTotoColumnHeadersFont.addItemListener(
+                new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent arg0) {
+                        HelperFrame.this.updateTotoLookAndFeel();
+                    }
+                });
         this.comboBoxTotoColumnHeadersFont.setSelectedItem(this.totoColumnHeadersFont);
         this.editTotoDialog.add(this.comboBoxTotoColumnHeadersFont);
         this.comboBoxTotoColumnHeadersFontExtra = new JComboBox<String>(fontsExtra);
         this.comboBoxTotoColumnHeadersFontExtra.setFont(new Font(this.font, Font.PLAIN, 11));
         this.comboBoxTotoColumnHeadersFontExtra.setBounds(140, 215, 60, 20);
-        this.comboBoxTotoColumnHeadersFontExtra.addItemListener(new ItemListener(){
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {
-                HelperFrame.this.updateTotoLookAndFeel();
-            }
-        });
+        this.comboBoxTotoColumnHeadersFontExtra.addItemListener(
+                new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent arg0) {
+                        HelperFrame.this.updateTotoLookAndFeel();
+                    }
+                });
         this.comboBoxTotoColumnHeadersFontExtra.setSelectedIndex(this.totoColumnHeadersFontExtra);
         this.editTotoDialog.add(this.comboBoxTotoColumnHeadersFontExtra);
-        SpinnerNumberModel totoColumnHeadersSizeModel = new SpinnerNumberModel(this.totoColumnHeadersFontSize, 0, 100, 1);
+        SpinnerNumberModel totoColumnHeadersSizeModel =
+                new SpinnerNumberModel(this.totoColumnHeadersFontSize, 0, 100, 1);
         this.spinnerTotoColumnHeadersFontSize = new JSpinner(totoColumnHeadersSizeModel);
         this.spinnerTotoColumnHeadersFontSize.setFont(new Font(this.font, Font.PLAIN, 11));
         this.spinnerTotoColumnHeadersFontSize.setBounds(80, 215, 40, 20);
@@ -526,16 +570,27 @@ extends JFrame {
         this.labelButtonTotoColumnHeadersColor.setBackground(this.totoTitleColor);
         this.labelButtonTotoColumnHeadersColor.setOpaque(true);
         this.labelButtonTotoColumnHeadersColor.setBounds(80, 235, 40, 20);
-        this.labelButtonTotoColumnHeadersColor.addMouseListener(new MouseAdapter(){
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                HelperFrame.changeLastButtonPressed(HelperFrame.this, HelperFrame.this.labelButtonTotoColumnHeadersColor);
-                HelperFrame.this.cc.setColor(HelperFrame.this.labelButtonTotoColumnHeadersColor.getBackground());
-                HelperFrame.this.previewPane.setForeground(HelperFrame.this.labelButtonTotoColumnHeadersColor.getBackground());
-                JDialog d = JColorChooser.createDialog(HelperFrame.this.editTotoDialog, "Choose a color", true, HelperFrame.this.cc, HelperFrame.this.okListener, null);
-                d.setVisible(true);
-            }
-        });
+        this.labelButtonTotoColumnHeadersColor.addMouseListener(
+                new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        HelperFrame.changeLastButtonPressed(
+                                HelperFrame.this, HelperFrame.this.labelButtonTotoColumnHeadersColor);
+                        HelperFrame.this.cc.setColor(
+                                HelperFrame.this.labelButtonTotoColumnHeadersColor.getBackground());
+                        HelperFrame.this.previewPane.setForeground(
+                                HelperFrame.this.labelButtonTotoColumnHeadersColor.getBackground());
+                        JDialog d =
+                                JColorChooser.createDialog(
+                                        HelperFrame.this.editTotoDialog,
+                                        "Choose a color",
+                                        true,
+                                        HelperFrame.this.cc,
+                                        HelperFrame.this.okListener,
+                                        null);
+                        d.setVisible(true);
+                    }
+                });
         this.editTotoDialog.add(this.labelButtonTotoColumnHeadersColor);
         JLabel labelDVNumbers = new JLabel("DV Numbers");
         labelDVNumbers.setBounds(5, 260, 150, 20);
@@ -560,32 +615,36 @@ extends JFrame {
         this.comboBoxTotoDVNumbersFont = new JComboBox<String>(fonts);
         this.comboBoxTotoDVNumbersFont.setFont(new Font(this.font, Font.PLAIN, 11));
         this.comboBoxTotoDVNumbersFont.setBounds(50, 280, 150, 20);
-        this.comboBoxTotoDVNumbersFont.addItemListener(new ItemListener(){
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {
-                HelperFrame.this.updateTotoLookAndFeel();
-            }
-        });
+        this.comboBoxTotoDVNumbersFont.addItemListener(
+                new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent arg0) {
+                        HelperFrame.this.updateTotoLookAndFeel();
+                    }
+                });
         this.comboBoxTotoDVNumbersFont.setSelectedItem(this.totoDVNumbersFont);
         this.editTotoDialog.add(this.comboBoxTotoDVNumbersFont);
         this.comboBoxTotoDVNumbersFontExtra = new JComboBox<String>(fontsExtra);
         this.comboBoxTotoDVNumbersFontExtra.setFont(new Font(this.font, Font.PLAIN, 11));
         this.comboBoxTotoDVNumbersFontExtra.setBounds(140, 300, 60, 20);
-        this.comboBoxTotoDVNumbersFontExtra.addItemListener(new ItemListener(){
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {
-                HelperFrame.this.updateTotoLookAndFeel();
-            }
-        });
+        this.comboBoxTotoDVNumbersFontExtra.addItemListener(
+                new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent arg0) {
+                        HelperFrame.this.updateTotoLookAndFeel();
+                    }
+                });
         this.comboBoxTotoDVNumbersFontExtra.setSelectedIndex(this.totoDVNumbersFontExtra);
         this.editTotoDialog.add(this.comboBoxTotoDVNumbersFontExtra);
-        SpinnerNumberModel totoDVNumbersSizeBigModel = new SpinnerNumberModel(this.totoDVNumbersFontSizeBig, 0, 100, 1);
+        SpinnerNumberModel totoDVNumbersSizeBigModel =
+                new SpinnerNumberModel(this.totoDVNumbersFontSizeBig, 0, 100, 1);
         this.spinnerTotototoDVNumbersFontSizeBig = new JSpinner(totoDVNumbersSizeBigModel);
         this.spinnerTotototoDVNumbersFontSizeBig.setFont(new Font(this.font, Font.PLAIN, 11));
         this.spinnerTotototoDVNumbersFontSizeBig.setBounds(80, 300, 40, 20);
         this.spinnerTotototoDVNumbersFontSizeBig.addChangeListener(changeListenerToto);
         this.editTotoDialog.add(this.spinnerTotototoDVNumbersFontSizeBig);
-        SpinnerNumberModel totoDVNumbersSizeSmallModel = new SpinnerNumberModel(this.totoDVNumbersFontSizeSmall, 0, 100, 1);
+        SpinnerNumberModel totoDVNumbersSizeSmallModel =
+                new SpinnerNumberModel(this.totoDVNumbersFontSizeSmall, 0, 100, 1);
         this.spinnerTotototoDVNumbersFontSizeSmall = new JSpinner(totoDVNumbersSizeSmallModel);
         this.spinnerTotototoDVNumbersFontSizeSmall.setFont(new Font(this.font, Font.PLAIN, 11));
         this.spinnerTotototoDVNumbersFontSizeSmall.setBounds(80, 320, 40, 20);
@@ -595,65 +654,85 @@ extends JFrame {
         this.labelButtonTotoDVNumbersColor.setBackground(this.totoDVNumbersColor);
         this.labelButtonTotoDVNumbersColor.setOpaque(true);
         this.labelButtonTotoDVNumbersColor.setBounds(80, 340, 40, 20);
-        this.labelButtonTotoDVNumbersColor.addMouseListener(new MouseAdapter(){
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                HelperFrame.changeLastButtonPressed(HelperFrame.this, HelperFrame.this.labelButtonTotoDVNumbersColor);
-                HelperFrame.this.cc.setColor(HelperFrame.this.labelButtonTotoDVNumbersColor.getBackground());
-                HelperFrame.this.previewPane.setForeground(HelperFrame.this.labelButtonTotoDVNumbersColor.getBackground());
-                JDialog d = JColorChooser.createDialog(HelperFrame.this.editTotoDialog, "Choose a color", true, HelperFrame.this.cc, HelperFrame.this.okListener, null);
-                d.setVisible(true);
-            }
-        });
+        this.labelButtonTotoDVNumbersColor.addMouseListener(
+                new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        HelperFrame.changeLastButtonPressed(
+                                HelperFrame.this, HelperFrame.this.labelButtonTotoDVNumbersColor);
+                        HelperFrame.this.cc.setColor(
+                                HelperFrame.this.labelButtonTotoDVNumbersColor.getBackground());
+                        HelperFrame.this.previewPane.setForeground(
+                                HelperFrame.this.labelButtonTotoDVNumbersColor.getBackground());
+                        JDialog d =
+                                JColorChooser.createDialog(
+                                        HelperFrame.this.editTotoDialog,
+                                        "Choose a color",
+                                        true,
+                                        HelperFrame.this.cc,
+                                        HelperFrame.this.okListener,
+                                        null);
+                        d.setVisible(true);
+                    }
+                });
         this.editTotoDialog.add(this.labelButtonTotoDVNumbersColor);
         JButton buttonResetDefault = new JButton("Reset Default");
         buttonResetDefault.setFont(new Font(this.font, Font.BOLD, 12));
         buttonResetDefault.setMargin(new Insets(2, 0, 2, 0));
         buttonResetDefault.setBounds(10, 370, 110, 30);
-        buttonResetDefault.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                HelperFrame.this.spinnerTotoAreaWidth.setValue(240);
-                HelperFrame.this.spinnerTotoAreaHeight.setValue(80);
-                HelperFrame.this.labelButtonTotoBackgroundColor.setBackground(new Color(255, 255, 255));
-                HelperFrame.this.textFieldTotoTitleText.setText("Toto DVs (0-15)");
-                HelperFrame.this.spinnerTotoTitleSize.setValue(20);
-                HelperFrame.this.comboBoxTotoTitleFont.setSelectedItem(HelperFrame.this.font);
-                HelperFrame.this.comboBoxTotoTitleFontExtra.setSelectedIndex(1);
-                HelperFrame.this.labelButtonTotoTitleColor.setBackground(new Color(0, 0, 0));
-                HelperFrame.this.spinnerTotoColumnHeadersFontSize.setValue(14);
-                HelperFrame.this.comboBoxTotoColumnHeadersFont.setSelectedItem(HelperFrame.this.font);
-                HelperFrame.this.comboBoxTotoColumnHeadersFontExtra.setSelectedIndex(1);
-                HelperFrame.this.labelButtonTotoColumnHeadersColor.setBackground(new Color(0, 0, 0));
-                HelperFrame.this.spinnerTotototoDVNumbersFontSizeBig.setValue(16);
-                HelperFrame.this.spinnerTotototoDVNumbersFontSizeSmall.setValue(14);
-                HelperFrame.this.comboBoxTotoDVNumbersFont.setSelectedItem(HelperFrame.this.font);
-                HelperFrame.this.comboBoxTotoDVNumbersFontExtra.setSelectedIndex(1);
-                HelperFrame.this.labelButtonTotoDVNumbersColor.setBackground(new Color(0, 0, 0));
-                HelperFrame.this.updateTotoLookAndFeel();
-            }
-        });
+        buttonResetDefault.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        HelperFrame.this.spinnerTotoAreaWidth.setValue(240);
+                        HelperFrame.this.spinnerTotoAreaHeight.setValue(80);
+                        HelperFrame.this.labelButtonTotoBackgroundColor.setBackground(new Color(255, 255, 255));
+                        HelperFrame.this.textFieldTotoTitleText.setText("Toto DVs (0-15)");
+                        HelperFrame.this.spinnerTotoTitleSize.setValue(20);
+                        HelperFrame.this.comboBoxTotoTitleFont.setSelectedItem(HelperFrame.this.font);
+                        HelperFrame.this.comboBoxTotoTitleFontExtra.setSelectedIndex(1);
+                        HelperFrame.this.labelButtonTotoTitleColor.setBackground(new Color(0, 0, 0));
+                        HelperFrame.this.spinnerTotoColumnHeadersFontSize.setValue(14);
+                        HelperFrame.this.comboBoxTotoColumnHeadersFont.setSelectedItem(HelperFrame.this.font);
+                        HelperFrame.this.comboBoxTotoColumnHeadersFontExtra.setSelectedIndex(1);
+                        HelperFrame.this.labelButtonTotoColumnHeadersColor.setBackground(new Color(0, 0, 0));
+                        HelperFrame.this.spinnerTotototoDVNumbersFontSizeBig.setValue(16);
+                        HelperFrame.this.spinnerTotototoDVNumbersFontSizeSmall.setValue(14);
+                        HelperFrame.this.comboBoxTotoDVNumbersFont.setSelectedItem(HelperFrame.this.font);
+                        HelperFrame.this.comboBoxTotoDVNumbersFontExtra.setSelectedIndex(1);
+                        HelperFrame.this.labelButtonTotoDVNumbersColor.setBackground(new Color(0, 0, 0));
+                        HelperFrame.this.updateTotoLookAndFeel();
+                    }
+                });
         this.editTotoDialog.add(buttonResetDefault);
-        this.okListener = new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if (HelperFrame.this.cc.getColor() != null) {
-                    HelperFrame.this.lastButtonPressed.setBackground(HelperFrame.this.cc.getColor());
-                    HelperFrame.this.lastButtonPressed.setForeground(HelperFrame.this.cc.getColor());
-                    HelperFrame.changeTotoBackgroundColor(HelperFrame.this, HelperFrame.this.labelButtonTotoBackgroundColor.getBackground());
-                    HelperFrame.changeTotoTitleColor(HelperFrame.this, HelperFrame.this.labelButtonTotoTitleColor.getBackground());
-                    HelperFrame.changeTotoColumnHeadersColor(HelperFrame.this, HelperFrame.this.labelButtonTotoColumnHeadersColor.getBackground());
-                    HelperFrame.changeTotoDVNumbersColor(HelperFrame.this, HelperFrame.this.labelButtonTotoDVNumbersColor.getBackground());
-                    HelperFrame.this.updateTotoLookAndFeel();
-                }
-            }
-        };
+        this.okListener =
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        if (HelperFrame.this.cc.getColor() != null) {
+                            HelperFrame.this.lastButtonPressed.setBackground(HelperFrame.this.cc.getColor());
+                            HelperFrame.this.lastButtonPressed.setForeground(HelperFrame.this.cc.getColor());
+                            HelperFrame.changeTotoBackgroundColor(
+                                    HelperFrame.this,
+                                    HelperFrame.this.labelButtonTotoBackgroundColor.getBackground());
+                            HelperFrame.changeTotoTitleColor(
+                                    HelperFrame.this, HelperFrame.this.labelButtonTotoTitleColor.getBackground());
+                            HelperFrame.changeTotoColumnHeadersColor(
+                                    HelperFrame.this,
+                                    HelperFrame.this.labelButtonTotoColumnHeadersColor.getBackground());
+                            HelperFrame.changeTotoDVNumbersColor(
+                                    HelperFrame.this, HelperFrame.this.labelButtonTotoDVNumbersColor.getBackground());
+                            HelperFrame.this.updateTotoLookAndFeel();
+                        }
+                    }
+                };
         this.cc = new JColorChooser();
         this.previewPane = new PreviewPane();
         this.cc.setPreviewPanel(this.previewPane);
         AbstractColorChooserPanel[] panels = this.cc.getChooserPanels();
         for (AbstractColorChooserPanel panel : panels) {
-            if (panel.getDisplayName().contains("RGB") || panel.getDisplayName().contains("RVB")) continue;
+            if (panel.getDisplayName().contains("RGB") || panel.getDisplayName().contains("RVB"))
+                continue;
             this.cc.removeChooserPanel(panel);
         }
         AbstractColorChooserPanel cp = this.cc.getChooserPanels()[0];
@@ -667,18 +746,17 @@ extends JFrame {
             Object transpSlispinner = Array.get(spinners, 3);
             Field f3 = transpSlispinner.getClass().getDeclaredField("slider");
             f3.setAccessible(true);
-            JSlider slider = (JSlider)f3.get(transpSlispinner);
+            JSlider slider = (JSlider) f3.get(transpSlispinner);
             slider.setVisible(false);
             Field f4 = transpSlispinner.getClass().getDeclaredField("spinner");
             f4.setAccessible(true);
-            JSpinner spinner = (JSpinner)f4.get(transpSlispinner);
+            JSpinner spinner = (JSpinner) f4.get(transpSlispinner);
             spinner.setVisible(false);
             Field f5 = transpSlispinner.getClass().getDeclaredField("label");
             f5.setAccessible(true);
-            JLabel label = (JLabel)f5.get(transpSlispinner);
+            JLabel label = (JLabel) f5.get(transpSlispinner);
             label.setVisible(false);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -699,7 +777,8 @@ extends JFrame {
             while ((s = br.readLine()) != null) {
                 String[] sp;
                 Color c;
-                if (s.equals("") || s.substring(0, 1).equals(";") || (sp = s.split("=")).length <= 1) continue;
+                if (s.equals("") || s.substring(0, 1).equals(";") || (sp = s.split("=")).length <= 1)
+                    continue;
                 if (sp[0].equals("Location")) {
                     String[] location = sp[1].split(",");
                     if (location.length != 2) continue;
@@ -709,7 +788,7 @@ extends JFrame {
                 if (sp[0].equals("Game")) {
                     try {
                         Game game = Game.valueOf(sp[1].toUpperCase());
-                        if(game != Game.CRYSTAL) {
+                        if (game != Game.CRYSTAL) {
                             this.setGame(game);
                             this.crystalCalc.reset();
                             this.main.remove(calc);
@@ -723,7 +802,7 @@ extends JFrame {
                             this.repaint();
                             this.revalidate();
                         }
-                    } catch(Exception e) {
+                    } catch (Exception e) {
                         // empty catch block
                     }
                     continue;
@@ -736,8 +815,16 @@ extends JFrame {
                     this.spinnerTotoAreaHeight.setValue(Integer.parseInt(sp[1]));
                     continue;
                 }
-                if (sp[0].equals("totoBackgroundColor") && sp[1].split(",").length >= 3 && HelperFrame.isInteger(sp[1].split(",")[0], 0, 255) && HelperFrame.isInteger(sp[1].split(",")[1], 0, 255) && HelperFrame.isInteger(sp[1].split(",")[2], 0, 255)) {
-                    c = new Color(Integer.parseInt(sp[1].split(",")[0]), Integer.parseInt(sp[1].split(",")[1]), Integer.parseInt(sp[1].split(",")[2]));
+                if (sp[0].equals("totoBackgroundColor")
+                        && sp[1].split(",").length >= 3
+                        && HelperFrame.isInteger(sp[1].split(",")[0], 0, 255)
+                        && HelperFrame.isInteger(sp[1].split(",")[1], 0, 255)
+                        && HelperFrame.isInteger(sp[1].split(",")[2], 0, 255)) {
+                    c =
+                            new Color(
+                                    Integer.parseInt(sp[1].split(",")[0]),
+                                    Integer.parseInt(sp[1].split(",")[1]),
+                                    Integer.parseInt(sp[1].split(",")[2]));
                     this.labelButtonTotoBackgroundColor.setBackground(c);
                     continue;
                 }
@@ -757,8 +844,16 @@ extends JFrame {
                     this.comboBoxTotoTitleFontExtra.setSelectedItem(Integer.parseInt(sp[1]));
                     continue;
                 }
-                if (sp[0].equals("totoTitleColor") && sp[1].split(",").length >= 3 && HelperFrame.isInteger(sp[1].split(",")[0], 0, 255) && HelperFrame.isInteger(sp[1].split(",")[1], 0, 255) && HelperFrame.isInteger(sp[1].split(",")[2], 0, 255)) {
-                    c = new Color(Integer.parseInt(sp[1].split(",")[0]), Integer.parseInt(sp[1].split(",")[1]), Integer.parseInt(sp[1].split(",")[2]));
+                if (sp[0].equals("totoTitleColor")
+                        && sp[1].split(",").length >= 3
+                        && HelperFrame.isInteger(sp[1].split(",")[0], 0, 255)
+                        && HelperFrame.isInteger(sp[1].split(",")[1], 0, 255)
+                        && HelperFrame.isInteger(sp[1].split(",")[2], 0, 255)) {
+                    c =
+                            new Color(
+                                    Integer.parseInt(sp[1].split(",")[0]),
+                                    Integer.parseInt(sp[1].split(",")[1]),
+                                    Integer.parseInt(sp[1].split(",")[2]));
                     this.labelButtonTotoTitleColor.setBackground(c);
                     continue;
                 }
@@ -774,8 +869,16 @@ extends JFrame {
                     this.comboBoxTotoColumnHeadersFontExtra.setSelectedItem(Integer.parseInt(sp[1]));
                     continue;
                 }
-                if (sp[0].equals("totoColumnHeadersColor") && sp[1].split(",").length >= 3 && HelperFrame.isInteger(sp[1].split(",")[0], 0, 255) && HelperFrame.isInteger(sp[1].split(",")[1], 0, 255) && HelperFrame.isInteger(sp[1].split(",")[2], 0, 255)) {
-                    c = new Color(Integer.parseInt(sp[1].split(",")[0]), Integer.parseInt(sp[1].split(",")[1]), Integer.parseInt(sp[1].split(",")[2]));
+                if (sp[0].equals("totoColumnHeadersColor")
+                        && sp[1].split(",").length >= 3
+                        && HelperFrame.isInteger(sp[1].split(",")[0], 0, 255)
+                        && HelperFrame.isInteger(sp[1].split(",")[1], 0, 255)
+                        && HelperFrame.isInteger(sp[1].split(",")[2], 0, 255)) {
+                    c =
+                            new Color(
+                                    Integer.parseInt(sp[1].split(",")[0]),
+                                    Integer.parseInt(sp[1].split(",")[1]),
+                                    Integer.parseInt(sp[1].split(",")[2]));
                     this.labelButtonTotoColumnHeadersColor.setBackground(c);
                     continue;
                 }
@@ -795,13 +898,20 @@ extends JFrame {
                     this.comboBoxTotoDVNumbersFontExtra.setSelectedItem(Integer.parseInt(sp[1]));
                     continue;
                 }
-                if (!sp[0].equals("totoDVNumbersColor") || sp[1].split(",").length < 3 || !HelperFrame.isInteger(sp[1].split(",")[0], 0, 255) || !HelperFrame.isInteger(sp[1].split(",")[1], 0, 255) || !HelperFrame.isInteger(sp[1].split(",")[2], 0, 255)) continue;
-                c = new Color(Integer.parseInt(sp[1].split(",")[0]), Integer.parseInt(sp[1].split(",")[1]), Integer.parseInt(sp[1].split(",")[2]));
+                if (!sp[0].equals("totoDVNumbersColor")
+                        || sp[1].split(",").length < 3
+                        || !HelperFrame.isInteger(sp[1].split(",")[0], 0, 255)
+                        || !HelperFrame.isInteger(sp[1].split(",")[1], 0, 255)
+                        || !HelperFrame.isInteger(sp[1].split(",")[2], 0, 255)) continue;
+                c =
+                        new Color(
+                                Integer.parseInt(sp[1].split(",")[0]),
+                                Integer.parseInt(sp[1].split(",")[1]),
+                                Integer.parseInt(sp[1].split(",")[2]));
                 this.labelButtonTotoDVNumbersColor.setBackground(c);
             }
             fr.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -813,18 +923,17 @@ extends JFrame {
                 System.out.println("false: " + i);
                 return false;
             }
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return false;
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             return false;
         }
         return true;
     }
 
     private void save() {
-        block12 : {
+        block12:
+        {
             File file = new File(String.valueOf(this.getExecutionPath()) + "/settings.txt");
             BufferedWriter out = null;
             try {
@@ -842,7 +951,13 @@ extends JFrame {
                     out.newLine();
                     out.write("totoHeight=" + this.totoHeight);
                     out.newLine();
-                    out.write("totoBackgroundColor=" + this.totoBackgroundColor.getRed() + "," + this.totoBackgroundColor.getGreen() + "," + this.totoBackgroundColor.getBlue());
+                    out.write(
+                            "totoBackgroundColor="
+                                    + this.totoBackgroundColor.getRed()
+                                    + ","
+                                    + this.totoBackgroundColor.getGreen()
+                                    + ","
+                                    + this.totoBackgroundColor.getBlue());
                     out.newLine();
                     out.write("totoTitleText=" + this.totoTitleText);
                     out.newLine();
@@ -852,7 +967,13 @@ extends JFrame {
                     out.newLine();
                     out.write("totoTitleFontExtra=" + this.totoTitleFontExtra);
                     out.newLine();
-                    out.write("totoTitleColor=" + this.totoTitleColor.getRed() + "," + this.totoTitleColor.getGreen() + "," + this.totoTitleColor.getBlue());
+                    out.write(
+                            "totoTitleColor="
+                                    + this.totoTitleColor.getRed()
+                                    + ","
+                                    + this.totoTitleColor.getGreen()
+                                    + ","
+                                    + this.totoTitleColor.getBlue());
                     out.newLine();
                     out.write("totoColumnHeadersFontSize=" + this.totoColumnHeadersFontSize);
                     out.newLine();
@@ -860,7 +981,13 @@ extends JFrame {
                     out.newLine();
                     out.write("totoColumnHeadersFontExtra=" + this.totoColumnHeadersFontExtra);
                     out.newLine();
-                    out.write("totoColumnHeadersColor=" + this.totoColumnHeadersColor.getRed() + "," + this.totoColumnHeadersColor.getGreen() + "," + this.totoColumnHeadersColor.getBlue());
+                    out.write(
+                            "totoColumnHeadersColor="
+                                    + this.totoColumnHeadersColor.getRed()
+                                    + ","
+                                    + this.totoColumnHeadersColor.getGreen()
+                                    + ","
+                                    + this.totoColumnHeadersColor.getBlue());
                     out.newLine();
                     out.write("totoDVNumbersFontSizeBig=" + this.totoDVNumbersFontSizeBig);
                     out.newLine();
@@ -870,27 +997,29 @@ extends JFrame {
                     out.newLine();
                     out.write("totoDVNumbersFontExtra=" + this.totoDVNumbersFontExtra);
                     out.newLine();
-                    out.write("totoDVNumbersColor=" + this.totoDVNumbersColor.getRed() + "," + this.totoDVNumbersColor.getGreen() + "," + this.totoDVNumbersColor.getBlue());
+                    out.write(
+                            "totoDVNumbersColor="
+                                    + this.totoDVNumbersColor.getRed()
+                                    + ","
+                                    + this.totoDVNumbersColor.getGreen()
+                                    + ","
+                                    + this.totoDVNumbersColor.getBlue());
                     out.newLine();
                     out.close();
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                     if (out == null) break block12;
                     try {
                         out.close();
-                    }
-                    catch (IOException e2) {
+                    } catch (IOException e2) {
                         e2.printStackTrace();
                     }
                 }
-            }
-            finally {
+            } finally {
                 if (out != null) {
                     try {
                         out.close();
-                    }
-                    catch (IOException e) {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
@@ -902,21 +1031,22 @@ extends JFrame {
         if (this.initializing) {
             return;
         }
-        this.totoWidth = (Integer)this.spinnerTotoAreaWidth.getValue();
-        this.totoHeight = (Integer)this.spinnerTotoAreaHeight.getValue();
+        this.totoWidth = (Integer) this.spinnerTotoAreaWidth.getValue();
+        this.totoHeight = (Integer) this.spinnerTotoAreaHeight.getValue();
         this.totoBackgroundColor = this.labelButtonTotoBackgroundColor.getBackground();
         this.totoTitleText = this.textFieldTotoTitleText.getText();
-        this.totoTitleFontSize = (Integer)this.spinnerTotoTitleSize.getValue();
-        this.totoTitleFont = (String)this.comboBoxTotoTitleFont.getSelectedItem();
+        this.totoTitleFontSize = (Integer) this.spinnerTotoTitleSize.getValue();
+        this.totoTitleFont = (String) this.comboBoxTotoTitleFont.getSelectedItem();
         this.totoTitleFontExtra = this.comboBoxTotoTitleFontExtra.getSelectedIndex();
         this.totoTitleColor = this.labelButtonTotoTitleColor.getBackground();
-        this.totoColumnHeadersFontSize = (Integer)this.spinnerTotoColumnHeadersFontSize.getValue();
-        this.totoColumnHeadersFont = (String)this.comboBoxTotoColumnHeadersFont.getSelectedItem();
+        this.totoColumnHeadersFontSize = (Integer) this.spinnerTotoColumnHeadersFontSize.getValue();
+        this.totoColumnHeadersFont = (String) this.comboBoxTotoColumnHeadersFont.getSelectedItem();
         this.totoColumnHeadersFontExtra = this.comboBoxTotoColumnHeadersFontExtra.getSelectedIndex();
         this.totoColumnHeadersColor = this.labelButtonTotoColumnHeadersColor.getBackground();
-        this.totoDVNumbersFontSizeBig = (Integer)this.spinnerTotototoDVNumbersFontSizeBig.getValue();
-        this.totoDVNumbersFontSizeSmall = (Integer)this.spinnerTotototoDVNumbersFontSizeSmall.getValue();
-        this.totoDVNumbersFont = (String)this.comboBoxTotoDVNumbersFont.getSelectedItem();
+        this.totoDVNumbersFontSizeBig = (Integer) this.spinnerTotototoDVNumbersFontSizeBig.getValue();
+        this.totoDVNumbersFontSizeSmall =
+                (Integer) this.spinnerTotototoDVNumbersFontSizeSmall.getValue();
+        this.totoDVNumbersFont = (String) this.comboBoxTotoDVNumbersFont.getSelectedItem();
         this.totoDVNumbersFontExtra = this.comboBoxTotoDVNumbersFontExtra.getSelectedIndex();
         this.totoDVNumbersColor = this.labelButtonTotoDVNumbersColor.getBackground();
         this.setSize(baseWidth, baseHeight + Math.max(0, this.totoHeight - 100));
@@ -929,17 +1059,38 @@ extends JFrame {
         this.totodileDVSPanel.setBackground(this.totoBackgroundColor);
         this.totodileDVSPanel.setBorder(new EmptyBorder(borderTopBottom, 0, borderTopBottom, 0));
         this.labelTitle.setText(this.totoTitleText);
-        this.labelTitle.setFont(new Font(this.totoTitleFont, this.totoTitleFontExtra, this.totoTitleFontSize));
+        this.labelTitle.setFont(
+                new Font(this.totoTitleFont, this.totoTitleFontExtra, this.totoTitleFontSize));
         this.labelTitle.setForeground(this.totoTitleColor);
-        this.labelHP.setFont(new Font(this.totoColumnHeadersFont, this.totoColumnHeadersFontExtra, this.totoColumnHeadersFontSize));
+        this.labelHP.setFont(
+                new Font(
+                        this.totoColumnHeadersFont,
+                        this.totoColumnHeadersFontExtra,
+                        this.totoColumnHeadersFontSize));
         this.labelHP.setForeground(this.totoColumnHeadersColor);
-        this.labelAtk.setFont(new Font(this.totoColumnHeadersFont, this.totoColumnHeadersFontExtra, this.totoColumnHeadersFontSize));
+        this.labelAtk.setFont(
+                new Font(
+                        this.totoColumnHeadersFont,
+                        this.totoColumnHeadersFontExtra,
+                        this.totoColumnHeadersFontSize));
         this.labelAtk.setForeground(this.totoColumnHeadersColor);
-        this.labelDef.setFont(new Font(this.totoColumnHeadersFont, this.totoColumnHeadersFontExtra, this.totoColumnHeadersFontSize));
+        this.labelDef.setFont(
+                new Font(
+                        this.totoColumnHeadersFont,
+                        this.totoColumnHeadersFontExtra,
+                        this.totoColumnHeadersFontSize));
         this.labelDef.setForeground(this.totoColumnHeadersColor);
-        this.labelSpd.setFont(new Font(this.totoColumnHeadersFont, this.totoColumnHeadersFontExtra, this.totoColumnHeadersFontSize));
+        this.labelSpd.setFont(
+                new Font(
+                        this.totoColumnHeadersFont,
+                        this.totoColumnHeadersFontExtra,
+                        this.totoColumnHeadersFontSize));
         this.labelSpd.setForeground(this.totoColumnHeadersColor);
-        this.labelSpc.setFont(new Font(this.totoColumnHeadersFont, this.totoColumnHeadersFontExtra, this.totoColumnHeadersFontSize));
+        this.labelSpc.setFont(
+                new Font(
+                        this.totoColumnHeadersFont,
+                        this.totoColumnHeadersFontExtra,
+                        this.totoColumnHeadersFontSize));
         this.labelSpc.setForeground(this.totoColumnHeadersColor);
         this.labelHPDV.setForeground(this.totoDVNumbersColor);
         this.labelAtkDV.setForeground(this.totoDVNumbersColor);
@@ -947,33 +1098,64 @@ extends JFrame {
         this.labelSpdDV.setForeground(this.totoDVNumbersColor);
         this.labelSpcDV.setForeground(this.totoDVNumbersColor);
         if (this.labelHPDV.getText().length() <= 2) {
-            this.labelHPDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
+            this.labelHPDV.setFont(
+                    new Font(
+                            this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
         } else {
-            this.labelHPDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeSmall));
+            this.labelHPDV.setFont(
+                    new Font(
+                            this.totoDVNumbersFont,
+                            this.totoDVNumbersFontExtra,
+                            this.totoDVNumbersFontSizeSmall));
         }
         if (this.labelAtkDV.getText().length() <= 2) {
-            this.labelAtkDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
+            this.labelAtkDV.setFont(
+                    new Font(
+                            this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
         } else {
-            this.labelAtkDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeSmall));
+            this.labelAtkDV.setFont(
+                    new Font(
+                            this.totoDVNumbersFont,
+                            this.totoDVNumbersFontExtra,
+                            this.totoDVNumbersFontSizeSmall));
         }
         if (this.labelDefDV.getText().length() <= 2) {
-            this.labelDefDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
+            this.labelDefDV.setFont(
+                    new Font(
+                            this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
         } else {
-            this.labelDefDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeSmall));
+            this.labelDefDV.setFont(
+                    new Font(
+                            this.totoDVNumbersFont,
+                            this.totoDVNumbersFontExtra,
+                            this.totoDVNumbersFontSizeSmall));
         }
         if (this.labelSpdDV.getText().length() <= 2) {
-            this.labelSpdDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
+            this.labelSpdDV.setFont(
+                    new Font(
+                            this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
         } else {
-            this.labelSpdDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeSmall));
+            this.labelSpdDV.setFont(
+                    new Font(
+                            this.totoDVNumbersFont,
+                            this.totoDVNumbersFontExtra,
+                            this.totoDVNumbersFontSizeSmall));
         }
         if (this.labelSpcDV.getText().length() <= 2) {
-            this.labelSpcDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
+            this.labelSpcDV.setFont(
+                    new Font(
+                            this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
         } else {
-            this.labelSpcDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeSmall));
+            this.labelSpcDV.setFont(
+                    new Font(
+                            this.totoDVNumbersFont,
+                            this.totoDVNumbersFontExtra,
+                            this.totoDVNumbersFontSizeSmall));
         }
     }
 
-    public void updateToto(final int column, final int first, final int last, final int possibilities) {
+    public void updateToto(
+            final int column, final int first, final int last, final int possibilities) {
         if (first < 0 || first > 15 || last < 0 || last > 15) {
             return;
         }
@@ -992,17 +1174,28 @@ extends JFrame {
             return;
         }
         if (first == last) {
-            labelColumn.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
+            labelColumn.setFont(
+                    new Font(
+                            this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
             labelColumn.setText("" + first);
         } else if (possibilities == 2) {
-            labelColumn.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeSmall));
+            labelColumn.setFont(
+                    new Font(
+                            this.totoDVNumbersFont,
+                            this.totoDVNumbersFontExtra,
+                            this.totoDVNumbersFontSizeSmall));
             labelColumn.setText(String.valueOf(first) + "/" + last);
         } else if (last - first < 10) {
-            labelColumn.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeSmall));
+            labelColumn.setFont(
+                    new Font(
+                            this.totoDVNumbersFont,
+                            this.totoDVNumbersFontExtra,
+                            this.totoDVNumbersFontSizeSmall));
             labelColumn.setText(String.valueOf(first) + "-" + last);
-        }
-         else {
-            labelColumn.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
+        } else {
+            labelColumn.setFont(
+                    new Font(
+                            this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
             labelColumn.setText("?");
         }
     }
@@ -1011,23 +1204,26 @@ extends JFrame {
         boolean[] redValues = new boolean[16];
         Arrays.fill(redValues, Boolean.TRUE);
         redValues[dv] = false;
-        if(column == 0) {
+        if (column == 0) {
             externalRed(redValues, redAtk, redDef, redSpd, redSpc);
-        } else if(column == 1) {
+        } else if (column == 1) {
             externalRed(redHP, redValues, redDef, redSpd, redSpc);
-        } else if(column == 2) {
+        } else if (column == 2) {
             externalRed(redHP, redAtk, redValues, redSpd, redSpc);
-        } else if(column == 3) {
+        } else if (column == 3) {
             externalRed(redHP, redAtk, redDef, redValues, redSpc);
-        } else if(column == 4) {
+        } else if (column == 4) {
             externalRed(redHP, redAtk, redDef, redSpd, redValues);
         }
     }
-    public void updateDVPanel(boolean[] redHP, boolean[] redAtk, boolean[] redDef, boolean[] redSpd, boolean[] redSpc) {
+
+    public void updateDVPanel(
+            boolean[] redHP, boolean[] redAtk, boolean[] redDef, boolean[] redSpd, boolean[] redSpc) {
         this.externalRed(redHP, redAtk, redDef, redSpd, redSpc);
     }
 
-    public void externalRed(boolean[] redHP, boolean[] redAtk, boolean[] redDef, boolean[] redSpd, boolean[] redSpc) {
+    public void externalRed(
+            boolean[] redHP, boolean[] redAtk, boolean[] redDef, boolean[] redSpd, boolean[] redSpc) {
         for (int i = 0; i < 16; ++i) {
             if (redHP[i]) {
                 this.redHP[i] = redHP[i];
@@ -1092,16 +1288,16 @@ extends JFrame {
             if (this.redHP[i]) {
                 hpPossible[i] = false;
             }
-            if(this.redAtk[i]) {
+            if (this.redAtk[i]) {
                 atkPossible[i] = false;
             }
-            if(this.redDef[i]) {
+            if (this.redDef[i]) {
                 defPossible[i] = false;
             }
-            if(this.redSpd[i]) {
+            if (this.redSpd[i]) {
                 spdPossible[i] = false;
             }
-            if(this.redSpc[i]) {
+            if (this.redSpc[i]) {
                 spcPossible[i] = false;
             }
         }
@@ -1159,7 +1355,6 @@ extends JFrame {
                 this.redSpc[i] = true;
                 this.removeStat(4, i);
             }
-
         }
         return success;
     }
@@ -1180,23 +1375,23 @@ extends JFrame {
             int newSpd = -1;
             int newSpc = -1;
             for (i = 0; i < 16; ++i) {
-                if(!this.redHP[i]) {
+                if (!this.redHP[i]) {
                     ++possibleHP;
                     newHP = i;
                 }
-                if(!this.redAtk[i]) {
+                if (!this.redAtk[i]) {
                     ++possibleAtk;
                     newAtk = i;
                 }
-                if(!this.redDef[i]) {
+                if (!this.redDef[i]) {
                     ++possibleDef;
                     newDef = i;
                 }
-                if(!this.redSpd[i]) {
+                if (!this.redSpd[i]) {
                     ++possibleSpd;
                     newSpd = i;
                 }
-                if(!this.redSpc[i]) {
+                if (!this.redSpc[i]) {
                     ++possibleSpc;
                     newSpc = i;
                 }
@@ -1233,19 +1428,19 @@ extends JFrame {
             }
             if (!update) continue;
             for (i = 0; i < 16; ++i) {
-                if(this.redHP[i]) {
+                if (this.redHP[i]) {
                     this.removeStat(0, i);
                 }
-                if(this.redAtk[i]) {
+                if (this.redAtk[i]) {
                     this.removeStat(1, i);
                 }
-                if(this.redDef[i]) {
+                if (this.redDef[i]) {
                     this.removeStat(2, i);
                 }
-                if(this.redSpd[i]) {
+                if (this.redSpd[i]) {
                     this.removeStat(3, i);
                 }
-                if(this.redSpc[i]) {
+                if (this.redSpc[i]) {
                     this.removeStat(4, i);
                 }
             }
@@ -1269,35 +1464,35 @@ extends JFrame {
         int possibleSpd = 0;
         int possibleSpc = 0;
         for (int i = 0; i < 16; ++i) {
-            if(!this.redHP[i]) {
+            if (!this.redHP[i]) {
                 if (firstHP == -1) {
                     firstHP = i;
                 }
                 lastHP = i;
                 ++possibleHP;
             }
-            if(!this.redAtk[i]) {
+            if (!this.redAtk[i]) {
                 if (firstAtk == -1) {
                     firstAtk = i;
                 }
                 lastAtk = i;
                 ++possibleAtk;
             }
-            if(!this.redDef[i]) {
+            if (!this.redDef[i]) {
                 if (firstDef == -1) {
                     firstDef = i;
                 }
                 lastDef = i;
                 ++possibleDef;
             }
-            if(!this.redSpd[i]) {
+            if (!this.redSpd[i]) {
                 if (firstSpd == -1) {
                     firstSpd = i;
                 }
                 lastSpd = i;
                 ++possibleSpd;
             }
-            if(!this.redSpc[i]) {
+            if (!this.redSpc[i]) {
                 if (firstSpc == -1) {
                     firstSpc = i;
                 }
@@ -1331,15 +1526,25 @@ extends JFrame {
         this.spddv = -1;
         this.spcdv = -1;
         this.labelHPDV.setText("?");
-        this.labelHPDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
+        this.labelHPDV.setFont(
+                new Font(
+                        this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
         this.labelAtkDV.setText("?");
-        this.labelAtkDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
+        this.labelAtkDV.setFont(
+                new Font(
+                        this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
         this.labelDefDV.setText("?");
-        this.labelDefDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
+        this.labelDefDV.setFont(
+                new Font(
+                        this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
         this.labelSpdDV.setText("?");
-        this.labelSpdDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
+        this.labelSpdDV.setFont(
+                new Font(
+                        this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
         this.labelSpcDV.setText("?");
-        this.labelSpcDV.setFont(new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
+        this.labelSpcDV.setFont(
+                new Font(
+                        this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
     }
 
     public void setGame(Game game) {
@@ -1347,7 +1552,25 @@ extends JFrame {
     }
 
     private void about() {
-        String s = "<html><body><p style=\"font-family:'arial';font-size:9px;width:405px\">Pok\u00e9mon GSC DV Helper<br>Version: " + version + "<br><br>This is a GSC helper program developed by <a href='http://www.twitch.tv/entrpntr'>entrpntr</a>, derived from the Yellow Helper program designed by <a href='http://www.twitch.tv/Dailyleaf'>Dailyleaf</a>. The goal is making it easier for Pok\u00e9mon Gold & Crystal glitchless speedrunners to figure out DVs and plan ahead based on this knowledge." + "<br><br>DV Calculation:" + "<br><br>Stats Panel:" + "<br>Click what you see ingame, the program will do the math and eliminate impossible combinations." + "<br>Select (in order) the trainer Pokémon and wild encounters you killed and the program will keep track of your experience and stat experience automatically."  + "<br><br>Questions:" + "<br>If you have any questions, feel free to contact entrpntr on the PSR forums or on discord. The thread for GSC DV Helper can be found <a href='http://forums.pokemonspeedruns.com/viewtopic.php?f=116&t=512'>here</a>." + "<br><br>entrpntr's Credits:" + "<br><a href='http://www.twitch.tv/Dailyleaf'>Dailyleaf</a> - For making the original Red Helper and Yellow Helper programs." + "<br><br><em>Daily's Credits:" + "<br><a href='http://www.twitch.tv/BobChao87'>BobChao87</a> - For giving me the idea of how to make the DV calculator." + "<br><a href='http://www.twitch.tv/ExarionU'>ExarionU</a> - For providing the <a href='https://docs.google.com/spreadsheets/d/1mc4MIi2FWYsAoft1srthtEP--Oo36TXddMhQbG1NnB0/edit?pli=1#gid=0'>late-game strategy chart</a> that is used." + "<br><a href='http://www.twitch.tv/Masteri_Mori'>Masteri_Mori</a> - For providing a <a href='http://pastebin.com/Dnw1PE2U'>full list</a> of all possible DV combinations. Which helped me test my code. There are 364 possibilities missing in that list." + "<br><a href='http://www.twitch.tv/Masteri_Mori'>HRoll</a> - For making the amazing <a href='https://github.com/HRoll/poke-router'>RouteOne</a> pogram. It gave me a great insight in how all the calculations are done." + "<br><br>Daily's Shoutouts:" + "<br>Shoutouts to all the people in the Pok\u00e9mon Red skype-group for giving me feedback. Especially <a href='http://www.twitch.tv/dabomstew'>dabomstew</a> for some great help explaining how the calculations were done in RouteOne.</em>";
+        String s =
+                "<html><body><p style=\"FONT-family:'arial';FONT-size:9px;width:405px\">Pok\u00e9mon GSC DV Helper<br>Version: "
+                        + version
+                        + "<br><br>This is a GSC helper program developed by <a href='http://www.twitch.tv/entrpntr'>entrpntr</a>, derived from the Yellow Helper program designed by <a href='http://www.twitch.tv/Dailyleaf'>Dailyleaf</a>. The goal is making it easier for Pok\u00e9mon Gold & Crystal glitchless speedrunners to figure out DVs and plan ahead based on this knowledge."
+                        + "<br><br>DV Calculation:"
+                        + "<br><br>Stats Panel:"
+                        + "<br>Click what you see ingame, the program will do the math and eliminate impossible combinations."
+                        + "<br>Select (in order) the trainer Pokémon and wild encounters you killed and the program will keep track of your experience and stat experience automatically."
+                        + "<br><br>Questions:"
+                        + "<br>If you have any questions, feel free to contact entrpntr on the PSR forums or on discord. The thread for GSC DV Helper can be found <a href='http://forums.pokemonspeedruns.com/viewtopic.php?f=116&t=512'>here</a>."
+                        + "<br><br>entrpntr's Credits:"
+                        + "<br><a href='http://www.twitch.tv/Dailyleaf'>Dailyleaf</a> - For making the original Red Helper and Yellow Helper programs."
+                        + "<br><br><em>Daily's Credits:"
+                        + "<br><a href='http://www.twitch.tv/BobChao87'>BobChao87</a> - For giving me the idea of how to make the DV calculator."
+                        + "<br><a href='http://www.twitch.tv/ExarionU'>ExarionU</a> - For providing the <a href='https://docs.google.com/spreadsheets/d/1mc4MIi2FWYsAoft1srthtEP--Oo36TXddMhQbG1NnB0/edit?pli=1#gid=0'>late-game strategy chart</a> that is used."
+                        + "<br><a href='http://www.twitch.tv/Masteri_Mori'>Masteri_Mori</a> - For providing a <a href='http://pastebin.com/Dnw1PE2U'>full list</a> of all possible DV combinations. Which helped me test my code. There are 364 possibilities missing in that list."
+                        + "<br><a href='http://www.twitch.tv/Masteri_Mori'>HRoll</a> - For making the amazing <a href='https://github.com/HRoll/poke-router'>RouteOne</a> pogram. It gave me a great insight in how all the calculations are done."
+                        + "<br><br>Daily's Shoutouts:"
+                        + "<br>Shoutouts to all the people in the Pok\u00e9mon Red skype-group for giving me feedback. Especially <a href='http://www.twitch.tv/dabomstew'>dabomstew</a> for some great help explaining how the calculations were done in RouteOne.</em>";
         JEditorPane ep = new JEditorPane();
         ep.setEditorKit(JEditorPane.createEditorKitForContentType("text/html"));
         ep.setEditable(false);
@@ -1355,22 +1578,22 @@ extends JFrame {
         int caretPosition = ep.getCaretPosition();
         ep.setText(s);
         ep.setAlignmentX(0.0f);
-        ep.addHyperlinkListener(new HyperlinkListener(){
-            @Override
-            public void hyperlinkUpdate(HyperlinkEvent e) {
-                if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED && Desktop.isDesktopSupported()) {
-                    try {
-                        Desktop.getDesktop().browse(e.getURL().toURI());
+        ep.addHyperlinkListener(
+                new HyperlinkListener() {
+                    @Override
+                    public void hyperlinkUpdate(HyperlinkEvent e) {
+                        if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED
+                                && Desktop.isDesktopSupported()) {
+                            try {
+                                Desktop.getDesktop().browse(e.getURL().toURI());
+                            } catch (IOException e1) {
+                                e1.printStackTrace();
+                            } catch (URISyntaxException e1) {
+                                e1.printStackTrace();
+                            }
+                        }
                     }
-                    catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
-                    catch (URISyntaxException e1) {
-                        e1.printStackTrace();
-                    }
-                }
-            }
-        });
+                });
         ep.setCaretPosition(Math.min(caretPosition, s.length()));
         JScrollPane sp = new JScrollPane(ep);
         sp.setPreferredSize(new Dimension(550, 300));
@@ -1418,27 +1641,50 @@ extends JFrame {
             super.setForeground(c);
             if (this.labelBackground != null && c != null) {
                 if (HelperFrame.this.lastButtonPressed == HelperFrame.this.labelButtonTotoBackgroundColor) {
-                    this.labelBackground.setFont(new Font((String)HelperFrame.this.comboBoxTotoTitleFont.getSelectedItem(), HelperFrame.this.comboBoxTotoTitleFontExtra.getSelectedIndex(), (Integer)HelperFrame.this.spinnerTotoTitleSize.getValue()));
-                    this.labelBackground.setForeground(HelperFrame.this.labelButtonTotoTitleColor.getBackground());
+                    this.labelBackground.setFont(
+                            new Font(
+                                    (String) HelperFrame.this.comboBoxTotoTitleFont.getSelectedItem(),
+                                    HelperFrame.this.comboBoxTotoTitleFontExtra.getSelectedIndex(),
+                                    (Integer) HelperFrame.this.spinnerTotoTitleSize.getValue()));
+                    this.labelBackground.setForeground(
+                            HelperFrame.this.labelButtonTotoTitleColor.getBackground());
                     this.labelBackground.setBackground(c);
                     this.labelBackground.setPreferredSize(this.getTextSize());
                     this.labelBackground.setText(HelperFrame.this.textFieldTotoTitleText.getText());
-                } else if (HelperFrame.this.lastButtonPressed == HelperFrame.this.labelButtonTotoTitleColor) {
-                    this.labelBackground.setFont(new Font((String)HelperFrame.this.comboBoxTotoTitleFont.getSelectedItem(), HelperFrame.this.comboBoxTotoTitleFontExtra.getSelectedIndex(), (Integer)HelperFrame.this.spinnerTotoTitleSize.getValue()));
+                } else if (HelperFrame.this.lastButtonPressed
+                        == HelperFrame.this.labelButtonTotoTitleColor) {
+                    this.labelBackground.setFont(
+                            new Font(
+                                    (String) HelperFrame.this.comboBoxTotoTitleFont.getSelectedItem(),
+                                    HelperFrame.this.comboBoxTotoTitleFontExtra.getSelectedIndex(),
+                                    (Integer) HelperFrame.this.spinnerTotoTitleSize.getValue()));
                     this.labelBackground.setForeground(c);
-                    this.labelBackground.setBackground(HelperFrame.this.labelButtonTotoBackgroundColor.getBackground());
+                    this.labelBackground.setBackground(
+                            HelperFrame.this.labelButtonTotoBackgroundColor.getBackground());
                     this.labelBackground.setPreferredSize(this.getTextSize());
                     this.labelBackground.setText(HelperFrame.this.textFieldTotoTitleText.getText());
-                } else if (HelperFrame.this.lastButtonPressed == HelperFrame.this.labelButtonTotoColumnHeadersColor) {
-                    this.labelBackground.setFont(new Font((String)HelperFrame.this.comboBoxTotoColumnHeadersFont.getSelectedItem(), HelperFrame.this.comboBoxTotoColumnHeadersFontExtra.getSelectedIndex(), (Integer)HelperFrame.this.spinnerTotoColumnHeadersFontSize.getValue()));
+                } else if (HelperFrame.this.lastButtonPressed
+                        == HelperFrame.this.labelButtonTotoColumnHeadersColor) {
+                    this.labelBackground.setFont(
+                            new Font(
+                                    (String) HelperFrame.this.comboBoxTotoColumnHeadersFont.getSelectedItem(),
+                                    HelperFrame.this.comboBoxTotoColumnHeadersFontExtra.getSelectedIndex(),
+                                    (Integer) HelperFrame.this.spinnerTotoColumnHeadersFontSize.getValue()));
                     this.labelBackground.setForeground(c);
-                    this.labelBackground.setBackground(HelperFrame.this.labelButtonTotoBackgroundColor.getBackground());
+                    this.labelBackground.setBackground(
+                            HelperFrame.this.labelButtonTotoBackgroundColor.getBackground());
                     this.labelBackground.setPreferredSize(this.getTextSize());
                     this.labelBackground.setText("SPC");
-                } else if (HelperFrame.this.lastButtonPressed == HelperFrame.this.labelButtonTotoDVNumbersColor) {
-                    this.labelBackground.setFont(new Font((String)HelperFrame.this.comboBoxTotoDVNumbersFont.getSelectedItem(), HelperFrame.this.comboBoxTotoDVNumbersFontExtra.getSelectedIndex(), (Integer)HelperFrame.this.spinnerTotototoDVNumbersFontSizeSmall.getValue()));
+                } else if (HelperFrame.this.lastButtonPressed
+                        == HelperFrame.this.labelButtonTotoDVNumbersColor) {
+                    this.labelBackground.setFont(
+                            new Font(
+                                    (String) HelperFrame.this.comboBoxTotoDVNumbersFont.getSelectedItem(),
+                                    HelperFrame.this.comboBoxTotoDVNumbersFontExtra.getSelectedIndex(),
+                                    (Integer) HelperFrame.this.spinnerTotototoDVNumbersFontSizeSmall.getValue()));
                     this.labelBackground.setForeground(c);
-                    this.labelBackground.setBackground(HelperFrame.this.labelButtonTotoBackgroundColor.getBackground());
+                    this.labelBackground.setBackground(
+                            HelperFrame.this.labelButtonTotoBackgroundColor.getBackground());
                     this.labelBackground.setPreferredSize(this.getTextSize());
                     this.labelBackground.setText("10/15");
                 }
@@ -1449,7 +1695,15 @@ extends JFrame {
             Dimension size = new Dimension();
             FontMetrics fm = this.labelBackground.getFontMetrics(this.labelBackground.getFont());
             size.width = 0;
-            size.width = HelperFrame.this.lastButtonPressed == HelperFrame.this.labelButtonTotoBackgroundColor || HelperFrame.this.lastButtonPressed == HelperFrame.this.labelButtonTotoTitleColor ? fm.stringWidth(HelperFrame.this.textFieldTotoTitleText.getText()) + 15 : (HelperFrame.this.lastButtonPressed == HelperFrame.this.labelButtonTotoColumnHeadersColor ? fm.stringWidth("SPC") + 15 : fm.stringWidth("10/15") + 15);
+            size.width =
+                    HelperFrame.this.lastButtonPressed == HelperFrame.this.labelButtonTotoBackgroundColor
+                            || HelperFrame.this.lastButtonPressed
+                            == HelperFrame.this.labelButtonTotoTitleColor
+                            ? fm.stringWidth(HelperFrame.this.textFieldTotoTitleText.getText()) + 15
+                            : (HelperFrame.this.lastButtonPressed
+                            == HelperFrame.this.labelButtonTotoColumnHeadersColor
+                            ? fm.stringWidth("SPC") + 15
+                            : fm.stringWidth("10/15") + 15);
             size.height = fm.getHeight() + 5;
             return size;
         }

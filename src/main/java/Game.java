@@ -1,4 +1,4 @@
 public enum Game {
     GOLD,
-    CRYSTAL;
+    CRYSTAL
 }
