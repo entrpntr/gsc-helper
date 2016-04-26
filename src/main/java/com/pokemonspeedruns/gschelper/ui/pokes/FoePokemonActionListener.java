@@ -11,8 +11,7 @@ public class FoePokemonActionListener implements ActionListener {
     private FoePokemonEventCallback callback;
     private FoePokemon foe;
 
-    public FoePokemonActionListener(
-            GSCDVCalculatorPanel dvPanel, FoePokemon foe, FoePokemonEventCallback callback) {
+    public FoePokemonActionListener(GSCDVCalculatorPanel dvPanel, FoePokemon foe, FoePokemonEventCallback callback) {
         this.dvPanel = dvPanel;
         this.callback = callback;
         this.foe = foe;

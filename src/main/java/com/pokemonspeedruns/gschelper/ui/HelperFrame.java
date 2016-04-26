@@ -22,8 +22,9 @@ import java.net.URLDecoder;
 import java.util.Arrays;
 
 public class HelperFrame extends JFrame {
-    private static final long serialVersionUID = 6359843786380885160L;
-    private static final double version = 1.0;
+    private static final long serialVersionUID = -768493274726718272L;
+    private static final String version = "1.0";
+
     private JPanel main;
     private JPanel settings;
     private JPanel totodile;
@@ -1573,6 +1574,7 @@ public class HelperFrame extends JFrame {
                         + "<br>If you have any questions, feel free to contact entrpntr on the PSR forums or on discord. The thread for GSC DV Helper can be found <a href='http://forums.pokemonspeedruns.com/viewtopic.php?f=116&t=512'>here</a>."
                         + "<br><br>entrpntr's Credits:"
                         + "<br><a href='http://www.twitch.tv/Dailyleaf'>Dailyleaf</a> - For making the original Red Helper and Yellow Helper programs."
+                        + "<br><a href='http://www.twitch.tv/HorouIchigo'>HorouIchigo</a> - For most of the early feedback on the original GoldHelper."
                         + "<br><br><em>Daily's Credits:"
                         + "<br><a href='http://www.twitch.tv/BobChao87'>BobChao87</a> - For giving me the idea of how to make the DV calculator."
                         + "<br><a href='http://www.twitch.tv/ExarionU'>ExarionU</a> - For providing the <a href='https://docs.google.com/spreadsheets/d/1mc4MIi2FWYsAoft1srthtEP--Oo36TXddMhQbG1NnB0/edit?pli=1#gid=0'>late-game strategy chart</a> that is used."

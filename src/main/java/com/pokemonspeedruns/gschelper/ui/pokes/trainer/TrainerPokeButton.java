@@ -11,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TrainerPokeButton extends JButton {
+    private static final long serialVersionUID = -6237919316401953473L;
+
     public static final Font LEVEL_FONT = new Font(GSCHelper.FONT, Font.BOLD, 12);
     public static final int WIDTH = 73;
     public static final int HEIGHT = 50;
@@ -23,7 +25,8 @@ public class TrainerPokeButton extends JButton {
         this.setVerticalAlignment(JLabel.CENTER);
         this.setVerticalTextPosition(JLabel.CENTER);
         this.setHorizontalTextPosition(JLabel.RIGHT);
-        this.setIcon(new ImageIcon(getClass().getClassLoader().getResource(species.getSpriteFilename(dvPanel.getGame()))));
+        this.setIcon(
+                new ImageIcon(getClass().getClassLoader().getResource(species.getSpriteFilename(dvPanel.getGame()))));
         this.setMargin(new Insets(1, 0, 1, 0));
         this.setFont(LEVEL_FONT);
 

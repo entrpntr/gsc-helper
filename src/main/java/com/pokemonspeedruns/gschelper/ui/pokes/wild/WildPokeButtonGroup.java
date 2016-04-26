@@ -34,7 +34,10 @@ public class WildPokeButtonGroup {
         this.dvPanel = dvPanel;
         this.amountLabel = new JLabel("×0");
         this.amountLabel.setFont(new Font(GSCHelper.FONT, Font.BOLD, 20));
-        this.iconLabel = new JLabel(new ImageIcon(getClass().getClassLoader().getResource(species.getSpriteFilename(dvPanel.getGame()))));
+        this.iconLabel =
+                new JLabel(
+                        new ImageIcon(
+                                getClass().getClassLoader().getResource(species.getSpriteFilename(dvPanel.getGame()))));
         this.levelsArray = levelList.toArray(new Integer[numButtons]);
         Arrays.sort(levelsArray);
         this.foeButtons = new JButton[numButtons];

@@ -14,7 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CrystalTotoDVCalculatorPanel extends GSCDVCalculatorPanel {
-    private static final long serialVersionUID = -7545905343679467024L;
+    private static final long serialVersionUID = 7069756628960120967L;
 
     private WildPokeButtonGroup wildPidgeyGroup;
     private WildPokeButtonGroup wildSentretGroup;
@@ -106,7 +106,8 @@ public class CrystalTotoDVCalculatorPanel extends GSCDVCalculatorPanel {
         TrainerPokeButton russellGeodudeL4 = new TrainerPokeButton(this, Species.GEODUDE, 4);
         TrainerPokeButton russellGeodudeL6 = new TrainerPokeButton(this, Species.GEODUDE, 6);
         TrainerPokeButton russellGeodudeL8 = new TrainerPokeButton(this, Species.GEODUDE, 8);
-        russellGroup = new TrainerPokeButtonGroup(this, "RUSSELL", russellGeodudeL4, russellGeodudeL6, russellGeodudeL8);
+        russellGroup =
+                new TrainerPokeButtonGroup(this, "RUSSELL", russellGeodudeL4, russellGeodudeL6, russellGeodudeL8);
         russellGroup.initialize(501, 387);
         // BILL
         TrainerPokeButton billKoffingL6_1 = new TrainerPokeButton(this, Species.KOFFING, 6);

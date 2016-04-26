@@ -12,7 +12,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class GSCDVCalculatorPanel extends JPanel {
+    private static final long serialVersionUID = -4646462442805989745L;
     private static final Font DV_LABEL_FONT = new Font(GSCHelper.FONT, Font.BOLD, 19);
+
     private PartyPokemon starter;
     private Game game;
     private HelperFrame parent;
@@ -86,7 +88,9 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         labelSpc.setFont(DV_LABEL_FONT);
         labelSpc.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(labelSpc);
-        JLabel labelTotoIcon = new JLabel(new ImageIcon(getClass().getClassLoader().getResource(starter.getSpecies().getBackspriteFilename(game))));
+        JLabel labelTotoIcon = new JLabel(
+                new ImageIcon(
+                        getClass().getClassLoader().getResource(starter.getSpecies().getBackspriteFilename(game))));
         labelTotoIcon.setBounds(134, 4, 48, 48);
         this.add(labelTotoIcon);
         this.labelTotoLevel = new JLabel("Level: " + starter.getLevel());
