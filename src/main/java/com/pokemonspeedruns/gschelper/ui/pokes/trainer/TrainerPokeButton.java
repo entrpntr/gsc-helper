@@ -1,3 +1,12 @@
+package com.pokemonspeedruns.gschelper.ui.pokes.trainer;
+
+import com.pokemonspeedruns.gschelper.GSCHelper;
+import com.pokemonspeedruns.gschelper.model.FoePokemon;
+import com.pokemonspeedruns.gschelper.model.FoeType;
+import com.pokemonspeedruns.gschelper.model.Species;
+import com.pokemonspeedruns.gschelper.ui.dvs.GSCDVCalculatorPanel;
+import com.pokemonspeedruns.gschelper.ui.pokes.FoePokemonActionListener;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -14,8 +23,7 @@ public class TrainerPokeButton extends JButton {
         this.setVerticalAlignment(JLabel.CENTER);
         this.setVerticalTextPosition(JLabel.CENTER);
         this.setHorizontalTextPosition(JLabel.RIGHT);
-        this.setIcon(
-                new ImageIcon(getClass().getResource(species.getSpriteFilename(dvPanel.getGame()))));
+        this.setIcon(new ImageIcon(getClass().getClassLoader().getResource(species.getSpriteFilename(dvPanel.getGame()))));
         this.setMargin(new Insets(1, 0, 1, 0));
         this.setFont(LEVEL_FONT);
 

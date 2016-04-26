@@ -1,3 +1,7 @@
+package com.pokemonspeedruns.gschelper;
+
+import com.pokemonspeedruns.gschelper.ui.HelperFrame;
+
 import java.awt.*;
 import java.util.ArrayList;
 

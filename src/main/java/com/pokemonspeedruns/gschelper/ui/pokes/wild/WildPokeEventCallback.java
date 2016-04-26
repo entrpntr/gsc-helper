@@ -1,3 +1,7 @@
+package com.pokemonspeedruns.gschelper.ui.pokes.wild;
+
+import com.pokemonspeedruns.gschelper.ui.pokes.FoePokemonEventCallback;
+
 import javax.swing.*;
 
 public class WildPokeEventCallback implements FoePokemonEventCallback {

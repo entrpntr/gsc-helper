@@ -1,3 +1,5 @@
+package com.pokemonspeedruns.gschelper.model;
+
 public enum ExpCurve {
     SLOW,
     MEDIUM_SLOW,

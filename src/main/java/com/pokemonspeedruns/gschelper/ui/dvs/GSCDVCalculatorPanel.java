@@ -1,3 +1,12 @@
+package com.pokemonspeedruns.gschelper.ui.dvs;
+
+import com.pokemonspeedruns.gschelper.GSCHelper;
+import com.pokemonspeedruns.gschelper.model.Game;
+import com.pokemonspeedruns.gschelper.model.PartyPokemon;
+import com.pokemonspeedruns.gschelper.ui.HelperFrame;
+import com.pokemonspeedruns.gschelper.ui.stats.DVColumn;
+import com.pokemonspeedruns.gschelper.ui.stats.StatButton;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -77,10 +86,7 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         labelSpc.setFont(DV_LABEL_FONT);
         labelSpc.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(labelSpc);
-        JLabel labelTotoIcon =
-                new JLabel(
-                        new ImageIcon(
-                                getClass().getResource(starter.getSpecies().getBackspriteFilename(game))));
+        JLabel labelTotoIcon = new JLabel(new ImageIcon(getClass().getClassLoader().getResource(starter.getSpecies().getBackspriteFilename(game))));
         labelTotoIcon.setBounds(134, 4, 48, 48);
         this.add(labelTotoIcon);
         this.labelTotoLevel = new JLabel("Level: " + starter.getLevel());
@@ -237,7 +243,6 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
             this.defStats.get(i).getButton().setVisible(true);
             this.spdStats.get(i).setPossible(true);
             this.spdStats.get(i).getLabel().setVisible(true);
-
             this.spdStats.get(i).getButton().setVisible(true);
             this.spcStats.get(i).setPossible(true);
             this.spcStats.get(i).getLabel().setVisible(true);

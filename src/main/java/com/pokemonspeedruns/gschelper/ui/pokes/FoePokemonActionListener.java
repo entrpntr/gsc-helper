@@ -1,3 +1,8 @@
+package com.pokemonspeedruns.gschelper.ui.pokes;
+
+import com.pokemonspeedruns.gschelper.model.FoePokemon;
+import com.pokemonspeedruns.gschelper.ui.dvs.GSCDVCalculatorPanel;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

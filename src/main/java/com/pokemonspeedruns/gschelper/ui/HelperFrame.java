@@ -1,3 +1,12 @@
+package com.pokemonspeedruns.gschelper.ui;
+
+import com.pokemonspeedruns.gschelper.model.Game;
+import com.pokemonspeedruns.gschelper.model.PartyPokemon;
+import com.pokemonspeedruns.gschelper.model.Species;
+import com.pokemonspeedruns.gschelper.ui.dvs.GSCDVCalculatorPanel;
+import com.pokemonspeedruns.gschelper.ui.dvs.impl.CrystalTotoDVCalculatorPanel;
+import com.pokemonspeedruns.gschelper.ui.dvs.impl.GoldTotoDVCalculatorPanel;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
@@ -186,7 +195,7 @@ public class HelperFrame extends JFrame {
                     }
                 });
         this.settings.add(buttonAbout);
-        ImageIcon iconReset = new ImageIcon(getClass().getResource("reset.png"));
+        ImageIcon iconReset = new ImageIcon(getClass().getClassLoader().getResource("reset.png"));
         JButton buttonReset = new JButton(iconReset);
         buttonReset.setBounds(0, 10, 100, 100);
         buttonReset.setBorderPainted(false);

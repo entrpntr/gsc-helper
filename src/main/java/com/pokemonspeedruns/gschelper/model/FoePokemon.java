@@ -1,3 +1,5 @@
+package com.pokemonspeedruns.gschelper.model;
+
 public class FoePokemon {
     private Species species;
     private int level;

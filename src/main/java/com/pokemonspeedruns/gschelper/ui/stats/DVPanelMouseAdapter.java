@@ -1,3 +1,7 @@
+package com.pokemonspeedruns.gschelper.ui.stats;
+
+import com.pokemonspeedruns.gschelper.ui.HelperFrame;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;

@@ -1,3 +1,12 @@
+package com.pokemonspeedruns.gschelper.ui.pokes.wild;
+
+import com.pokemonspeedruns.gschelper.GSCHelper;
+import com.pokemonspeedruns.gschelper.model.FoePokemon;
+import com.pokemonspeedruns.gschelper.model.FoeType;
+import com.pokemonspeedruns.gschelper.model.Species;
+import com.pokemonspeedruns.gschelper.ui.dvs.GSCDVCalculatorPanel;
+import com.pokemonspeedruns.gschelper.ui.pokes.FoePokemonActionListener;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
@@ -25,9 +34,7 @@ public class WildPokeButtonGroup {
         this.dvPanel = dvPanel;
         this.amountLabel = new JLabel("×0");
         this.amountLabel.setFont(new Font(GSCHelper.FONT, Font.BOLD, 20));
-        this.iconLabel =
-                new JLabel(
-                        new ImageIcon(getClass().getResource(species.getSpriteFilename(dvPanel.getGame()))));
+        this.iconLabel = new JLabel(new ImageIcon(getClass().getClassLoader().getResource(species.getSpriteFilename(dvPanel.getGame()))));
         this.levelsArray = levelList.toArray(new Integer[numButtons]);
         Arrays.sort(levelsArray);
         this.foeButtons = new JButton[numButtons];

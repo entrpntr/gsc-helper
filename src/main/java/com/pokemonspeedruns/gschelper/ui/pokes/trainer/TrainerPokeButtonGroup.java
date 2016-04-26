@@ -1,3 +1,8 @@
+package com.pokemonspeedruns.gschelper.ui.pokes.trainer;
+
+import com.pokemonspeedruns.gschelper.GSCHelper;
+import com.pokemonspeedruns.gschelper.ui.dvs.GSCDVCalculatorPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;

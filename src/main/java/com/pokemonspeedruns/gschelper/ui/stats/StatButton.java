@@ -1,3 +1,8 @@
+package com.pokemonspeedruns.gschelper.ui.stats;
+
+import com.pokemonspeedruns.gschelper.GSCHelper;
+import com.pokemonspeedruns.gschelper.ui.dvs.GSCDVCalculatorPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
