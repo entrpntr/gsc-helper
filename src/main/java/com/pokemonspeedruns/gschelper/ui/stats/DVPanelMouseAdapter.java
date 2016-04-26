@@ -14,7 +14,7 @@ public class DVPanelMouseAdapter extends MouseAdapter {
     private DVColumn column;
     private int dv;
 
-    DVPanelMouseAdapter(HelperFrame parent, JLabel label, JButton button, DVColumn column, int dv) {
+    public DVPanelMouseAdapter(HelperFrame parent, JLabel label, JButton button, DVColumn column, int dv) {
         this.parent = parent;
         this.label = label;
         this.button = button;

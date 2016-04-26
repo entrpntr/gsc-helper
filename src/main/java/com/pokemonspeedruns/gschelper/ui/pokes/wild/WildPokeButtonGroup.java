@@ -59,7 +59,7 @@ public class WildPokeButtonGroup {
 
     // Convoluted way of lining up buttons when you don't want them right aligned with the icon.
     // For example, L2-L3 Sentret lined up below L2-L4 Pidgey. Aligning L2 and L3 with Pidgey's will cause a gap.
-    // So, rightmostLevel in this exmample would be 4 for the Sentret group.
+    // So, rightmostLevel in this example would be 4 for the Sentret group.
     public void initializeWithOffset(int iconX, int iconY, int rightmostLevel) {
         this.amountLabel.setBounds(iconX + 43, iconY + 9, AMOUNT_WIDTH, AMOUNT_HEIGHT);
         this.dvPanel.add(this.amountLabel);

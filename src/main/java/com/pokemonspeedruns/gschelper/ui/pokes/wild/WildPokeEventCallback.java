@@ -5,7 +5,7 @@ import com.pokemonspeedruns.gschelper.ui.pokes.FoePokemonEventCallback;
 import javax.swing.*;
 
 public class WildPokeEventCallback implements FoePokemonEventCallback {
-    JLabel amountLabel;
+    private JLabel amountLabel;
 
     public WildPokeEventCallback(JLabel amountLabel) {
         this.amountLabel = amountLabel;

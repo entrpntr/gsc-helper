@@ -5,7 +5,7 @@ import com.pokemonspeedruns.gschelper.ui.pokes.FoePokemonEventCallback;
 import javax.swing.*;
 
 public class TrainerPokeEventCallback implements FoePokemonEventCallback {
-    JButton pokeButton;
+    private JButton pokeButton;
 
     public TrainerPokeEventCallback(JButton pokeButton) {
         this.pokeButton = pokeButton;
