@@ -1,5 +1,11 @@
 GSCHelper - a DV calculator and routing tool for Pokémon Gold/Silver/Crystal speedruns
 
+GSCHelper was derived from YellowHelper by Dailyleaf. Per Dailyleaf's request, if you choose to reuse this code, please
+credit him, as well as BobChao87 (for his work on a prior DV calculator that inspired RedHelder and YellowHelper).
+Keeping this notice in your source code repository suffices for this purpose.
+
+Also per Dailyleaf's request, please do not ask for donations for any work that reuses this code.
+
     Copyright (C) 2016 entrpntr
 
     This program is free software: you can redistribute it and/or modify
@@ -16,8 +22,3 @@ GSCHelper - a DV calculator and routing tool for Pokémon Gold/Silver/Crystal sp
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Pokémon is owned by Nintendo.
-
-GSCHelper was derived from YellowHelper by Dailyleaf. Per Dailyleaf's request, if you choose to reuse this code, please
-credit him, as well as BobChao87 (for his work on a prior DV calculator that served as inspiration for Red and Yellow
-Helper). Also per Dailyleaf's request, please do not ask for donations for any work that reuses this code. Keeping this
-notice in your source code repository suffices for this purpose.
