@@ -15,18 +15,23 @@ public class PartyPokemon {
     private int defStatExp = 0;
     private int spdStatExp = 0;
     private int spcStatExp = 0;
-    // TODO: This shouldn't be hardcoded.
-    private int baseHP = 50;
-    private int baseAtk = 65;
-    private int baseDef = 64;
-    private int baseSpA = 44;
-    private int baseSpD = 48;
-    private int baseSpe = 43;
+
+    private int baseHP;
+    private int baseAtk;
+    private int baseDef;
+    private int baseSpA;
+    private int baseSpD;
+    private int baseSpe;
 
     public PartyPokemon(Species species, int level) {
         this.species = species;
         this.level = level;
         this.startLevel = level;
+        this.baseHP = species.getBaseHP();
+        this.baseAtk = species.getBaseAtk();
+        this.baseDef = species.getBaseDef();
+        this.baseSpA = species.getBaseSpcAtk();
+        this.baseSpD = species.getBaseSpcDef();
         setExpForLevel(level);
     }
 
@@ -94,8 +99,8 @@ public class PartyPokemon {
         exp = ExpCurve.lowestExpForLevel(species.getExpCurve(), level);
     }
 
-    public static int expGiven(FoePokemon foe) {
-        return (foe.getSpecies().getKillExp())
+    public static int expGiven(FoePokemon foe, int participants) {
+        return (foe.getSpecies().getKillExp() / participants)
                 * foe.getLevel()
                 / 7
                 * 3
@@ -109,8 +114,7 @@ public class PartyPokemon {
     public boolean rekt(FoePokemon foe, int nrOfPokemon) {
         boolean gainedLevel = false;
         addStatExp(foe.getSpecies(), nrOfPokemon);
-        // TODO: Fix this apparent bug; doesn't seem to account for number of participants
-        exp += expGiven(foe);
+        exp += expGiven(foe, nrOfPokemon);
         while (ExpCurve.lowestExpForLevel(species.getExpCurve(), level + 1) <= exp) {
             level++;
             hp_ev_used = hpStatExp;
