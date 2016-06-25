@@ -8,8 +8,10 @@ import com.pokemonspeedruns.gschelper.ui.stats.DVColumn;
 import com.pokemonspeedruns.gschelper.ui.stats.StatButton;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public abstract class GSCDVCalculatorPanel extends JPanel {
     private static final long serialVersionUID = -4646462442805989745L;
@@ -30,10 +32,38 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
     private ArrayList<StatButton> spdStats;
     private ArrayList<StatButton> spcStats;
 
+    private int hpdv;
+    private int atkdv;
+    private int defdv;
+    private int spddv;
+    private int spcdv;
+
+    private JLabel labelHPDV;
+    private JLabel labelAtkDV;
+    private JLabel labelDefDV;
+    private JLabel labelSpdDV;
+    private JLabel labelSpcDV;
+
+    private JPanel totodile;
+    private JPanel totodileDVSPanel;
+
+    private JLabel labelTitle;
+
+    private JLabel labelHP;
+    private JLabel labelAtk;
+    private JLabel labelDef;
+    private JLabel labelSpd;
+    private JLabel labelSpc;
+
     public GSCDVCalculatorPanel(HelperFrame parent, Game game, PartyPokemon starter) {
         this.parent = parent;
         this.game = game;
         this.starter = starter;
+        this.hpdv = -1;
+        this.atkdv = -1;
+        this.defdv = -1;
+        this.spddv = -1;
+        this.spcdv = -1;
         this.setLayout(null);
         this.setBounds(0, 0, 792, 594);
         this.setBackground(null);
@@ -51,8 +81,62 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
     }
 
     public void init() {
+        initTotodile();
         initMainPanel();
         initAction();
+    }
+
+    private void initTotodile() {
+        this.totodile = new JPanel();
+        this.totodile.setBackground(this.parent.getTotoBackgroundColor());
+        this.totodile.setBounds(0, 612, this.parent.getTotoWidth(), this.parent.getTotoHeight());
+        this.totodile.setLayout(new BorderLayout());
+        this.totodile.setBorder(new EmptyBorder(5, 5, 0, 5));
+        this.labelTitle = new JLabel(this.parent.getTotoTitleText(), SwingConstants.CENTER);
+        this.labelTitle.setFont(new Font(this.parent.getTotoTitleFont(), this.parent.getTotoTitleFontExtra(), this.parent.getTotoTitleFontSize()));
+        this.totodile.add(this.labelTitle, "North");
+        this.totodileDVSPanel = new JPanel();
+        this.totodileDVSPanel.setBackground(this.parent.getTotoBackgroundColor());
+        this.totodileDVSPanel.setLayout(new GridLayout(2, 3));
+        this.totodileDVSPanel.setBorder(new EmptyBorder(5, 0, 5, 0));
+        this.labelHP = new JLabel("HP", SwingConstants.CENTER);
+
+        Font columnHeadersFont =
+                new Font(this.parent.getTotoColumnHeadersFont(), this.parent.getTotoColumnHeadersFontExtra(), this.parent.getTotoColumnHeadersFontSize());
+        this.labelHP.setFont(columnHeadersFont);
+        this.totodileDVSPanel.add(this.labelHP);
+        this.labelAtk = new JLabel("ATK", SwingConstants.CENTER);
+        this.labelAtk.setFont(columnHeadersFont);
+        this.totodileDVSPanel.add(this.labelAtk);
+        this.labelDef = new JLabel("DEF", SwingConstants.CENTER);
+        this.labelDef.setFont(columnHeadersFont);
+        this.totodileDVSPanel.add(this.labelDef);
+        this.labelSpd = new JLabel("SPD", SwingConstants.CENTER);
+        this.labelSpd.setFont(columnHeadersFont);
+        this.totodileDVSPanel.add(this.labelSpd);
+        this.labelSpc = new JLabel("SPC", SwingConstants.CENTER);
+        this.labelSpc.setFont(columnHeadersFont);
+        this.totodileDVSPanel.add(this.labelSpc);
+
+        Font dvNumbersFont =
+                new Font(this.parent.getTotoDVNumbersFont(), this.parent.getTotoDVNumbersFontExtra(), this.parent.getTotoDVNumbersFontSizeBig());
+        this.labelHPDV = new JLabel("?", SwingConstants.CENTER);
+        this.labelHPDV.setFont(dvNumbersFont);
+        this.totodileDVSPanel.add(this.labelHPDV);
+        this.labelAtkDV = new JLabel("?", SwingConstants.CENTER);
+        this.labelAtkDV.setFont(dvNumbersFont);
+        this.totodileDVSPanel.add(this.labelAtkDV);
+        this.labelDefDV = new JLabel("?", SwingConstants.CENTER);
+        this.labelDefDV.setFont(dvNumbersFont);
+        this.totodileDVSPanel.add(this.labelDefDV);
+        this.labelSpdDV = new JLabel("?", SwingConstants.CENTER);
+        this.labelSpdDV.setFont(dvNumbersFont);
+        this.totodileDVSPanel.add(this.labelSpdDV);
+        this.labelSpcDV = new JLabel("?", SwingConstants.CENTER);
+        this.labelSpcDV.setFont(dvNumbersFont);
+        this.totodileDVSPanel.add(this.labelSpcDV);
+        this.totodile.add(this.totodileDVSPanel, "Center");
+        this.parent.getMainPanel().add(this.totodile);
     }
 
     private void initMainPanel() {
@@ -234,7 +318,24 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
 
     public void resetStats() {
         int i;
+        this.hpdv = -1;
+        this.atkdv = -1;
+        this.defdv = -1;
+        this.spddv = -1;
+        this.spcdv = -1;
         starter.reset();
+        Font dvNumbersFont =
+                new Font(this.parent.getTotoDVNumbersFont(), this.parent.getTotoDVNumbersFontExtra(), this.parent.getTotoDVNumbersFontSizeBig());
+        this.labelHPDV.setText("?");
+        this.labelHPDV.setFont(dvNumbersFont);
+        this.labelAtkDV.setText("?");
+        this.labelAtkDV.setFont(dvNumbersFont);
+        this.labelDefDV.setText("?");
+        this.labelDefDV.setFont(dvNumbersFont);
+        this.labelSpdDV.setText("?");
+        this.labelSpdDV.setFont(dvNumbersFont);
+        this.labelSpcDV.setText("?");
+        this.labelSpcDV.setFont(dvNumbersFont);
         for (i = 0; i < 16; ++i) {
             this.hpStats.get(i).setPossible(true);
             this.hpStats.get(i).getLabel().setVisible(true);
@@ -580,7 +681,343 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
                 }
             }
         }
-        this.parent.updateDVPanel(this.redHP, this.redAtk, this.redDef, this.redSpd, this.redSpc);
+        this.updateDVPanel(this.redHP, this.redAtk, this.redDef, this.redSpd, this.redSpc);
+    }
+
+    public void updateDVPanel(
+            boolean[] redHP, boolean[] redAtk, boolean[] redDef, boolean[] redSpd, boolean[] redSpc) {
+        this.externalRed(redHP, redAtk, redDef, redSpd, redSpc);
+    }
+
+    public void externalRed(
+            boolean[] redHP, boolean[] redAtk, boolean[] redDef, boolean[] redSpd, boolean[] redSpc) {
+        for (int i = 0; i < 16; ++i) {
+            if (redHP[i]) {
+                this.redHP[i] = redHP[i];
+            }
+            if (redAtk[i]) {
+                this.redAtk[i] = redAtk[i];
+            }
+            if (redDef[i]) {
+                this.redDef[i] = redDef[i];
+            }
+            if (redSpd[i]) {
+                this.redSpd[i] = redSpd[i];
+            }
+            if (!redSpc[i]) continue;
+            this.redSpc[i] = redSpc[i];
+        }
+        while (this.removeByRanges()) {
+            // empty while loop
+        }
+        this.setOnlyDV();
+        this.updateLabels();
+    }
+
+    private boolean removeByRanges() {
+        boolean success = false;
+        boolean[] hpPossible = new boolean[16];
+        boolean[] atkPossible = new boolean[16];
+        boolean[] defPossible = new boolean[16];
+        boolean[] spdPossible = new boolean[16];
+        boolean[] spcPossible = new boolean[16];
+        if (this.hpdv == -1) {
+            Arrays.fill(hpPossible, true);
+        } else {
+            Arrays.fill(hpPossible, false);
+            hpPossible[this.hpdv] = true;
+        }
+        if (this.atkdv == -1) {
+            Arrays.fill(atkPossible, true);
+        } else {
+            Arrays.fill(atkPossible, false);
+            atkPossible[this.atkdv] = true;
+        }
+        if (this.defdv == -1) {
+            Arrays.fill(defPossible, true);
+        } else {
+            Arrays.fill(defPossible, false);
+            defPossible[this.defdv] = true;
+        }
+        if (this.spddv == -1) {
+            Arrays.fill(spdPossible, true);
+        } else {
+            Arrays.fill(spdPossible, false);
+            spdPossible[this.spddv] = true;
+        }
+        if (this.spcdv == -1) {
+            Arrays.fill(spcPossible, true);
+        } else {
+            Arrays.fill(spcPossible, false);
+            spcPossible[this.spcdv] = true;
+        }
+        for (int i = 0; i < 16; ++i) {
+            if (this.redHP[i]) {
+                hpPossible[i] = false;
+            }
+            if (this.redAtk[i]) {
+                atkPossible[i] = false;
+            }
+            if (this.redDef[i]) {
+                defPossible[i] = false;
+            }
+            if (this.redSpd[i]) {
+                spdPossible[i] = false;
+            }
+            if (this.redSpc[i]) {
+                spcPossible[i] = false;
+            }
+        }
+        boolean[] newHPRed = new boolean[16];
+        boolean[] newAtkRed = new boolean[16];
+        boolean[] newDefRed = new boolean[16];
+        boolean[] newSpdRed = new boolean[16];
+        boolean[] newSpcRed = new boolean[16];
+        Arrays.fill(newHPRed, false);
+        Arrays.fill(newAtkRed, false);
+        Arrays.fill(newDefRed, false);
+        Arrays.fill(newSpdRed, false);
+        Arrays.fill(newSpcRed, false);
+        for (int i = 0; i < 16; ++i) {
+            if (!atkPossible[i]) continue;
+            for (int j = 0; j < 16; ++j) {
+                if (!defPossible[j]) continue;
+                for (int k = 0; k < 16; ++k) {
+                    if (!spdPossible[k]) continue;
+                    for (int l = 0; l < 16; ++l) {
+                        if (!spcPossible[l]) continue;
+                        if (!hpPossible[i % 2 * 8 + j % 2 * 4 + k % 2 * 2 + l % 2]) continue;
+                        newHPRed[i % 2 * 8 + j % 2 * 4 + k % 2 * 2 + l % 2] = true;
+                        newAtkRed[i] = true;
+                        newDefRed[j] = true;
+                        newSpdRed[k] = true;
+                        newSpcRed[l] = true;
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < 16; ++i) {
+            if (hpPossible[i] && !newHPRed[i]) {
+                success = true;
+                this.redHP[i] = true;
+                this.removeStat(0, i);
+            }
+            if (atkPossible[i] && !newAtkRed[i]) {
+                success = true;
+                this.redAtk[i] = true;
+                this.removeStat(1, i);
+            }
+            if (defPossible[i] && !newDefRed[i]) {
+                success = true;
+                this.redDef[i] = true;
+                this.removeStat(2, i);
+            }
+            if (spdPossible[i] && !newSpdRed[i]) {
+                success = true;
+                this.redSpd[i] = true;
+                this.removeStat(3, i);
+            }
+            if (spcPossible[i] && !newSpcRed[i]) {
+                success = true;
+                this.redSpc[i] = true;
+                this.removeStat(4, i);
+            }
+        }
+        return success;
+    }
+
+    private void setOnlyDV() {
+        boolean update = true;
+        while (update) {
+            int i;
+            update = false;
+            int possibleHP = 0;
+            int possibleAtk = 0;
+            int possibleDef = 0;
+            int possibleSpd = 0;
+            int possibleSpc = 0;
+            int newHP = -1;
+            int newAtk = -1;
+            int newDef = -1;
+            int newSpd = -1;
+            int newSpc = -1;
+            for (i = 0; i < 16; ++i) {
+                if (!this.redHP[i]) {
+                    ++possibleHP;
+                    newHP = i;
+                }
+                if (!this.redAtk[i]) {
+                    ++possibleAtk;
+                    newAtk = i;
+                }
+                if (!this.redDef[i]) {
+                    ++possibleDef;
+                    newDef = i;
+                }
+                if (!this.redSpd[i]) {
+                    ++possibleSpd;
+                    newSpd = i;
+                }
+                if (!this.redSpc[i]) {
+                    ++possibleSpc;
+                    newSpc = i;
+                }
+            }
+            if (possibleHP == 1) {
+                if (this.hpdv != newHP) {
+                    update = true;
+                }
+                this.hpdv = newHP;
+            }
+            if (possibleAtk == 1) {
+                if (this.atkdv != newAtk) {
+                    update = true;
+                }
+                this.atkdv = newAtk;
+            }
+            if (possibleDef == 1) {
+                if (this.defdv != newDef) {
+                    update = true;
+                }
+                this.defdv = newDef;
+            }
+            if (possibleSpd == 1) {
+                if (this.spddv != newSpd) {
+                    update = true;
+                }
+                this.spddv = newSpd;
+            }
+            if (possibleSpc == 1) {
+                if (this.spcdv != newSpc) {
+                    update = true;
+                }
+                this.spcdv = newSpc;
+            }
+            if (!update) continue;
+            for (i = 0; i < 16; ++i) {
+                if (this.redHP[i]) {
+                    this.removeStat(0, i);
+                }
+                if (this.redAtk[i]) {
+                    this.removeStat(1, i);
+                }
+                if (this.redDef[i]) {
+                    this.removeStat(2, i);
+                }
+                if (this.redSpd[i]) {
+                    this.removeStat(3, i);
+                }
+                if (this.redSpc[i]) {
+                    this.removeStat(4, i);
+                }
+            }
+        }
+    }
+
+    private void updateLabels() {
+        int firstHP = -1;
+        int firstAtk = -1;
+        int firstDef = -1;
+        int firstSpd = -1;
+        int firstSpc = -1;
+        int lastHP = -1;
+        int lastAtk = -1;
+        int lastDef = -1;
+        int lastSpd = -1;
+        int lastSpc = -1;
+        int possibleHP = 0;
+        int possibleAtk = 0;
+        int possibleDef = 0;
+        int possibleSpd = 0;
+        int possibleSpc = 0;
+        for (int i = 0; i < 16; ++i) {
+            if (!this.redHP[i]) {
+                if (firstHP == -1) {
+                    firstHP = i;
+                }
+                lastHP = i;
+                ++possibleHP;
+            }
+            if (!this.redAtk[i]) {
+                if (firstAtk == -1) {
+                    firstAtk = i;
+                }
+                lastAtk = i;
+                ++possibleAtk;
+            }
+            if (!this.redDef[i]) {
+                if (firstDef == -1) {
+                    firstDef = i;
+                }
+                lastDef = i;
+                ++possibleDef;
+            }
+            if (!this.redSpd[i]) {
+                if (firstSpd == -1) {
+                    firstSpd = i;
+                }
+                lastSpd = i;
+                ++possibleSpd;
+            }
+            if (!this.redSpc[i]) {
+                if (firstSpc == -1) {
+                    firstSpc = i;
+                }
+                lastSpc = i;
+                ++possibleSpc;
+            }
+        }
+        this.updateToto(0, firstHP, lastHP, possibleHP);
+        this.updateToto(1, firstAtk, lastAtk, possibleAtk);
+        this.updateToto(2, firstDef, lastDef, possibleDef);
+        this.updateToto(3, firstSpd, lastSpd, possibleSpd);
+        this.updateToto(4, firstSpc, lastSpc, possibleSpc);
+    }
+
+    public void updateToto(
+            final int column, final int first, final int last, final int possibilities) {
+        if (first < 0 || first > 15 || last < 0 || last > 15) {
+            return;
+        }
+        JLabel labelColumn;
+        if (column == 0) {
+            labelColumn = this.labelHPDV;
+        } else if (column == 1) {
+            labelColumn = this.labelAtkDV;
+        } else if (column == 2) {
+            labelColumn = this.labelDefDV;
+        } else if (column == 3) {
+            labelColumn = this.labelSpdDV;
+        } else if (column == 4) {
+            labelColumn = this.labelSpcDV;
+        } else {
+            return;
+        }
+        if (first == last) {
+            labelColumn.setFont(
+                    new Font(
+                            this.parent.getTotoDVNumbersFont(), this.parent.getTotoDVNumbersFontExtra(), this.parent.getTotoDVNumbersFontSizeBig()));
+            labelColumn.setText("" + first);
+        } else if (possibilities == 2) {
+            labelColumn.setFont(
+                    new Font(
+                            this.parent.getTotoDVNumbersFont(),
+                            this.parent.getTotoDVNumbersFontExtra(),
+                            this.parent.getTotoDVNumbersFontSizeSmall()));
+            labelColumn.setText(String.valueOf(first) + "/" + last);
+        } else if (last - first < 10) {
+            labelColumn.setFont(
+                    new Font(
+                            this.parent.getTotoDVNumbersFont(),
+                            this.parent.getTotoDVNumbersFontExtra(),
+                            this.parent.getTotoDVNumbersFontSizeSmall()));
+            labelColumn.setText(String.valueOf(first) + "-" + last);
+        } else {
+            labelColumn.setFont(
+                    new Font(
+                            this.parent.getTotoDVNumbersFont(), this.parent.getTotoDVNumbersFontExtra(), this.parent.getTotoDVNumbersFontSizeBig()));
+            labelColumn.setText("?");
+        }
     }
 
     private boolean hasEven(ArrayList<StatButton> list) {
@@ -601,5 +1038,83 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
             break;
         }
         return odd;
+    }
+
+    public void manuallySelectDV(int column, int dv) {
+        boolean[] redValues = new boolean[16];
+        Arrays.fill(redValues, Boolean.TRUE);
+        redValues[dv] = false;
+        if (column == 0) {
+            externalRed(redValues, redAtk, redDef, redSpd, redSpc);
+        } else if (column == 1) {
+            externalRed(redHP, redValues, redDef, redSpd, redSpc);
+        } else if (column == 2) {
+            externalRed(redHP, redAtk, redValues, redSpd, redSpc);
+        } else if (column == 3) {
+            externalRed(redHP, redAtk, redDef, redValues, redSpc);
+        } else if (column == 4) {
+            externalRed(redHP, redAtk, redDef, redSpd, redValues);
+        }
+    }
+
+    public void updateTotoLookAndFeel() {
+        this.totodile.setSize(this.parent.getTotoWidth(), this.parent.getTotoHeight());
+        int borderLeftRight = this.parent.getTotoWidth() / 72;
+        int borderTopBottom = this.parent.getTotoHeight() / 24;
+        this.totodile.setBorder(new EmptyBorder(borderTopBottom, borderLeftRight, 0, borderLeftRight));
+        this.totodile.setBackground(this.parent.getTotoBackgroundColor());
+        this.totodileDVSPanel.setBackground(this.parent.getTotoBackgroundColor());
+        this.totodileDVSPanel.setBorder(new EmptyBorder(borderTopBottom, 0, borderTopBottom, 0));
+        this.labelTitle.setText(this.parent.getTotoTitleText());
+        this.labelTitle.setFont(new Font(this.parent.getTotoTitleFont(), this.parent.getTotoTitleFontExtra(), this.parent.getTotoTitleFontSize()));
+        this.labelTitle.setForeground(this.parent.getTotoTitleColor());
+
+        Font columnHeadersFont =
+                new Font(this.parent.getTotoColumnHeadersFont(), this.parent.getTotoColumnHeadersFontExtra(), this.parent.getTotoColumnHeadersFontSize());
+        this.labelHP.setFont(columnHeadersFont);
+        this.labelHP.setForeground(this.parent.getTotoColumnHeadersColor());
+        this.labelAtk.setFont(columnHeadersFont);
+        this.labelAtk.setForeground(this.parent.getTotoColumnHeadersColor());
+        this.labelDef.setFont(columnHeadersFont);
+        this.labelDef.setForeground(this.parent.getTotoColumnHeadersColor());
+        this.labelSpd.setFont(columnHeadersFont);
+        this.labelSpd.setForeground(this.parent.getTotoColumnHeadersColor());
+        this.labelSpc.setFont(columnHeadersFont);
+        this.labelSpc.setForeground(this.parent.getTotoColumnHeadersColor());
+        this.labelHPDV.setForeground(this.parent.getTotoDVNumbersColor());
+        this.labelAtkDV.setForeground(this.parent.getTotoDVNumbersColor());
+        this.labelDefDV.setForeground(this.parent.getTotoDVNumbersColor());
+        this.labelSpdDV.setForeground(this.parent.getTotoDVNumbersColor());
+        this.labelSpcDV.setForeground(this.parent.getTotoDVNumbersColor());
+
+        Font dvNumbersBig =
+                new Font(this.parent.getTotoDVNumbersFont(), this.parent.getTotoDVNumbersFontExtra(), this.parent.getTotoDVNumbersFontSizeBig());
+        Font dvNumbersSmall =
+                new Font(this.parent.getTotoDVNumbersFont(), this.parent.getTotoDVNumbersFontExtra(), this.parent.getTotoDVNumbersFontSizeSmall());
+        if (this.labelHPDV.getText().length() <= 2) {
+            this.labelHPDV.setFont(dvNumbersBig);
+        } else {
+            this.labelHPDV.setFont(dvNumbersSmall);
+        }
+        if (this.labelAtkDV.getText().length() <= 2) {
+            this.labelAtkDV.setFont(dvNumbersBig);
+        } else {
+            this.labelAtkDV.setFont(dvNumbersSmall);
+        }
+        if (this.labelDefDV.getText().length() <= 2) {
+            this.labelDefDV.setFont(dvNumbersBig);
+        } else {
+            this.labelDefDV.setFont(dvNumbersSmall);
+        }
+        if (this.labelSpdDV.getText().length() <= 2) {
+            this.labelSpdDV.setFont(dvNumbersBig);
+        } else {
+            this.labelSpdDV.setFont(dvNumbersSmall);
+        }
+        if (this.labelSpcDV.getText().length() <= 2) {
+            this.labelSpcDV.setFont(dvNumbersBig);
+        } else {
+            this.labelSpcDV.setFont(dvNumbersSmall);
+        }
     }
 }

@@ -61,8 +61,7 @@ public class StatButton {
         this.label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         this.label.setHorizontalAlignment(SwingConstants.RIGHT);
         this.makeButton("" + value, x - 6, y + 79);
-        label.addMouseListener(
-                new DVPanelMouseAdapter(dvCalcPanel.getHelperFrame(), label, button, column, dv));
+        label.addMouseListener(new DVPanelMouseAdapter(dvCalcPanel, label, button, column, dv));
     }
 
     private void makeButton(String text, int x, int y) {

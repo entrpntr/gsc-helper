@@ -8,7 +8,6 @@ import com.pokemonspeedruns.gschelper.ui.dvs.impl.CrystalTotoDVCalculatorPanel;
 import com.pokemonspeedruns.gschelper.ui.dvs.impl.GoldTotoDVCalculatorPanel;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.event.*;
 import java.awt.*;
@@ -19,7 +18,6 @@ import java.lang.reflect.Field;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.util.Arrays;
 
 public class HelperFrame extends JFrame {
     private static final long serialVersionUID = -768493274726718272L;
@@ -27,8 +25,7 @@ public class HelperFrame extends JFrame {
 
     private JPanel main;
     private JPanel settings;
-    private JPanel totodile;
-    private JPanel totodileDVSPanel;
+
     private GSCDVCalculatorPanel calc;
     private final GoldTotoDVCalculatorPanel goldCalc;
     private final CrystalTotoDVCalculatorPanel crystalCalc;
@@ -40,36 +37,10 @@ public class HelperFrame extends JFrame {
     private JLabel lastButtonPressed = null;
     private int baseWidth = 800;
     private int baseHeight = 740;
-    private int totoWidth = 240;
-    private int totoHeight = 80;
+
     private int maxWidth = 432;
     private int maxHeight = 108;
-    private Color totoBackgroundColor = new Color(255, 255, 255);
-    private String totoTitleText = "Toto DVs (0-15)";
-    private int totoTitleFontSize = 20;
-    private String totoTitleFont = this.font;
-    private int totoTitleFontExtra = Font.BOLD;
-    private Color totoTitleColor = new Color(0, 0, 0);
-    private int totoColumnHeadersFontSize = 14;
-    private String totoColumnHeadersFont = this.font;
-    private int totoColumnHeadersFontExtra = Font.BOLD;
-    private Color totoColumnHeadersColor = new Color(0, 0, 0);
-    private int totoDVNumbersFontSizeBig = 16;
-    private int totoDVNumbersFontSizeSmall = 14;
-    private String totoDVNumbersFont = this.font;
-    private int totoDVNumbersFontExtra = Font.BOLD;
-    private Color totoDVNumbersColor = new Color(0, 0, 0);
-    private JLabel labelTitle;
-    private JLabel labelHPDV;
-    private JLabel labelAtkDV;
-    private JLabel labelDefDV;
-    private JLabel labelSpdDV;
-    private JLabel labelSpcDV;
-    private JLabel labelHP;
-    private JLabel labelAtk;
-    private JLabel labelDef;
-    private JLabel labelSpd;
-    private JLabel labelSpc;
+
     private JSpinner spinnerTotoAreaWidth;
     private JSpinner spinnerTotoAreaHeight;
     private JSpinner spinnerTotoTitleSize;
@@ -94,16 +65,100 @@ public class HelperFrame extends JFrame {
     private Game game;
     private boolean initializing = true;
     private String executionPath;
-    private boolean[] redHP = new boolean[16];
-    private boolean[] redAtk = new boolean[16];
-    private boolean[] redDef = new boolean[16];
-    private boolean[] redSpd = new boolean[16];
-    private boolean[] redSpc = new boolean[16];
-    private int hpdv;
-    private int atkdv;
-    private int defdv;
-    private int spddv;
-    private int spcdv;
+
+    private int totoHeight = 80;
+    private int totoWidth = 240;
+    private Color totoBackgroundColor = new Color(255, 255, 255);
+    private String totoTitleText = "Toto DVs (0-15)";
+    private int totoTitleFontSize = 20;
+    private String totoTitleFont = "";
+    private int totoTitleFontExtra = Font.BOLD;
+    private int totoColumnHeadersFontSize = 14;
+    private String totoColumnHeadersFont = "";
+    private int totoColumnHeadersFontExtra = Font.BOLD;
+    private Color totoColumnHeadersColor = new Color(0, 0, 0);
+    private int totoDVNumbersFontSizeBig = 16;
+    private int totoDVNumbersFontSizeSmall = 14;
+    private String totoDVNumbersFont = "";
+    private int totoDVNumbersFontExtra = Font.BOLD;
+    private Color totoDVNumbersColor = new Color(0, 0, 0);
+    private Color totoTitleColor = new Color(0, 0, 0);
+
+    public int getTotoTitleFontSize() {
+        return totoTitleFontSize;
+    }
+
+    public String getTotoTitleFont() {
+        return totoTitleFont;
+    }
+
+    public int getTotoTitleFontExtra() {
+        return totoTitleFontExtra;
+    }
+
+    public int getTotoColumnHeadersFontSize() {
+        return totoColumnHeadersFontSize;
+    }
+
+    public String getTotoColumnHeadersFont() {
+        return totoColumnHeadersFont;
+    }
+
+    public int getTotoColumnHeadersFontExtra() {
+        return totoColumnHeadersFontExtra;
+    }
+
+    public Color getTotoColumnHeadersColor() {
+        return totoColumnHeadersColor;
+    }
+
+    public int getTotoDVNumbersFontSizeBig() {
+        return totoDVNumbersFontSizeBig;
+    }
+
+    public int getTotoDVNumbersFontSizeSmall() {
+        return totoDVNumbersFontSizeSmall;
+    }
+
+    public String getTotoDVNumbersFont() {
+        return totoDVNumbersFont;
+    }
+
+    public int getTotoDVNumbersFontExtra() {
+        return totoDVNumbersFontExtra;
+    }
+
+    public Color getTotoDVNumbersColor() {
+        return totoDVNumbersColor;
+    }
+
+    public Color getTotoTitleColor() {
+        return totoTitleColor;
+    }
+
+    public JPanel getMainPanel() {
+        return main;
+    }
+
+    public JPanel getSettingsPanel() {
+        return settings;
+    }
+
+    public Color getTotoBackgroundColor() {
+        return totoBackgroundColor;
+    }
+
+    public String getTotoTitleText() {
+        return totoTitleText;
+    }
+
+    public int getTotoHeight() {
+        return totoHeight;
+    }
+
+    public int getTotoWidth() {
+        return totoWidth;
+    }
 
     public String getExecutionPath() {
         return this.executionPath;
@@ -159,18 +214,7 @@ public class HelperFrame extends JFrame {
         this.settings.setBounds(473, 590, 319, 160);
         this.settings.setBackground(null);
         this.initOptions();
-        for (int i2 = 0; i2 < 16; ++i2) {
-            this.redHP[i2] = false;
-            this.redAtk[i2] = false;
-            this.redDef[i2] = false;
-            this.redSpd[i2] = false;
-            this.redSpc[i2] = false;
-        }
-        this.hpdv = -1;
-        this.atkdv = -1;
-        this.defdv = -1;
-        this.spddv = -1;
-        this.spcdv = -1;
+
         this.buttonOptions = new JButton("Options");
         this.buttonOptions.setMargin(new Insets(1, 1, 1, 1));
         this.buttonOptions.setFont(new Font(font, Font.BOLD, 13));
@@ -258,10 +302,8 @@ public class HelperFrame extends JFrame {
         radioGSC.add(radioGold);
         this.settings.add(radioCrystal);
         this.settings.add(radioGold);
-        this.initTotodile();
         this.main.add(this.calc);
         this.main.add(this.settings);
-        this.main.add(this.totodile);
         this.add(this.main);
         this.game = Game.CRYSTAL;
         this.load();
@@ -269,58 +311,7 @@ public class HelperFrame extends JFrame {
         this.updateTotoLookAndFeel();
     }
 
-    private void initTotodile() {
-        this.totodile = new JPanel();
-        this.totodile.setBackground(this.totoBackgroundColor);
-        this.totodile.setBounds(0, 612, this.totoWidth, this.totoHeight);
-        this.totodile.setLayout(new BorderLayout());
-        this.totodile.setBorder(new EmptyBorder(5, 5, 0, 5));
-        this.labelTitle = new JLabel(this.totoTitleText, SwingConstants.CENTER);
-        this.labelTitle.setFont(new Font(this.totoTitleFont, this.totoTitleFontExtra, this.totoTitleFontSize));
-        this.totodile.add(this.labelTitle, "North");
-        this.totodileDVSPanel = new JPanel();
-        this.totodileDVSPanel.setBackground(this.totoBackgroundColor);
-        this.totodileDVSPanel.setLayout(new GridLayout(2, 3));
-        this.totodileDVSPanel.setBorder(new EmptyBorder(5, 0, 5, 0));
-        this.labelHP = new JLabel("HP", SwingConstants.CENTER);
 
-        Font columnHeadersFont =
-                new Font(this.totoColumnHeadersFont, this.totoColumnHeadersFontExtra, this.totoColumnHeadersFontSize);
-        this.labelHP.setFont(columnHeadersFont);
-        this.totodileDVSPanel.add(this.labelHP);
-        this.labelAtk = new JLabel("ATK", SwingConstants.CENTER);
-        this.labelAtk.setFont(columnHeadersFont);
-        this.totodileDVSPanel.add(this.labelAtk);
-        this.labelDef = new JLabel("DEF", SwingConstants.CENTER);
-        this.labelDef.setFont(columnHeadersFont);
-        this.totodileDVSPanel.add(this.labelDef);
-        this.labelSpd = new JLabel("SPD", SwingConstants.CENTER);
-        this.labelSpd.setFont(columnHeadersFont);
-        this.totodileDVSPanel.add(this.labelSpd);
-        this.labelSpc = new JLabel("SPC", SwingConstants.CENTER);
-        this.labelSpc.setFont(columnHeadersFont);
-        this.totodileDVSPanel.add(this.labelSpc);
-
-        Font dvNumbersFont =
-                new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig);
-        this.labelHPDV = new JLabel("?", SwingConstants.CENTER);
-        this.labelHPDV.setFont(dvNumbersFont);
-        this.totodileDVSPanel.add(this.labelHPDV);
-        this.labelAtkDV = new JLabel("?", SwingConstants.CENTER);
-        this.labelAtkDV.setFont(dvNumbersFont);
-        this.totodileDVSPanel.add(this.labelAtkDV);
-        this.labelDefDV = new JLabel("?", SwingConstants.CENTER);
-        this.labelDefDV.setFont(dvNumbersFont);
-        this.totodileDVSPanel.add(this.labelDefDV);
-        this.labelSpdDV = new JLabel("?", SwingConstants.CENTER);
-        this.labelSpdDV.setFont(dvNumbersFont);
-        this.totodileDVSPanel.add(this.labelSpdDV);
-        this.labelSpcDV = new JLabel("?", SwingConstants.CENTER);
-        this.labelSpcDV.setFont(dvNumbersFont);
-        this.totodileDVSPanel.add(this.labelSpcDV);
-        this.totodile.add(this.totodileDVSPanel, "Center");
-        this.settings.add(this.totodile);
-    }
 
     private void initOptions() {
         this.editTotoDialog = new JDialog(this);
@@ -1036,450 +1027,11 @@ public class HelperFrame extends JFrame {
         this.totoDVNumbersColor = this.labelButtonTotoDVNumbersColor.getBackground();
         this.setSize(baseWidth, baseHeight + Math.max(0, this.totoHeight - 100));
         this.main.setSize(baseWidth, baseHeight + Math.max(0, this.totoHeight - 100));
-        this.totodile.setSize(this.totoWidth, this.totoHeight);
-        int borderLeftRight = this.totoWidth / 72;
-        int borderTopBottom = this.totoHeight / 24;
-        this.totodile.setBorder(new EmptyBorder(borderTopBottom, borderLeftRight, 0, borderLeftRight));
-        this.totodile.setBackground(this.totoBackgroundColor);
-        this.totodileDVSPanel.setBackground(this.totoBackgroundColor);
-        this.totodileDVSPanel.setBorder(new EmptyBorder(borderTopBottom, 0, borderTopBottom, 0));
-        this.labelTitle.setText(this.totoTitleText);
-        this.labelTitle.setFont(new Font(this.totoTitleFont, this.totoTitleFontExtra, this.totoTitleFontSize));
-        this.labelTitle.setForeground(this.totoTitleColor);
-
-        Font columnHeadersFont =
-                new Font(this.totoColumnHeadersFont, this.totoColumnHeadersFontExtra, this.totoColumnHeadersFontSize);
-        this.labelHP.setFont(columnHeadersFont);
-        this.labelHP.setForeground(this.totoColumnHeadersColor);
-        this.labelAtk.setFont(columnHeadersFont);
-        this.labelAtk.setForeground(this.totoColumnHeadersColor);
-        this.labelDef.setFont(columnHeadersFont);
-        this.labelDef.setForeground(this.totoColumnHeadersColor);
-        this.labelSpd.setFont(columnHeadersFont);
-        this.labelSpd.setForeground(this.totoColumnHeadersColor);
-        this.labelSpc.setFont(columnHeadersFont);
-        this.labelSpc.setForeground(this.totoColumnHeadersColor);
-        this.labelHPDV.setForeground(this.totoDVNumbersColor);
-        this.labelAtkDV.setForeground(this.totoDVNumbersColor);
-        this.labelDefDV.setForeground(this.totoDVNumbersColor);
-        this.labelSpdDV.setForeground(this.totoDVNumbersColor);
-        this.labelSpcDV.setForeground(this.totoDVNumbersColor);
-
-        Font dvNumbersBig =
-                new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig);
-        Font dvNumbersSmall =
-                new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeSmall);
-        if (this.labelHPDV.getText().length() <= 2) {
-            this.labelHPDV.setFont(dvNumbersBig);
-        } else {
-            this.labelHPDV.setFont(dvNumbersSmall);
-        }
-        if (this.labelAtkDV.getText().length() <= 2) {
-            this.labelAtkDV.setFont(dvNumbersBig);
-        } else {
-            this.labelAtkDV.setFont(dvNumbersSmall);
-        }
-        if (this.labelDefDV.getText().length() <= 2) {
-            this.labelDefDV.setFont(dvNumbersBig);
-        } else {
-            this.labelDefDV.setFont(dvNumbersSmall);
-        }
-        if (this.labelSpdDV.getText().length() <= 2) {
-            this.labelSpdDV.setFont(dvNumbersBig);
-        } else {
-            this.labelSpdDV.setFont(dvNumbersSmall);
-        }
-        if (this.labelSpcDV.getText().length() <= 2) {
-            this.labelSpcDV.setFont(dvNumbersBig);
-        } else {
-            this.labelSpcDV.setFont(dvNumbersSmall);
-        }
-    }
-
-    public void updateToto(
-            final int column, final int first, final int last, final int possibilities) {
-        if (first < 0 || first > 15 || last < 0 || last > 15) {
-            return;
-        }
-        JLabel labelColumn;
-        if (column == 0) {
-            labelColumn = this.labelHPDV;
-        } else if (column == 1) {
-            labelColumn = this.labelAtkDV;
-        } else if (column == 2) {
-            labelColumn = this.labelDefDV;
-        } else if (column == 3) {
-            labelColumn = this.labelSpdDV;
-        } else if (column == 4) {
-            labelColumn = this.labelSpcDV;
-        } else {
-            return;
-        }
-        if (first == last) {
-            labelColumn.setFont(
-                    new Font(
-                            this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
-            labelColumn.setText("" + first);
-        } else if (possibilities == 2) {
-            labelColumn.setFont(
-                    new Font(
-                            this.totoDVNumbersFont,
-                            this.totoDVNumbersFontExtra,
-                            this.totoDVNumbersFontSizeSmall));
-            labelColumn.setText(String.valueOf(first) + "/" + last);
-        } else if (last - first < 10) {
-            labelColumn.setFont(
-                    new Font(
-                            this.totoDVNumbersFont,
-                            this.totoDVNumbersFontExtra,
-                            this.totoDVNumbersFontSizeSmall));
-            labelColumn.setText(String.valueOf(first) + "-" + last);
-        } else {
-            labelColumn.setFont(
-                    new Font(
-                            this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
-            labelColumn.setText("?");
-        }
-    }
-
-    public void manuallySelectDV(int column, int dv) {
-        boolean[] redValues = new boolean[16];
-        Arrays.fill(redValues, Boolean.TRUE);
-        redValues[dv] = false;
-        if (column == 0) {
-            externalRed(redValues, redAtk, redDef, redSpd, redSpc);
-        } else if (column == 1) {
-            externalRed(redHP, redValues, redDef, redSpd, redSpc);
-        } else if (column == 2) {
-            externalRed(redHP, redAtk, redValues, redSpd, redSpc);
-        } else if (column == 3) {
-            externalRed(redHP, redAtk, redDef, redValues, redSpc);
-        } else if (column == 4) {
-            externalRed(redHP, redAtk, redDef, redSpd, redValues);
-        }
-    }
-
-    public void updateDVPanel(
-            boolean[] redHP, boolean[] redAtk, boolean[] redDef, boolean[] redSpd, boolean[] redSpc) {
-        this.externalRed(redHP, redAtk, redDef, redSpd, redSpc);
-    }
-
-    public void externalRed(
-            boolean[] redHP, boolean[] redAtk, boolean[] redDef, boolean[] redSpd, boolean[] redSpc) {
-        for (int i = 0; i < 16; ++i) {
-            if (redHP[i]) {
-                this.redHP[i] = redHP[i];
-            }
-            if (redAtk[i]) {
-                this.redAtk[i] = redAtk[i];
-            }
-            if (redDef[i]) {
-                this.redDef[i] = redDef[i];
-            }
-            if (redSpd[i]) {
-                this.redSpd[i] = redSpd[i];
-            }
-            if (!redSpc[i]) continue;
-            this.redSpc[i] = redSpc[i];
-        }
-        while (this.removeByRanges()) {
-            // empty while loop
-        }
-        this.setOnlyDV();
-        this.updateLabels();
-    }
-
-    private boolean removeByRanges() {
-        boolean success = false;
-        boolean[] hpPossible = new boolean[16];
-        boolean[] atkPossible = new boolean[16];
-        boolean[] defPossible = new boolean[16];
-        boolean[] spdPossible = new boolean[16];
-        boolean[] spcPossible = new boolean[16];
-        if (this.hpdv == -1) {
-            Arrays.fill(hpPossible, true);
-        } else {
-            Arrays.fill(hpPossible, false);
-            hpPossible[this.hpdv] = true;
-        }
-        if (this.atkdv == -1) {
-            Arrays.fill(atkPossible, true);
-        } else {
-            Arrays.fill(atkPossible, false);
-            atkPossible[this.atkdv] = true;
-        }
-        if (this.defdv == -1) {
-            Arrays.fill(defPossible, true);
-        } else {
-            Arrays.fill(defPossible, false);
-            defPossible[this.defdv] = true;
-        }
-        if (this.spddv == -1) {
-            Arrays.fill(spdPossible, true);
-        } else {
-            Arrays.fill(spdPossible, false);
-            spdPossible[this.spddv] = true;
-        }
-        if (this.spcdv == -1) {
-            Arrays.fill(spcPossible, true);
-        } else {
-            Arrays.fill(spcPossible, false);
-            spcPossible[this.spcdv] = true;
-        }
-        for (int i = 0; i < 16; ++i) {
-            if (this.redHP[i]) {
-                hpPossible[i] = false;
-            }
-            if (this.redAtk[i]) {
-                atkPossible[i] = false;
-            }
-            if (this.redDef[i]) {
-                defPossible[i] = false;
-            }
-            if (this.redSpd[i]) {
-                spdPossible[i] = false;
-            }
-            if (this.redSpc[i]) {
-                spcPossible[i] = false;
-            }
-        }
-        boolean[] newHPRed = new boolean[16];
-        boolean[] newAtkRed = new boolean[16];
-        boolean[] newDefRed = new boolean[16];
-        boolean[] newSpdRed = new boolean[16];
-        boolean[] newSpcRed = new boolean[16];
-        Arrays.fill(newHPRed, false);
-        Arrays.fill(newAtkRed, false);
-        Arrays.fill(newDefRed, false);
-        Arrays.fill(newSpdRed, false);
-        Arrays.fill(newSpcRed, false);
-        for (int i = 0; i < 16; ++i) {
-            if (!atkPossible[i]) continue;
-            for (int j = 0; j < 16; ++j) {
-                if (!defPossible[j]) continue;
-                for (int k = 0; k < 16; ++k) {
-                    if (!spdPossible[k]) continue;
-                    for (int l = 0; l < 16; ++l) {
-                        if (!spcPossible[l]) continue;
-                        if (!hpPossible[i % 2 * 8 + j % 2 * 4 + k % 2 * 2 + l % 2]) continue;
-                        newHPRed[i % 2 * 8 + j % 2 * 4 + k % 2 * 2 + l % 2] = true;
-                        newAtkRed[i] = true;
-                        newDefRed[j] = true;
-                        newSpdRed[k] = true;
-                        newSpcRed[l] = true;
-                    }
-                }
-            }
-        }
-        for (int i = 0; i < 16; ++i) {
-            if (hpPossible[i] && !newHPRed[i]) {
-                success = true;
-                this.redHP[i] = true;
-                this.removeStat(0, i);
-            }
-            if (atkPossible[i] && !newAtkRed[i]) {
-                success = true;
-                this.redAtk[i] = true;
-                this.removeStat(1, i);
-            }
-            if (defPossible[i] && !newDefRed[i]) {
-                success = true;
-                this.redDef[i] = true;
-                this.removeStat(2, i);
-            }
-            if (spdPossible[i] && !newSpdRed[i]) {
-                success = true;
-                this.redSpd[i] = true;
-                this.removeStat(3, i);
-            }
-            if (spcPossible[i] && !newSpcRed[i]) {
-                success = true;
-                this.redSpc[i] = true;
-                this.removeStat(4, i);
-            }
-        }
-        return success;
-    }
-
-    private void setOnlyDV() {
-        boolean update = true;
-        while (update) {
-            int i;
-            update = false;
-            int possibleHP = 0;
-            int possibleAtk = 0;
-            int possibleDef = 0;
-            int possibleSpd = 0;
-            int possibleSpc = 0;
-            int newHP = -1;
-            int newAtk = -1;
-            int newDef = -1;
-            int newSpd = -1;
-            int newSpc = -1;
-            for (i = 0; i < 16; ++i) {
-                if (!this.redHP[i]) {
-                    ++possibleHP;
-                    newHP = i;
-                }
-                if (!this.redAtk[i]) {
-                    ++possibleAtk;
-                    newAtk = i;
-                }
-                if (!this.redDef[i]) {
-                    ++possibleDef;
-                    newDef = i;
-                }
-                if (!this.redSpd[i]) {
-                    ++possibleSpd;
-                    newSpd = i;
-                }
-                if (!this.redSpc[i]) {
-                    ++possibleSpc;
-                    newSpc = i;
-                }
-            }
-            if (possibleHP == 1) {
-                if (this.hpdv != newHP) {
-                    update = true;
-                }
-                this.hpdv = newHP;
-            }
-            if (possibleAtk == 1) {
-                if (this.atkdv != newAtk) {
-                    update = true;
-                }
-                this.atkdv = newAtk;
-            }
-            if (possibleDef == 1) {
-                if (this.defdv != newDef) {
-                    update = true;
-                }
-                this.defdv = newDef;
-            }
-            if (possibleSpd == 1) {
-                if (this.spddv != newSpd) {
-                    update = true;
-                }
-                this.spddv = newSpd;
-            }
-            if (possibleSpc == 1) {
-                if (this.spcdv != newSpc) {
-                    update = true;
-                }
-                this.spcdv = newSpc;
-            }
-            if (!update) continue;
-            for (i = 0; i < 16; ++i) {
-                if (this.redHP[i]) {
-                    this.removeStat(0, i);
-                }
-                if (this.redAtk[i]) {
-                    this.removeStat(1, i);
-                }
-                if (this.redDef[i]) {
-                    this.removeStat(2, i);
-                }
-                if (this.redSpd[i]) {
-                    this.removeStat(3, i);
-                }
-                if (this.redSpc[i]) {
-                    this.removeStat(4, i);
-                }
-            }
-        }
-    }
-
-    private void updateLabels() {
-        int firstHP = -1;
-        int firstAtk = -1;
-        int firstDef = -1;
-        int firstSpd = -1;
-        int firstSpc = -1;
-        int lastHP = -1;
-        int lastAtk = -1;
-        int lastDef = -1;
-        int lastSpd = -1;
-        int lastSpc = -1;
-        int possibleHP = 0;
-        int possibleAtk = 0;
-        int possibleDef = 0;
-        int possibleSpd = 0;
-        int possibleSpc = 0;
-        for (int i = 0; i < 16; ++i) {
-            if (!this.redHP[i]) {
-                if (firstHP == -1) {
-                    firstHP = i;
-                }
-                lastHP = i;
-                ++possibleHP;
-            }
-            if (!this.redAtk[i]) {
-                if (firstAtk == -1) {
-                    firstAtk = i;
-                }
-                lastAtk = i;
-                ++possibleAtk;
-            }
-            if (!this.redDef[i]) {
-                if (firstDef == -1) {
-                    firstDef = i;
-                }
-                lastDef = i;
-                ++possibleDef;
-            }
-            if (!this.redSpd[i]) {
-                if (firstSpd == -1) {
-                    firstSpd = i;
-                }
-                lastSpd = i;
-                ++possibleSpd;
-            }
-            if (!this.redSpc[i]) {
-                if (firstSpc == -1) {
-                    firstSpc = i;
-                }
-                lastSpc = i;
-                ++possibleSpc;
-            }
-        }
-        this.updateToto(0, firstHP, lastHP, possibleHP);
-        this.updateToto(1, firstAtk, lastAtk, possibleAtk);
-        this.updateToto(2, firstDef, lastDef, possibleDef);
-        this.updateToto(3, firstSpd, lastSpd, possibleSpd);
-        this.updateToto(4, firstSpc, lastSpc, possibleSpc);
-    }
-
-    public void removeStat(int column, int index) {
-        this.calc.removeStat(column, index);
+        this.calc.updateTotoLookAndFeel();
     }
 
     public void reset() {
         this.calc.reset();
-        for (int i = 0; i < 16; ++i) {
-            this.redHP[i] = false;
-            this.redAtk[i] = false;
-            this.redDef[i] = false;
-            this.redSpd[i] = false;
-            this.redSpc[i] = false;
-        }
-        this.hpdv = -1;
-        this.atkdv = -1;
-        this.defdv = -1;
-        this.spddv = -1;
-        this.spcdv = -1;
-
-        Font dvNumbersFont =
-                new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig);
-        this.labelHPDV.setText("?");
-        this.labelHPDV.setFont(dvNumbersFont);
-        this.labelAtkDV.setText("?");
-        this.labelAtkDV.setFont(dvNumbersFont);
-        this.labelDefDV.setText("?");
-        this.labelDefDV.setFont(dvNumbersFont);
-        this.labelSpdDV.setText("?");
-        this.labelSpdDV.setFont(dvNumbersFont);
-        this.labelSpcDV.setText("?");
-        this.labelSpcDV.setFont(dvNumbersFont);
     }
 
     public void setGame(Game game) {

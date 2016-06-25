@@ -1,6 +1,6 @@
 package com.pokemonspeedruns.gschelper.ui.stats;
 
-import com.pokemonspeedruns.gschelper.ui.HelperFrame;
+import com.pokemonspeedruns.gschelper.ui.dvs.GSCDVCalculatorPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,14 +8,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class DVPanelMouseAdapter extends MouseAdapter {
-    private HelperFrame parent;
+    private GSCDVCalculatorPanel dvPanel;
     private JLabel label;
     private JButton button;
     private DVColumn column;
     private int dv;
 
-    public DVPanelMouseAdapter(HelperFrame parent, JLabel label, JButton button, DVColumn column, int dv) {
-        this.parent = parent;
+    public DVPanelMouseAdapter(GSCDVCalculatorPanel dvPanel, JLabel label, JButton button, DVColumn column, int dv) {
+        this.dvPanel = dvPanel;
         this.label = label;
         this.button = button;
         this.column = column;
@@ -41,6 +41,6 @@ public class DVPanelMouseAdapter extends MouseAdapter {
         label.setForeground(Color.BLACK);
         button.setBorder(UIManager.getBorder("Button.border"));
         button.setBackground((Color) UIManager.getBorder("Button.background"));
-        parent.manuallySelectDV(column.ordinal(), dv);
+        dvPanel.manuallySelectDV(column.ordinal(), dv);
     }
 }

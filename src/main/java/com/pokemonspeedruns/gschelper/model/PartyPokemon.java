@@ -32,6 +32,7 @@ public class PartyPokemon {
         this.baseDef = species.getBaseDef();
         this.baseSpA = species.getBaseSpcAtk();
         this.baseSpD = species.getBaseSpcDef();
+        this.baseSpe = species.getBaseSpd();
         setExpForLevel(level);
     }
 
