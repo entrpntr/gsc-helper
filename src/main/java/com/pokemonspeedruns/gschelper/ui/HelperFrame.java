@@ -8,6 +8,7 @@ import com.pokemonspeedruns.gschelper.ui.dvs.impl.CrystalTotoDVCalculatorPanel;
 import com.pokemonspeedruns.gschelper.ui.dvs.impl.GoldTotoDVCalculatorPanel;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.event.*;
 import java.awt.*;
@@ -21,7 +22,7 @@ import java.net.URLDecoder;
 
 public class HelperFrame extends JFrame {
     private static final long serialVersionUID = -768493274726718272L;
-    private static final String version = "1.0";
+    private static final String version = "1.0.1";
 
     private JPanel main;
     private JPanel settings;
@@ -83,6 +84,22 @@ public class HelperFrame extends JFrame {
     private int totoDVNumbersFontExtra = Font.BOLD;
     private Color totoDVNumbersColor = new Color(0, 0, 0);
     private Color totoTitleColor = new Color(0, 0, 0);
+    private JLabel labelHPDV;
+    private JLabel labelAtkDV;
+    private JLabel labelDefDV;
+    private JLabel labelSpdDV;
+    private JLabel labelSpcDV;
+
+    private JPanel totodile;
+    private JPanel totodileDVSPanel;
+
+    private JLabel labelTitle;
+
+    private JLabel labelHP;
+    private JLabel labelAtk;
+    private JLabel labelDef;
+    private JLabel labelSpd;
+    private JLabel labelSpc;
 
     public int getTotoTitleFontSize() {
         return totoTitleFontSize;
@@ -197,10 +214,13 @@ public class HelperFrame extends JFrame {
         this.setBounds(0, 0, baseWidth, baseHeight + Math.max(0, this.totoHeight - 100));
         this.setLocationRelativeTo(null);
         this.setExecutionPath();
-        this.font = font;
         this.main = new JPanel();
         this.main.setLayout(null);
         this.main.setBounds(0, 0, baseWidth, baseHeight + Math.max(0, this.totoHeight - 100));
+        this.settings = new JPanel();
+        this.settings.setLayout(null);
+        this.settings.setBounds(473, 590, 319, 160);
+        this.settings.setBackground(null);
 
         // TODO: Allow for other choices besides Totodile.
         goldCalc =
@@ -209,10 +229,6 @@ public class HelperFrame extends JFrame {
                 new CrystalTotoDVCalculatorPanel(HelperFrame.this, new PartyPokemon(Species.TOTODILE, 5));
 
         this.calc = crystalCalc;
-        this.settings = new JPanel();
-        this.settings.setLayout(null);
-        this.settings.setBounds(473, 590, 319, 160);
-        this.settings.setBackground(null);
         this.initOptions();
 
         this.buttonOptions = new JButton("Options");
@@ -302,8 +318,10 @@ public class HelperFrame extends JFrame {
         radioGSC.add(radioGold);
         this.settings.add(radioCrystal);
         this.settings.add(radioGold);
+        this.initTotodile();
         this.main.add(this.calc);
         this.main.add(this.settings);
+        this.main.add(this.totodile);
         this.add(this.main);
         this.game = Game.CRYSTAL;
         this.load();
@@ -311,7 +329,58 @@ public class HelperFrame extends JFrame {
         this.updateTotoLookAndFeel();
     }
 
+    private void initTotodile() {
+        this.totodile = new JPanel();
+        this.totodile.setBackground(this.totoBackgroundColor);
+        this.totodile.setBounds(0, 612, this.totoWidth, this.totoHeight);
+        this.totodile.setLayout(new BorderLayout());
+        this.totodile.setBorder(new EmptyBorder(5, 5, 0, 5));
+        this.labelTitle = new JLabel(this.totoTitleText, SwingConstants.CENTER);
+        this.labelTitle.setFont(new Font(this.totoTitleFont, this.totoTitleFontExtra, this.totoTitleFontSize));
+        this.totodile.add(this.labelTitle, "North");
+        this.totodileDVSPanel = new JPanel();
+        this.totodileDVSPanel.setBackground(this.totoBackgroundColor);
+        this.totodileDVSPanel.setLayout(new GridLayout(2, 3));
+        this.totodileDVSPanel.setBorder(new EmptyBorder(5, 0, 5, 0));
+        this.labelHP = new JLabel("HP", SwingConstants.CENTER);
 
+        Font columnHeadersFont =
+                new Font(this.totoColumnHeadersFont, this.totoColumnHeadersFontExtra, this.totoColumnHeadersFontSize);
+        this.labelHP.setFont(columnHeadersFont);
+        this.totodileDVSPanel.add(this.labelHP);
+        this.labelAtk = new JLabel("ATK", SwingConstants.CENTER);
+        this.labelAtk.setFont(columnHeadersFont);
+        this.totodileDVSPanel.add(this.labelAtk);
+        this.labelDef = new JLabel("DEF", SwingConstants.CENTER);
+        this.labelDef.setFont(columnHeadersFont);
+        this.totodileDVSPanel.add(this.labelDef);
+        this.labelSpd = new JLabel("SPD", SwingConstants.CENTER);
+        this.labelSpd.setFont(columnHeadersFont);
+        this.totodileDVSPanel.add(this.labelSpd);
+        this.labelSpc = new JLabel("SPC", SwingConstants.CENTER);
+        this.labelSpc.setFont(columnHeadersFont);
+        this.totodileDVSPanel.add(this.labelSpc);
+
+        Font dvNumbersFont =
+                new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig);
+        this.labelHPDV = new JLabel("?", SwingConstants.CENTER);
+        this.labelHPDV.setFont(dvNumbersFont);
+        this.totodileDVSPanel.add(this.labelHPDV);
+        this.labelAtkDV = new JLabel("?", SwingConstants.CENTER);
+        this.labelAtkDV.setFont(dvNumbersFont);
+        this.totodileDVSPanel.add(this.labelAtkDV);
+        this.labelDefDV = new JLabel("?", SwingConstants.CENTER);
+        this.labelDefDV.setFont(dvNumbersFont);
+        this.totodileDVSPanel.add(this.labelDefDV);
+        this.labelSpdDV = new JLabel("?", SwingConstants.CENTER);
+        this.labelSpdDV.setFont(dvNumbersFont);
+        this.totodileDVSPanel.add(this.labelSpdDV);
+        this.labelSpcDV = new JLabel("?", SwingConstants.CENTER);
+        this.labelSpcDV.setFont(dvNumbersFont);
+        this.totodileDVSPanel.add(this.labelSpcDV);
+        this.totodile.add(this.totodileDVSPanel, "Center");
+        this.settings.add(this.totodile);
+    }
 
     private void initOptions() {
         this.editTotoDialog = new JDialog(this);
@@ -1027,10 +1096,125 @@ public class HelperFrame extends JFrame {
         this.totoDVNumbersColor = this.labelButtonTotoDVNumbersColor.getBackground();
         this.setSize(baseWidth, baseHeight + Math.max(0, this.totoHeight - 100));
         this.main.setSize(baseWidth, baseHeight + Math.max(0, this.totoHeight - 100));
-        this.calc.updateTotoLookAndFeel();
+        this.totodile.setSize(this.totoWidth, this.totoHeight);
+        int borderLeftRight = this.totoWidth / 72;
+        int borderTopBottom = this.totoHeight / 24;
+        this.totodile.setBorder(new EmptyBorder(borderTopBottom, borderLeftRight, 0, borderLeftRight));
+        this.totodile.setBackground(this.totoBackgroundColor);
+        this.totodileDVSPanel.setBackground(this.totoBackgroundColor);
+        this.totodileDVSPanel.setBorder(new EmptyBorder(borderTopBottom, 0, borderTopBottom, 0));
+        this.labelTitle.setText(this.totoTitleText);
+        this.labelTitle.setFont(new Font(this.totoTitleFont, this.totoTitleFontExtra, this.totoTitleFontSize));
+        this.labelTitle.setForeground(this.totoTitleColor);
+
+        Font columnHeadersFont =
+                new Font(this.totoColumnHeadersFont, this.totoColumnHeadersFontExtra, this.totoColumnHeadersFontSize);
+        this.labelHP.setFont(columnHeadersFont);
+        this.labelHP.setForeground(this.totoColumnHeadersColor);
+        this.labelAtk.setFont(columnHeadersFont);
+        this.labelAtk.setForeground(this.totoColumnHeadersColor);
+        this.labelDef.setFont(columnHeadersFont);
+        this.labelDef.setForeground(this.totoColumnHeadersColor);
+        this.labelSpd.setFont(columnHeadersFont);
+        this.labelSpd.setForeground(this.totoColumnHeadersColor);
+        this.labelSpc.setFont(columnHeadersFont);
+        this.labelSpc.setForeground(this.totoColumnHeadersColor);
+        this.labelHPDV.setForeground(this.totoDVNumbersColor);
+        this.labelAtkDV.setForeground(this.totoDVNumbersColor);
+        this.labelDefDV.setForeground(this.totoDVNumbersColor);
+        this.labelSpdDV.setForeground(this.totoDVNumbersColor);
+        this.labelSpcDV.setForeground(this.totoDVNumbersColor);
+
+        Font dvNumbersBig =
+                new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig);
+        Font dvNumbersSmall =
+                new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeSmall);
+        if (this.labelHPDV.getText().length() <= 2) {
+            this.labelHPDV.setFont(dvNumbersBig);
+        } else {
+            this.labelHPDV.setFont(dvNumbersSmall);
+        }
+        if (this.labelAtkDV.getText().length() <= 2) {
+            this.labelAtkDV.setFont(dvNumbersBig);
+        } else {
+            this.labelAtkDV.setFont(dvNumbersSmall);
+        }
+        if (this.labelDefDV.getText().length() <= 2) {
+            this.labelDefDV.setFont(dvNumbersBig);
+        } else {
+            this.labelDefDV.setFont(dvNumbersSmall);
+        }
+        if (this.labelSpdDV.getText().length() <= 2) {
+            this.labelSpdDV.setFont(dvNumbersBig);
+        } else {
+            this.labelSpdDV.setFont(dvNumbersSmall);
+        }
+        if (this.labelSpcDV.getText().length() <= 2) {
+            this.labelSpcDV.setFont(dvNumbersBig);
+        } else {
+            this.labelSpcDV.setFont(dvNumbersSmall);
+        }
+    }
+
+    public void updateToto(
+            final int column, final int first, final int last, final int possibilities) {
+        if (first < 0 || first > 15 || last < 0 || last > 15) {
+            return;
+        }
+        JLabel labelColumn;
+        if (column == 0) {
+            labelColumn = this.labelHPDV;
+        } else if (column == 1) {
+            labelColumn = this.labelAtkDV;
+        } else if (column == 2) {
+            labelColumn = this.labelDefDV;
+        } else if (column == 3) {
+            labelColumn = this.labelSpdDV;
+        } else if (column == 4) {
+            labelColumn = this.labelSpcDV;
+        } else {
+            return;
+        }
+        if (first == last) {
+            labelColumn.setFont(
+                    new Font(
+                            this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
+            labelColumn.setText("" + first);
+        } else if (possibilities == 2) {
+            labelColumn.setFont(
+                    new Font(
+                            this.totoDVNumbersFont,
+                            this.totoDVNumbersFontExtra,
+                            this.totoDVNumbersFontSizeSmall));
+            labelColumn.setText(String.valueOf(first) + "/" + last);
+        } else if (last - first < 10) {
+            labelColumn.setFont(
+                    new Font(
+                            this.totoDVNumbersFont,
+                            this.totoDVNumbersFontExtra,
+                            this.totoDVNumbersFontSizeSmall));
+            labelColumn.setText(String.valueOf(first) + "-" + last);
+        } else {
+            labelColumn.setFont(
+                    new Font(
+                            this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig));
+            labelColumn.setText("?");
+        }
     }
 
     public void reset() {
+        Font dvNumbersFont =
+                new Font(this.totoDVNumbersFont, this.totoDVNumbersFontExtra, this.totoDVNumbersFontSizeBig);
+        this.labelHPDV.setText("?");
+        this.labelHPDV.setFont(dvNumbersFont);
+        this.labelAtkDV.setText("?");
+        this.labelAtkDV.setFont(dvNumbersFont);
+        this.labelDefDV.setText("?");
+        this.labelDefDV.setFont(dvNumbersFont);
+        this.labelSpdDV.setText("?");
+        this.labelSpdDV.setFont(dvNumbersFont);
+        this.labelSpcDV.setText("?");
+        this.labelSpcDV.setFont(dvNumbersFont);
         this.calc.reset();
     }
 
