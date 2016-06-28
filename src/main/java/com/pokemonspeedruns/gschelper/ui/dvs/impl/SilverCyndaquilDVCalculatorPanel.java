@@ -134,6 +134,7 @@ public class SilverCyndaquilDVCalculatorPanel extends GSCDVCalculatorPanel {
         this.wildRattataGroup.reset();
         this.wildZubatGroup.reset();
         this.wildHoppipGroup.reset();
+        this.wildEkansGroup.reset();
         rivalGroup.reset();
         mikeyGroup.reset();
         donGroup.reset();
