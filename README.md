@@ -2,7 +2,7 @@
 GSC Helper is a DV calculator program to assist Pokemon Gold/Silver/Crystal speedrunners in determining stats, and includes a display for showing DVs on stream layouts. There are plans for future versions of the program to provide general routing tools as well.
 
 ## Screenshot
-![Logo](https://dl.dropboxusercontent.com/u/460442/GSC_DV_Helper-0.99.png)
+![Logo](https://dl.dropboxusercontent.com/u/460442/GSC_Helper-1.1.png)
 
 ## Usage
 Java 7+ Runtime Environment is required (download [here](https://java.com/en/download/)).
