@@ -331,10 +331,10 @@ public enum Species {
     }
 
     public String getSpriteFilename(Game game) {
-        return game.name().toLowerCase() + "/" + name().toLowerCase() + ".png";
+        return game.name().toLowerCase() + "/" + Integer.toString(getDexNum()) + ".png";
     }
 
     public String getBackspriteFilename(Game game) {
-        return game.name().toLowerCase() + "/" + name().toLowerCase() + "_back.png";
+        return game.name().toLowerCase() + "/back/" + Integer.toString(getDexNum()) + ".png";
     }
 }

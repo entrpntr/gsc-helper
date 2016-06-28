@@ -6,6 +6,7 @@ import com.pokemonspeedruns.gschelper.model.Species;
 import com.pokemonspeedruns.gschelper.ui.dvs.GSCDVCalculatorPanel;
 import com.pokemonspeedruns.gschelper.ui.dvs.impl.CrystalTotoDVCalculatorPanel;
 import com.pokemonspeedruns.gschelper.ui.dvs.impl.GoldTotoDVCalculatorPanel;
+import com.pokemonspeedruns.gschelper.ui.dvs.impl.SilverCyndaquilDVCalculatorPanel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -22,14 +23,15 @@ import java.net.URLDecoder;
 
 public class HelperFrame extends JFrame {
     private static final long serialVersionUID = -768493274726718272L;
-    private static final String version = "1.0.1";
+    private static final String version = "1.1";
 
     private JPanel main;
     private JPanel settings;
 
     private GSCDVCalculatorPanel calc;
-    private final GoldTotoDVCalculatorPanel goldCalc;
-    private final CrystalTotoDVCalculatorPanel crystalCalc;
+    private final GoldTotoDVCalculatorPanel goldTotoCalc;
+    private final CrystalTotoDVCalculatorPanel crystalTotoCalc;
+    private final SilverCyndaquilDVCalculatorPanel silverCyndaquilCalc;
     private String font = "";
     private JButton buttonOptions;
     private PreviewPane previewPane;
@@ -37,7 +39,7 @@ public class HelperFrame extends JFrame {
     private ActionListener okListener;
     private JLabel lastButtonPressed = null;
     private int baseWidth = 800;
-    private int baseHeight = 740;
+    private int baseHeight = 724;
 
     private int maxWidth = 432;
     private int maxHeight = 108;
@@ -62,6 +64,7 @@ public class HelperFrame extends JFrame {
     private JDialog editTotoDialog;
     private JRadioButton radioGold;
     private JRadioButton radioCrystal;
+    private JRadioButton radioSilver;
     private ButtonGroup radioGSC;
     private Game game;
     private boolean initializing = true;
@@ -84,113 +87,21 @@ public class HelperFrame extends JFrame {
     private int totoDVNumbersFontExtra = Font.BOLD;
     private Color totoDVNumbersColor = new Color(0, 0, 0);
     private Color totoTitleColor = new Color(0, 0, 0);
-    private JLabel labelHPDV;
-    private JLabel labelAtkDV;
-    private JLabel labelDefDV;
-    private JLabel labelSpdDV;
-    private JLabel labelSpcDV;
 
     private JPanel totodile;
     private JPanel totodileDVSPanel;
 
     private JLabel labelTitle;
-
     private JLabel labelHP;
     private JLabel labelAtk;
     private JLabel labelDef;
     private JLabel labelSpd;
     private JLabel labelSpc;
-
-    public int getTotoTitleFontSize() {
-        return totoTitleFontSize;
-    }
-
-    public String getTotoTitleFont() {
-        return totoTitleFont;
-    }
-
-    public int getTotoTitleFontExtra() {
-        return totoTitleFontExtra;
-    }
-
-    public int getTotoColumnHeadersFontSize() {
-        return totoColumnHeadersFontSize;
-    }
-
-    public String getTotoColumnHeadersFont() {
-        return totoColumnHeadersFont;
-    }
-
-    public int getTotoColumnHeadersFontExtra() {
-        return totoColumnHeadersFontExtra;
-    }
-
-    public Color getTotoColumnHeadersColor() {
-        return totoColumnHeadersColor;
-    }
-
-    public int getTotoDVNumbersFontSizeBig() {
-        return totoDVNumbersFontSizeBig;
-    }
-
-    public int getTotoDVNumbersFontSizeSmall() {
-        return totoDVNumbersFontSizeSmall;
-    }
-
-    public String getTotoDVNumbersFont() {
-        return totoDVNumbersFont;
-    }
-
-    public int getTotoDVNumbersFontExtra() {
-        return totoDVNumbersFontExtra;
-    }
-
-    public Color getTotoDVNumbersColor() {
-        return totoDVNumbersColor;
-    }
-
-    public Color getTotoTitleColor() {
-        return totoTitleColor;
-    }
-
-    public JPanel getMainPanel() {
-        return main;
-    }
-
-    public JPanel getSettingsPanel() {
-        return settings;
-    }
-
-    public Color getTotoBackgroundColor() {
-        return totoBackgroundColor;
-    }
-
-    public String getTotoTitleText() {
-        return totoTitleText;
-    }
-
-    public int getTotoHeight() {
-        return totoHeight;
-    }
-
-    public int getTotoWidth() {
-        return totoWidth;
-    }
-
-    public String getExecutionPath() {
-        return this.executionPath;
-    }
-
-    private void setExecutionPath() {
-        try {
-            URL location = HelperFrame.class.getProtectionDomain().getCodeSource().getLocation();
-            File fh = new File(URLDecoder.decode(location.getFile(), "UTF-8")).getParentFile();
-            this.executionPath = String.valueOf(fh.getAbsolutePath()) + File.separator;
-        } catch (Exception e) {
-            e.printStackTrace();
-            this.executionPath = "./";
-        }
-    }
+    private JLabel labelHPDV;
+    private JLabel labelAtkDV;
+    private JLabel labelDefDV;
+    private JLabel labelSpdDV;
+    private JLabel labelSpcDV;
 
     public HelperFrame() {
         super("Pok\u00e9mon GSC DV Helper");
@@ -211,30 +122,32 @@ public class HelperFrame extends JFrame {
                     }
                 });
         this.setResizable(false);
-        this.setBounds(0, 0, baseWidth, baseHeight + Math.max(0, this.totoHeight - 100));
+        this.setBounds(0, 0, baseWidth, baseHeight + Math.max(0, this.totoHeight - 80));
         this.setLocationRelativeTo(null);
         this.setExecutionPath();
         this.main = new JPanel();
         this.main.setLayout(null);
-        this.main.setBounds(0, 0, baseWidth, baseHeight + Math.max(0, this.totoHeight - 100));
+        this.main.setBounds(0, 0, baseWidth, baseHeight + Math.max(0, this.totoHeight - 80));
         this.settings = new JPanel();
         this.settings.setLayout(null);
-        this.settings.setBounds(473, 590, 319, 160);
+        this.settings.setBounds(473, 584, 327, 160);
         this.settings.setBackground(null);
 
         // TODO: Allow for other choices besides Totodile.
-        goldCalc =
+        goldTotoCalc =
                 new GoldTotoDVCalculatorPanel(HelperFrame.this, new PartyPokemon(Species.TOTODILE, 5));
-        crystalCalc =
+        crystalTotoCalc =
                 new CrystalTotoDVCalculatorPanel(HelperFrame.this, new PartyPokemon(Species.TOTODILE, 5));
+        silverCyndaquilCalc =
+                new SilverCyndaquilDVCalculatorPanel(HelperFrame.this, new PartyPokemon(Species.CYNDAQUIL, 5));
 
-        this.calc = crystalCalc;
+        this.calc = crystalTotoCalc;
         this.initOptions();
 
         this.buttonOptions = new JButton("Options");
         this.buttonOptions.setMargin(new Insets(1, 1, 1, 1));
         this.buttonOptions.setFont(new Font(font, Font.BOLD, 13));
-        this.buttonOptions.setBounds(115, 39, 80, 28);
+        this.buttonOptions.setBounds(112, 35, 80, 28);
         this.buttonOptions.addActionListener(
                 new ActionListener() {
                     @Override
@@ -246,7 +159,7 @@ public class HelperFrame extends JFrame {
                 });
         this.settings.add(this.buttonOptions);
         JButton buttonAbout = new JButton("About");
-        buttonAbout.setBounds(115, 71, 80, 28);
+        buttonAbout.setBounds(112, 67, 80, 28);
         buttonAbout.setFont(new Font(font, Font.BOLD, 13));
         buttonAbout.addActionListener(
                 new ActionListener() {
@@ -273,18 +186,19 @@ public class HelperFrame extends JFrame {
                 });
         this.settings.add(buttonReset);
         radioCrystal = new JRadioButton("Crystal");
-        radioCrystal.setBounds(220, 39, 80, 28);
+        radioCrystal.setBounds(203, 34, 116, 20);
         radioCrystal.setSelected(true);
-        radioCrystal.setFont(new Font(font, Font.BOLD, 14));
+        radioCrystal.setFont(new Font(font, Font.BOLD, 13));
+//        Color crystal = new Color(157, 206, 217);
         Color crystal = new Color(113, 158, 179);
         radioCrystal.setForeground(crystal);
         radioCrystal.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         if (HelperFrame.this.game != Game.CRYSTAL) {
-                            HelperFrame.this.goldCalc.reset();
+                            HelperFrame.this.calc.reset();
                             HelperFrame.this.main.remove(calc);
-                            HelperFrame.this.calc = crystalCalc;
+                            HelperFrame.this.calc = crystalTotoCalc;
                             HelperFrame.this.main.add(calc);
                             HelperFrame.this.reset();
                             HelperFrame.this.repaint();
@@ -294,17 +208,18 @@ public class HelperFrame extends JFrame {
                     }
                 });
         radioGold = new JRadioButton("Gold");
-        radioGold.setBounds(220, 71, 80, 28);
-        radioGold.setFont(new Font(font, Font.BOLD, 14));
+        radioGold.setBounds(203, 55, 116, 20);
+        radioGold.setFont(new Font(font, Font.BOLD, 13));
+//        Color gold = new Color(255, 181, 0);
         Color gold = new Color(179, 151, 0);
         radioGold.setForeground(gold);
         radioGold.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         if (HelperFrame.this.game != Game.GOLD) {
-                            HelperFrame.this.crystalCalc.reset();
+                            HelperFrame.this.calc.reset();
                             HelperFrame.this.main.remove(calc);
-                            HelperFrame.this.calc = goldCalc;
+                            HelperFrame.this.calc = goldTotoCalc;
                             HelperFrame.this.main.add(calc);
                             HelperFrame.this.reset();
                             HelperFrame.this.repaint();
@@ -313,11 +228,33 @@ public class HelperFrame extends JFrame {
                         }
                     }
                 });
+        radioSilver = new JRadioButton("Silver (Cynda)");
+        radioSilver.setBounds(203, 76, 116, 20);
+        radioSilver.setFont(new Font(font, Font.BOLD, 13));
+        Color silver = new Color(176, 176, 176);
+        radioSilver.setForeground(silver);
+        radioSilver.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (HelperFrame.this.game != Game.SILVER) {
+                            HelperFrame.this.calc.reset();
+                            HelperFrame.this.main.remove(calc);
+                            HelperFrame.this.calc = silverCyndaquilCalc;
+                            HelperFrame.this.main.add(calc);
+                            HelperFrame.this.reset();
+                            HelperFrame.this.repaint();
+                            HelperFrame.this.revalidate();
+                            HelperFrame.this.game = Game.SILVER;
+                        }
+                    }
+                });
         radioGSC = new ButtonGroup();
         radioGSC.add(radioCrystal);
         radioGSC.add(radioGold);
+        radioGSC.add(radioSilver);
         this.settings.add(radioCrystal);
         this.settings.add(radioGold);
+        this.settings.add(radioSilver);
         this.initTotodile();
         this.main.add(this.calc);
         this.main.add(this.settings);
@@ -329,10 +266,25 @@ public class HelperFrame extends JFrame {
         this.updateTotoLookAndFeel();
     }
 
+    public String getExecutionPath() {
+        return this.executionPath;
+    }
+
+    private void setExecutionPath() {
+        try {
+            URL location = HelperFrame.class.getProtectionDomain().getCodeSource().getLocation();
+            File fh = new File(URLDecoder.decode(location.getFile(), "UTF-8")).getParentFile();
+            this.executionPath = String.valueOf(fh.getAbsolutePath()) + File.separator;
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.executionPath = "./";
+        }
+    }
+
     private void initTotodile() {
         this.totodile = new JPanel();
         this.totodile.setBackground(this.totoBackgroundColor);
-        this.totodile.setBounds(0, 612, this.totoWidth, this.totoHeight);
+        this.totodile.setBounds(0, 616, this.totoWidth, this.totoHeight);
         this.totodile.setLayout(new BorderLayout());
         this.totodile.setBorder(new EmptyBorder(5, 5, 0, 5));
         this.labelTitle = new JLabel(this.totoTitleText, SwingConstants.CENTER);
@@ -835,17 +787,25 @@ public class HelperFrame extends JFrame {
                         Game game = Game.valueOf(sp[1].toUpperCase());
                         if (game != Game.CRYSTAL) {
                             this.setGame(game);
-                            this.crystalCalc.reset();
+                            this.crystalTotoCalc.reset();
                             this.main.remove(calc);
-
-                            // TODO: Support switching between multiple saved configurations.
-                            this.calc = goldCalc;
-                            this.main.add(calc);
-                            this.radioGold.setSelected(true);
                             this.radioCrystal.setSelected(false);
-                            this.reset();
-                            this.repaint();
-                            this.revalidate();
+                            // TODO: Support switching between multiple saved configurations.
+                            if(game == Game.GOLD) {
+                                this.calc = goldTotoCalc;
+                                this.main.add(calc);
+                                this.radioGold.setSelected(true);
+                                this.reset();
+                                this.repaint();
+                                this.revalidate();
+                            } else if(game == Game.SILVER) {
+                                this.calc = silverCyndaquilCalc;
+                                this.main.add(calc);
+                                this.radioSilver.setSelected(true);
+                                this.reset();
+                                this.repaint();
+                                this.revalidate();
+                            }
                         }
                     } catch (Exception e) {
                         // empty catch block
@@ -1094,8 +1054,8 @@ public class HelperFrame extends JFrame {
         this.totoDVNumbersFont = (String) this.comboBoxTotoDVNumbersFont.getSelectedItem();
         this.totoDVNumbersFontExtra = this.comboBoxTotoDVNumbersFontExtra.getSelectedIndex();
         this.totoDVNumbersColor = this.labelButtonTotoDVNumbersColor.getBackground();
-        this.setSize(baseWidth, baseHeight + Math.max(0, this.totoHeight - 100));
-        this.main.setSize(baseWidth, baseHeight + Math.max(0, this.totoHeight - 100));
+        this.setSize(baseWidth, baseHeight + Math.max(0, this.totoHeight - 80));
+        this.main.setSize(baseWidth, baseHeight + Math.max(0, this.totoHeight - 80));
         this.totodile.setSize(this.totoWidth, this.totoHeight);
         int borderLeftRight = this.totoWidth / 72;
         int borderTopBottom = this.totoHeight / 24;

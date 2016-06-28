@@ -33,7 +33,7 @@ By default, the gradle build creates a usable directory with the .jar executable
     donations for any work that reuses this code.
     
     In addition to Yellow Helper, some GSC Helper code is borrowed from RouteTwo (created by 
-    Dabomstew).
+    Dabomstew). Sprite bundles from the veekun pokedex (by Eevee) are utilized in this project.
     
         Copyright (C) 2016 entrpntr
     

@@ -37,8 +37,6 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
     private int spddv;
     private int spcdv;
 
-
-
     public GSCDVCalculatorPanel(HelperFrame parent, Game game, PartyPokemon starter) {
         this.parent = parent;
         this.game = game;

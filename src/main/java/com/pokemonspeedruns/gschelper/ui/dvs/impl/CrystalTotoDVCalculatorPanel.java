@@ -44,7 +44,7 @@ public class CrystalTotoDVCalculatorPanel extends GSCDVCalculatorPanel {
         // WILD POKES //
         ////////////////
         JLabel labelWild = new JLabel("Wild Pokes");
-        labelWild.setBounds(155, 459, 190, 42);
+        labelWild.setBounds(155, 457, 190, 42);
         labelWild.setFont(new Font(GSCHelper.FONT, Font.BOLD, 29));
         this.add(labelWild);
 
