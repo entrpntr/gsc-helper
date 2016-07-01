@@ -189,8 +189,7 @@ public class HelperFrame extends JFrame {
         radioCrystal.setBounds(203, 34, 116, 20);
         radioCrystal.setSelected(true);
         radioCrystal.setFont(new Font(font, Font.BOLD, 13));
-//        Color crystal = new Color(157, 206, 217);
-        Color crystal = new Color(113, 158, 179);
+        Color crystal = new Color(58, 113, 161);
         radioCrystal.setForeground(crystal);
         radioCrystal.addActionListener(
                 new ActionListener() {
@@ -210,8 +209,7 @@ public class HelperFrame extends JFrame {
         radioGold = new JRadioButton("Gold");
         radioGold.setBounds(203, 55, 116, 20);
         radioGold.setFont(new Font(font, Font.BOLD, 13));
-//        Color gold = new Color(255, 181, 0);
-        Color gold = new Color(179, 151, 0);
+        Color gold = new Color(128, 108, 0);
         radioGold.setForeground(gold);
         radioGold.addActionListener(
                 new ActionListener() {
@@ -231,7 +229,7 @@ public class HelperFrame extends JFrame {
         radioSilver = new JRadioButton("Silver (Cynda)");
         radioSilver.setBounds(203, 76, 116, 20);
         radioSilver.setFont(new Font(font, Font.BOLD, 13));
-        Color silver = new Color(176, 176, 176);
+        Color silver = new Color(110, 110, 110);
         radioSilver.setForeground(silver);
         radioSilver.addActionListener(
                 new ActionListener() {
