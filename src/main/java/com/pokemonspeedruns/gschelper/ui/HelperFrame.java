@@ -34,6 +34,7 @@ public class HelperFrame extends JFrame {
     private final SilverCyndaquilDVCalculatorPanel silverCyndaquilCalc;
     private String font = "";
     private JButton buttonOptions;
+    private JButton buttonConfig;
     private PreviewPane previewPane;
     private JColorChooser cc;
     private ActionListener okListener;
@@ -144,10 +145,16 @@ public class HelperFrame extends JFrame {
         this.calc = crystalTotoCalc;
         this.initOptions();
 
-        this.buttonOptions = new JButton("Options");
+        this.buttonConfig = new JButton("Config");
+        this.buttonConfig.setMargin(new Insets(1,1,1,1));
+        this.buttonConfig.setFont(new Font(font, Font.BOLD, 13));
+        this.buttonConfig.setBounds(112, 21, 80, 26);
+        this.settings.add(this.buttonConfig);
+
+        this.buttonOptions = new JButton("Layout");
         this.buttonOptions.setMargin(new Insets(1, 1, 1, 1));
         this.buttonOptions.setFont(new Font(font, Font.BOLD, 13));
-        this.buttonOptions.setBounds(112, 35, 80, 28);
+        this.buttonOptions.setBounds(112, 49, 80, 26);
         this.buttonOptions.addActionListener(
                 new ActionListener() {
                     @Override
@@ -159,7 +166,7 @@ public class HelperFrame extends JFrame {
                 });
         this.settings.add(this.buttonOptions);
         JButton buttonAbout = new JButton("About");
-        buttonAbout.setBounds(112, 67, 80, 28);
+        buttonAbout.setBounds(112, 77, 80, 26);
         buttonAbout.setFont(new Font(font, Font.BOLD, 13));
         buttonAbout.addActionListener(
                 new ActionListener() {

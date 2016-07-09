@@ -1,5 +1,6 @@
 package com.pokemonspeedruns.gschelper;
 
+import com.pokemonspeedruns.gschelper.model.Trainer;
 import com.pokemonspeedruns.gschelper.ui.HelperFrame;
 
 import java.awt.*;
@@ -45,6 +46,7 @@ public class GSCHelper {
         } else {
             System.out.println("Selected font: " + FONT);
         }
+        Trainer.initTrainers();
         ui = new HelperFrame();
         ui.setVisible(true);
     }
