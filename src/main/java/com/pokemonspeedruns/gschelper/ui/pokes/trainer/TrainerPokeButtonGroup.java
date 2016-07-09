@@ -1,40 +1,47 @@
 package com.pokemonspeedruns.gschelper.ui.pokes.trainer;
 
 import com.pokemonspeedruns.gschelper.GSCHelper;
-import com.pokemonspeedruns.gschelper.ui.dvs.GSCDVCalculatorPanel;
+import com.pokemonspeedruns.gschelper.model.FoePokemon;
+import com.pokemonspeedruns.gschelper.model.Trainer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
 public class TrainerPokeButtonGroup {
     public static final int LABEL_WIDTH = 124;
     public static final int LABEL_HEIGHT = 24;
     public static final Font TRAINER_FONT = new Font(GSCHelper.FONT, Font.BOLD, 11);
 
-    private GSCDVCalculatorPanel dvPanel;
+    private TrainerPokePage trainerPage;
     private JLabel trainerLabel;
-    private TrainerPokeButton[] pokeButtons;
-    public TrainerPokeButtonGroup(GSCDVCalculatorPanel dvPanel, String trainerName, TrainerPokeButton... buttons) {
-        this.dvPanel = dvPanel;
-        this.trainerLabel = new JLabel(trainerName);
+    private TrainerPokeButton[] trainerPokeButtons;
+
+    public TrainerPokeButtonGroup(TrainerPokePage trainerPage, Trainer trainer) {
+        this.trainerPage = trainerPage;
+        this.trainerLabel = new JLabel(trainer.getPrettyName());
         this.trainerLabel.setFont(TRAINER_FONT);
-        this.pokeButtons = Arrays.asList(buttons).toArray(new TrainerPokeButton[buttons.length]);
+        this.trainerPokeButtons = new TrainerPokeButton[trainer.getPartySize()];
+        for(int i=0; i<trainer.getPartySize(); i++) {
+            FoePokemon poke = trainer.getPoke(i);
+            trainerPokeButtons[i] = new TrainerPokeButton(trainerPage.getDVPanel(), poke.getSpecies(), poke.getLevel());
+        }
     }
 
-    public void initialize(int labelX, int labelY) {
-        this.trainerLabel.setBounds(labelX, labelY, LABEL_WIDTH, LABEL_HEIGHT);
-        this.dvPanel.add(this.trainerLabel);
-        int baseButtonX = labelX + 65;
+    public void initialize(int labelY) {
+        int numPokes = trainerPokeButtons.length;
+        int adjLabelY = (numPokes > 3) ? labelY + 26 : labelY;
+        this.trainerLabel.setBounds(0, adjLabelY, LABEL_WIDTH, LABEL_HEIGHT);
+        this.trainerPage.add(this.trainerLabel);
+        int baseButtonX = 73;
         int buttonY = labelY - 13;
-        for(int i=0; i<pokeButtons.length; i++) {
-            this.pokeButtons[i].initialize(baseButtonX + i*TrainerPokeButton.WIDTH, buttonY);
-            this.dvPanel.add(this.pokeButtons[i]);
+        for(int i=0; i<numPokes; i++) {
+            this.trainerPokeButtons[i].initialize(trainerPage, baseButtonX + (i%3)*TrainerPokeButton.WIDTH, buttonY + (i/3)*(TrainerPokeButton.VERTICAL_SPACING));
+            this.trainerPage.add(this.trainerPokeButtons[i]);
         }
     }
 
     public void reset() {
-        for(TrainerPokeButton btn : this.pokeButtons) {
+        for(TrainerPokeButton btn : this.trainerPokeButtons) {
             btn.setEnabled(true);
         }
     }

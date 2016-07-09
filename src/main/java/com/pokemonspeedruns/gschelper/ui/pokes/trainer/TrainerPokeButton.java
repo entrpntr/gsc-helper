@@ -16,11 +16,10 @@ public class TrainerPokeButton extends JButton {
     public static final Font LEVEL_FONT = new Font(GSCHelper.FONT, Font.BOLD, 12);
     public static final int WIDTH = 73;
     public static final int HEIGHT = 50;
-
-    private GSCDVCalculatorPanel dvPanel;
+    public static final int SPACING = 2;
+    public static final int VERTICAL_SPACING = HEIGHT + SPACING;
 
     public TrainerPokeButton(GSCDVCalculatorPanel dvPanel, Species species, int level) {
-        this.dvPanel = dvPanel;
         this.setText("L" + Integer.toString(level));
         this.setVerticalAlignment(JLabel.CENTER);
         this.setVerticalTextPosition(JLabel.CENTER);
@@ -35,8 +34,8 @@ public class TrainerPokeButton extends JButton {
                 new FoePokemonActionListener(dvPanel, foe, new TrainerPokeEventCallback(this)));
     }
 
-    public void initialize(int x, int y) {
+    public void initialize(TrainerPokePage trainerPage, int x, int y) {
         this.setBounds(x, y, WIDTH, HEIGHT);
-        this.dvPanel.add(this);
+        trainerPage.add(this);
     }
 }

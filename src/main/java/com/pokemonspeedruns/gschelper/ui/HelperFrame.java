@@ -39,7 +39,7 @@ public class HelperFrame extends JFrame {
     private JColorChooser cc;
     private ActionListener okListener;
     private JLabel lastButtonPressed = null;
-    private int baseWidth = 800;
+    private int baseWidth = 804;
     private int baseHeight = 724;
 
     private int maxWidth = 432;

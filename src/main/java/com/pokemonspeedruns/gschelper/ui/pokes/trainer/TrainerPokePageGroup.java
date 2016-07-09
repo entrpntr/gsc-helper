@@ -1,6 +1,6 @@
 package com.pokemonspeedruns.gschelper.ui.pokes.trainer;
 
-import com.pokemonspeedruns.gschelper.ui.dvs.impl.CrystalTotoDVCalculatorPanel;
+import com.pokemonspeedruns.gschelper.ui.dvs.GSCDVCalculatorPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,9 +9,9 @@ import java.util.ArrayList;
 public class TrainerPokePageGroup extends JPanel {
     private int currentPage = 0;
     private ArrayList<TrainerPokePage> trainerPokePages = new ArrayList<TrainerPokePage>();
-    private CrystalTotoDVCalculatorPanel dvPanel;
+    private GSCDVCalculatorPanel dvPanel;
 
-    public TrainerPokePageGroup(CrystalTotoDVCalculatorPanel dvPanel) {
+    public TrainerPokePageGroup(GSCDVCalculatorPanel dvPanel) {
         super(new CardLayout());
         this.setBounds(501, 62, 299, 517);
         this.dvPanel = dvPanel;
