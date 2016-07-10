@@ -14,6 +14,8 @@ import com.pokemonspeedruns.gschelper.ui.stats.StatButton;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -27,6 +29,8 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
     private Game game;
     private HelperFrame parent;
     private JLabel labelTotoLevel;
+    private JLabel labelTotoIcon;
+    private JButton evolveBtn;
     private boolean[] redHP = new boolean[16];
     private boolean[] redAtk = new boolean[16];
     private boolean[] redDef = new boolean[16];
@@ -118,15 +122,43 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         labelSpc.setFont(DV_LABEL_FONT);
         labelSpc.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(labelSpc);
-        JLabel labelTotoIcon = new JLabel(
+        this.labelTotoIcon = new JLabel(
                 new ImageIcon(
                         getClass().getClassLoader().getResource(starter.getSpecies().getBackspriteFilename(game))));
-        labelTotoIcon.setBounds(134, 4, 48, 48);
+        labelTotoIcon.setBounds(96, 4, 48, 48);
         this.add(labelTotoIcon);
         this.labelTotoLevel = new JLabel("Level: " + starter.getLevel());
-        this.labelTotoLevel.setBounds(196, 4, 150, 48);
+        this.labelTotoLevel.setBounds(164, 4, 150, 48);
         this.labelTotoLevel.setFont(new Font(GSCHelper.FONT, Font.BOLD, 29));
         this.add(this.labelTotoLevel);
+
+        this.evolveBtn = new JButton("Evolve");
+        this.evolveBtn.setBounds(319, 15, 82, 26);
+        this.evolveBtn.setMargin(new Insets(1,1,1,1));
+        this.evolveBtn.setFont(new Font(GSCHelper.FONT, Font.BOLD, 14));
+        if(starter.getEvoFamily().numStages() == 1 ||
+                (starter.getStartStage() == starter.getEvoFamily().numStages() - 1)) {
+            evolveBtn.setEnabled(false);
+        } else {
+            evolveBtn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent event) {
+                    evolve();
+                }
+            });
+        }
+        this.add(this.evolveBtn);
+    }
+
+    public void evolve() {
+        starter.evolve();
+        updateStats();
+        this.labelTotoIcon.setIcon(
+                new ImageIcon(
+                        getClass().getClassLoader().getResource(starter.getSpecies().getBackspriteFilename(game))));
+        if (starter.getCurrentStage() == starter.getEvoFamily().numStages() - 1) {
+            evolveBtn.setEnabled(false);
+        }
     }
 
     public void initTrainerPanel() {
@@ -315,6 +347,13 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         this.spddv = -1;
         this.spcdv = -1;
         starter.reset();
+        this.labelTotoIcon.setIcon(
+                new ImageIcon(
+                        getClass().getClassLoader().getResource(starter.getSpecies().getBackspriteFilename(game))));
+        if(starter.getEvoFamily().numStages() != 1 &&
+                (starter.getStartStage() != starter.getEvoFamily().numStages() - 1)) {
+            evolveBtn.setEnabled(true);
+        }
         for (i = 0; i < 16; ++i) {
             this.hpStats.get(i).setPossible(true);
             this.hpStats.get(i).getLabel().setVisible(true);

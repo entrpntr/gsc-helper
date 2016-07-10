@@ -21,6 +21,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
 
+import static com.pokemonspeedruns.gschelper.model.Species.*;
+
 public class HelperFrame extends JFrame {
     private static final long serialVersionUID = -768493274726718272L;
     private static final String version = "1.1";
@@ -136,11 +138,11 @@ public class HelperFrame extends JFrame {
 
         // TODO: Allow for other choices besides Totodile.
         goldTotoCalc =
-                new GoldTotoDVCalculatorPanel(HelperFrame.this, new PartyPokemon(Species.TOTODILE, 5));
+                new GoldTotoDVCalculatorPanel(HelperFrame.this, new PartyPokemon(evoFamilies.getFamily(FERALIGATR), 0, 5));
         crystalTotoCalc =
-                new CrystalTotoDVCalculatorPanel(HelperFrame.this, new PartyPokemon(Species.TOTODILE, 5));
+                new CrystalTotoDVCalculatorPanel(HelperFrame.this, new PartyPokemon(evoFamilies.getFamily(FERALIGATR), 0, 5));
         silverCyndaquilCalc =
-                new SilverCyndaquilDVCalculatorPanel(HelperFrame.this, new PartyPokemon(Species.CYNDAQUIL, 5));
+                new SilverCyndaquilDVCalculatorPanel(HelperFrame.this, new PartyPokemon(evoFamilies.getFamily(TYPHLOSION), 0, 5));
 
         this.calc = crystalTotoCalc;
         this.initOptions();

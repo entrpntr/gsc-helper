@@ -2,6 +2,9 @@ package com.pokemonspeedruns.gschelper.model;
 
 public class PartyPokemon {
     private Species species;
+    private EvolutionFamily evoFamily;
+    private int startStage;
+    private int currentStage;
     private int level;
     private int exp;
     private final int startLevel;
@@ -23,10 +26,13 @@ public class PartyPokemon {
     private int baseSpD;
     private int baseSpe;
 
-    public PartyPokemon(Species species, int level) {
-        this.species = species;
-        this.level = level;
+    public PartyPokemon(EvolutionFamily evoFamily, int startStage, int level) {
+        this.evoFamily = evoFamily;
+        this.startStage = startStage;
         this.startLevel = level;
+        this.currentStage = startStage;
+        this.species = evoFamily.get(currentStage);
+        this.level = level;
         this.baseHP = species.getBaseHP();
         this.baseAtk = species.getBaseAtk();
         this.baseDef = species.getBaseDef();
@@ -44,12 +50,24 @@ public class PartyPokemon {
         return species;
     }
 
+    public EvolutionFamily getEvoFamily() {
+        return evoFamily;
+    }
+
     public int getExp() {
         return exp;
     }
 
     public int getStartLevel() {
         return startLevel;
+    }
+
+    public int getCurrentStage() {
+        return currentStage;
+    }
+
+    public int getStartStage() {
+        return startStage;
     }
 
     public int getHpStatExp() {
@@ -136,8 +154,28 @@ public class PartyPokemon {
         this.spcStatExp += (int) Math.floor(species.getBaseSpcAtk() / nrOfPokemon);
     }
 
+    public void evolve() {
+        if(currentStage < evoFamily.numStages()) {
+            currentStage++;
+            species = evoFamily.get(currentStage);
+            baseHP = species.getBaseHP();
+            baseAtk = species.getBaseAtk();
+            baseDef = species.getBaseDef();
+            baseSpA = species.getBaseSpcAtk();
+            baseSpD = species.getBaseSpcDef();
+            baseSpe = species.getBaseSpd();
+            hp_ev_used = hpStatExp;
+            atk_ev_used = atkStatExp;
+            def_ev_used = defStatExp;
+            spc_ev_used = spcStatExp;
+            spd_ev_used = spdStatExp;
+        }
+    }
+
     public void reset() {
         this.level = startLevel;
+        this.currentStage = startStage;
+        this.species = evoFamily.get(startStage);
         this.exp = ExpCurve.lowestExpForLevel(species.getExpCurve(), startLevel);
         this.hpStatExp = 0;
         this.atkStatExp = 0;
