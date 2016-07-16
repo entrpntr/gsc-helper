@@ -9,6 +9,7 @@ import com.pokemonspeedruns.gschelper.ui.pokes.trainer.TrainerPokeButton;
 import com.pokemonspeedruns.gschelper.ui.pokes.trainer.TrainerPokeButtonGroup;
 import com.pokemonspeedruns.gschelper.ui.pokes.trainer.TrainerPokePage;
 import com.pokemonspeedruns.gschelper.ui.pokes.trainer.TrainerPokePageGroup;
+import com.pokemonspeedruns.gschelper.ui.pokes.wild.*;
 import com.pokemonspeedruns.gschelper.ui.stats.DVColumn;
 import com.pokemonspeedruns.gschelper.ui.stats.StatButton;
 
@@ -20,6 +21,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public abstract class GSCDVCalculatorPanel extends JPanel {
     private static final long serialVersionUID = -4646462442805989745L;
@@ -54,9 +56,14 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
     private TrainerPokePageGroup trainerPage;
     private JLabel trainerBack;
     private JLabel trainerForward;
+    private PreviousTrainerPageListener previousTrainerPageListener;
+    private NextTrainerPageListener nextTrainerPageListener;
 
-    private PreviousPageListener previousPageListener;
-    private NextPageListener nextPageListener;
+    private WildPokePageGroup wildPokePage;
+    private JLabel wildBack;
+    private JLabel wildForward;
+    private PreviousPokePageListener previousPokePageListener;
+    private NextPokePageListener nextPokePageListener;
 
     public GSCDVCalculatorPanel(HelperFrame parent, Game game, PartyPokemon starter) {
         this.parent = parent;
@@ -75,8 +82,6 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
 
     public abstract void initAction();
 
-    public abstract void resetAction();
-
     public PartyPokemon getStarter() {
         return starter;
     }
@@ -84,6 +89,7 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
     public void init() {
         this.initMainPanel();
         this.initTrainerPanel();
+        this.initWildPokePanel();
         this.initAction();
         this.initStatButtons();
         this.updateStats();
@@ -125,15 +131,15 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         this.labelTotoIcon = new JLabel(
                 new ImageIcon(
                         getClass().getClassLoader().getResource(starter.getSpecies().getBackspriteFilename(game))));
-        labelTotoIcon.setBounds(96, 4, 48, 48);
+        labelTotoIcon.setBounds(98, 4, 48, 48);
         this.add(labelTotoIcon);
         this.labelTotoLevel = new JLabel("Level: " + starter.getLevel());
-        this.labelTotoLevel.setBounds(164, 4, 150, 48);
+        this.labelTotoLevel.setBounds(165, 4, 150, 48);
         this.labelTotoLevel.setFont(new Font(GSCHelper.FONT, Font.BOLD, 29));
         this.add(this.labelTotoLevel);
 
         this.evolveBtn = new JButton("Evolve");
-        this.evolveBtn.setBounds(319, 15, 82, 26);
+        this.evolveBtn.setBounds(322, 15, 82, 26);
         this.evolveBtn.setMargin(new Insets(1,1,1,1));
         this.evolveBtn.setFont(new Font(GSCHelper.FONT, Font.BOLD, 14));
         if(starter.getEvoFamily().numStages() == 1 ||
@@ -163,21 +169,40 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
 
     public void initTrainerPanel() {
         trainerPage = new TrainerPokePageGroup(this);
-        previousPageListener = new PreviousPageListener(trainerPage);
-        nextPageListener = new NextPageListener(trainerPage);
+        previousTrainerPageListener = new PreviousTrainerPageListener(trainerPage);
+        nextTrainerPageListener = new NextTrainerPageListener(trainerPage);
         trainerBack = new JLabel("<", SwingConstants.CENTER);
         trainerBack.setBounds(489, 13, 30, 30);
         trainerBack.setFont(new Font(GSCHelper.FONT, Font.BOLD, 22));
         this.add(trainerBack);
-        trainerBack.addMouseListener(previousPageListener);
+        trainerBack.addMouseListener(previousTrainerPageListener);
         JLabel labelTrainers = new JLabel("Trainers");
-        labelTrainers.setBounds(530, 4, 150, 48);
+        labelTrainers.setBounds(540, 4, 150, 48);
         labelTrainers.setFont(new Font(GSCHelper.FONT, Font.BOLD, 29));
         this.add(labelTrainers);
         trainerForward = new JLabel(">", SwingConstants.CENTER);
-        trainerForward.setBounds(652, 13, 30, 30);
+        trainerForward.setBounds(672, 13, 30, 30);
         trainerForward.setFont(new Font(GSCHelper.FONT, Font.BOLD, 22));
         this.add(trainerForward);
+    }
+
+    public void initWildPokePanel() {
+        wildPokePage = new WildPokePageGroup(this);
+        previousPokePageListener = new PreviousPokePageListener(wildPokePage);
+        nextPokePageListener = new NextPokePageListener(wildPokePage);
+        wildBack = new JLabel("<", SwingConstants.CENTER);
+        wildBack.setBounds(104, 463, 30, 30);
+        wildBack.setFont(new Font(GSCHelper.FONT, Font.BOLD, 22));
+        this.add(wildBack);
+        wildBack.addMouseListener(previousPokePageListener);
+        JLabel labelWild = new JLabel("Wild Pokes");
+        labelWild.setBounds(155, 457, 190, 42);
+        labelWild.setFont(new Font(GSCHelper.FONT, Font.BOLD, 29));
+        this.add(labelWild);
+        wildForward = new JLabel(">", SwingConstants.CENTER);
+        wildForward.setBounds(328, 463, 30, 30);
+        wildForward.setFont(new Font(GSCHelper.FONT, Font.BOLD, 22));
+        this.add(wildForward);
     }
 
     public void removeStat(int column, int index) {
@@ -227,6 +252,83 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         }
         trainerPage.showFirst();
         this.add(trainerPage);
+    }
+
+//    private void createWildPokePage() {
+//
+//    }
+    private WildPokePage createNextPokePage(ArrayList<WildPokeButtonGroup> pokeGroups) {
+        WildPokePage newPage = new WildPokePage(this);
+        ArrayList<WildPokeButtonGroup> nextPageGroups = new ArrayList<WildPokeButtonGroup>();
+        for (int i = 0; i < pokeGroups.size() && nextPageGroups.size() < 6; i++) {
+            nextPageGroups.add(pokeGroups.get(i));
+        }
+        Collections.sort(nextPageGroups);
+        if (nextPageGroups.size() > 4) {
+            if (WildPokeRow.calcWidth(nextPageGroups.get(0), nextPageGroups.get(2), nextPageGroups.get(4)) > 434) {
+                nextPageGroups.clear();
+                for (int i = 0; i < 4; i++) {
+                    nextPageGroups.add(pokeGroups.get(i));
+                }
+                Collections.sort(nextPageGroups);
+            }
+        }
+        int size = nextPageGroups.size();
+        if (size < 3) {
+            WildPokeRow pokeRow = new WildPokeRow(nextPageGroups);
+            pokeRow.addToTopRow(newPage);
+        } else if (size == 3) {
+            int tmpWidth = WildPokeRow.calcWidth(nextPageGroups.get(0), nextPageGroups.get(1), nextPageGroups.get(2));
+            if (tmpWidth > 434) {
+                WildPokeRow topRow = new WildPokeRow(nextPageGroups.get(0), nextPageGroups.get(2));
+                topRow.addToTopRow(newPage);
+                WildPokeRow bottomRow = new WildPokeRow(nextPageGroups.get(1));
+                bottomRow.addToBottomRow(newPage, topRow);
+            } else {
+                WildPokeRow pokeRow = new WildPokeRow(nextPageGroups);
+                pokeRow.addToTopRow(newPage);
+            }
+        } else if (size == 4) {
+            int tmpWidth = WildPokeRow.calcWidth(nextPageGroups.get(0), nextPageGroups.get(2), nextPageGroups.get(3));
+            if (tmpWidth > 434) {
+                WildPokeRow topRow = new WildPokeRow(nextPageGroups.get(0), nextPageGroups.get(2));
+                topRow.addToTopRow(newPage);
+                WildPokeRow bottomRow = new WildPokeRow(nextPageGroups.get(1), nextPageGroups.get(3));
+                bottomRow.addToBottomRow(newPage, topRow);
+            } else {
+                WildPokeRow topRow = new WildPokeRow(nextPageGroups.get(0), nextPageGroups.get(2), nextPageGroups.get(3));
+                topRow.addToTopRow(newPage);
+                WildPokeRow bottomRow = new WildPokeRow(nextPageGroups.get(1));
+                bottomRow.addToBottomRow(newPage, topRow);
+            }
+        } else {
+            WildPokeRow topRow = new WildPokeRow(nextPageGroups.get(0), nextPageGroups.get(2), nextPageGroups.get(4));
+            topRow.addToTopRow(newPage);
+            if(size == 5) {
+                WildPokeRow bottomRow = new WildPokeRow(nextPageGroups.get(1), nextPageGroups.get(3));
+                bottomRow.addToBottomRow(newPage, topRow);
+            } else if(size == 6) {
+                WildPokeRow bottomRow = new WildPokeRow(nextPageGroups.get(1), nextPageGroups.get(3), nextPageGroups.get(5));
+                bottomRow.addToBottomRow(newPage, topRow);
+            }
+        }
+        newPage.addAll(nextPageGroups);
+        return newPage;
+    }
+
+
+    public void createWildPokePages(WildPokeGroup[] pokeGroups) {
+        ArrayList<WildPokeButtonGroup> pokeButtonGroups = new ArrayList<WildPokeButtonGroup>();
+        for(WildPokeGroup pokeGroup : pokeGroups) {
+            pokeButtonGroups.add(new WildPokeButtonGroup(this, pokeGroup));
+        }
+        while(!pokeButtonGroups.isEmpty()) {
+            WildPokePage newPage = createNextPokePage(pokeButtonGroups);
+            wildPokePage.addPage(newPage);
+            pokeButtonGroups.subList(0, newPage.numPokeGroups()).clear();
+        }
+        wildPokePage.showFirst();
+        this.add(wildPokePage);
     }
 
     public void initStatButtons() {
@@ -331,8 +433,8 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
 
     public void reset() {
         resetStats();
-        resetAction();
         trainerPage.reset();
+        wildPokePage.reset();
     }
 
     public Game getGame() {
@@ -1029,32 +1131,54 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         }
     }
 
-    public void toggleForward(boolean isEnabled) {
+    public void toggleTrainerForward(boolean isEnabled) {
         trainerForward.setEnabled(isEnabled);
         if(isEnabled && trainerForward.getMouseListeners().length == 0) {
-            trainerForward.addMouseListener(nextPageListener);
+            trainerForward.addMouseListener(nextTrainerPageListener);
         } else if(!isEnabled) {
             trainerForward.setForeground(Color.BLACK);
-            trainerForward.removeMouseListener(nextPageListener);
+            trainerForward.removeMouseListener(nextTrainerPageListener);
             setCursor(defaultCursor);
         }
     }
 
-    public void toggleBack(boolean isEnabled) {
+    public void toggleTrainerBack(boolean isEnabled) {
         trainerBack.setEnabled(isEnabled);
         if(isEnabled && trainerBack.getMouseListeners().length == 0) {
-            trainerBack.addMouseListener(previousPageListener);
+            trainerBack.addMouseListener(previousTrainerPageListener);
         } else if(!isEnabled) {
             trainerBack.setForeground(Color.BLACK);
-            trainerBack.removeMouseListener(previousPageListener);
+            trainerBack.removeMouseListener(previousTrainerPageListener);
             setCursor(defaultCursor);
         }
     }
 
-    private class PreviousPageListener extends MouseAdapter {
+    public void togglePokeForward(boolean isEnabled) {
+        wildForward.setEnabled(isEnabled);
+        if(isEnabled && wildForward.getMouseListeners().length == 0) {
+            wildForward.addMouseListener(nextPokePageListener);
+        } else if(!isEnabled) {
+            wildForward.setForeground(Color.BLACK);
+            wildForward.removeMouseListener(nextPokePageListener);
+            setCursor(defaultCursor);
+        }
+    }
+
+    public void togglePokeBack(boolean isEnabled) {
+        wildBack.setEnabled(isEnabled);
+        if(isEnabled && wildBack.getMouseListeners().length == 0) {
+            wildBack.addMouseListener(previousPokePageListener);
+        } else if(!isEnabled) {
+            wildBack.setForeground(Color.BLACK);
+            wildBack.removeMouseListener(previousPokePageListener);
+            setCursor(defaultCursor);
+        }
+    }
+
+    private class PreviousTrainerPageListener extends MouseAdapter {
         TrainerPokePageGroup trainerPageGroup;
 
-        PreviousPageListener(TrainerPokePageGroup trainerPageGroup) {
+        PreviousTrainerPageListener(TrainerPokePageGroup trainerPageGroup) {
             this.trainerPageGroup = trainerPageGroup;
         }
         @Override
@@ -1075,10 +1199,10 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         }
     }
 
-    private class NextPageListener extends MouseAdapter {
+    private class NextTrainerPageListener extends MouseAdapter {
         TrainerPokePageGroup trainerPageGroup;
 
-        NextPageListener(TrainerPokePageGroup trainerPageGroup) {
+        NextTrainerPageListener(TrainerPokePageGroup trainerPageGroup) {
             this.trainerPageGroup = trainerPageGroup;
         }
 
@@ -1097,6 +1221,55 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         public void mouseExited(MouseEvent e) {
             setCursor(defaultCursor);
             trainerForward.setForeground(Color.BLACK);
+        }
+    }
+
+    private class PreviousPokePageListener extends MouseAdapter {
+        WildPokePageGroup wildPokePageGroup;
+
+        PreviousPokePageListener(WildPokePageGroup wildPokePageGroup) {
+            this.wildPokePageGroup = wildPokePageGroup;
+        }
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            wildPokePageGroup.back();
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            setCursor(handCursor);
+            wildBack.setForeground(Color.GREEN);
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            setCursor(defaultCursor);
+            wildBack.setForeground(Color.BLACK);
+        }
+    }
+
+    private class NextPokePageListener extends MouseAdapter {
+        WildPokePageGroup wildPokePageGroup;
+
+        NextPokePageListener(WildPokePageGroup wildPokePageGroup) {
+            this.wildPokePageGroup = wildPokePageGroup;
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            wildPokePageGroup.forward();
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            setCursor(handCursor);
+            wildForward.setForeground(Color.GREEN);
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            setCursor(defaultCursor);
+            wildForward.setForeground(Color.BLACK);
         }
     }
 }

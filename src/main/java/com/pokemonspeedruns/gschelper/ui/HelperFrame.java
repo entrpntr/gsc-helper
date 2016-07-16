@@ -2,7 +2,6 @@ package com.pokemonspeedruns.gschelper.ui;
 
 import com.pokemonspeedruns.gschelper.model.Game;
 import com.pokemonspeedruns.gschelper.model.PartyPokemon;
-import com.pokemonspeedruns.gschelper.model.Species;
 import com.pokemonspeedruns.gschelper.ui.dvs.GSCDVCalculatorPanel;
 import com.pokemonspeedruns.gschelper.ui.dvs.impl.CrystalTotoDVCalculatorPanel;
 import com.pokemonspeedruns.gschelper.ui.dvs.impl.GoldTotoDVCalculatorPanel;
@@ -133,7 +132,7 @@ public class HelperFrame extends JFrame {
         this.main.setBounds(0, 0, baseWidth, baseHeight + Math.max(0, this.totoHeight - 80));
         this.settings = new JPanel();
         this.settings.setLayout(null);
-        this.settings.setBounds(473, 584, 327, 160);
+        this.settings.setBounds(459, 584, 327, 160);
         this.settings.setBackground(null);
 
         // TODO: Allow for other choices besides Totodile.
@@ -150,13 +149,13 @@ public class HelperFrame extends JFrame {
         this.buttonConfig = new JButton("Config");
         this.buttonConfig.setMargin(new Insets(1,1,1,1));
         this.buttonConfig.setFont(new Font(font, Font.BOLD, 13));
-        this.buttonConfig.setBounds(112, 21, 80, 26);
+        this.buttonConfig.setBounds(114, 21, 80, 26);
         this.settings.add(this.buttonConfig);
 
         this.buttonOptions = new JButton("Layout");
         this.buttonOptions.setMargin(new Insets(1, 1, 1, 1));
         this.buttonOptions.setFont(new Font(font, Font.BOLD, 13));
-        this.buttonOptions.setBounds(112, 49, 80, 26);
+        this.buttonOptions.setBounds(114, 49, 80, 26);
         this.buttonOptions.addActionListener(
                 new ActionListener() {
                     @Override
@@ -168,7 +167,7 @@ public class HelperFrame extends JFrame {
                 });
         this.settings.add(this.buttonOptions);
         JButton buttonAbout = new JButton("About");
-        buttonAbout.setBounds(112, 77, 80, 26);
+        buttonAbout.setBounds(114, 77, 80, 26);
         buttonAbout.setFont(new Font(font, Font.BOLD, 13));
         buttonAbout.addActionListener(
                 new ActionListener() {
@@ -195,7 +194,7 @@ public class HelperFrame extends JFrame {
                 });
         this.settings.add(buttonReset);
         radioCrystal = new JRadioButton("Crystal");
-        radioCrystal.setBounds(203, 34, 116, 20);
+        radioCrystal.setBounds(207, 34, 116, 20);
         radioCrystal.setSelected(true);
         radioCrystal.setFont(new Font(font, Font.BOLD, 13));
         Color crystal = new Color(58, 113, 161);
@@ -216,7 +215,7 @@ public class HelperFrame extends JFrame {
                     }
                 });
         radioGold = new JRadioButton("Gold");
-        radioGold.setBounds(203, 55, 116, 20);
+        radioGold.setBounds(207, 55, 116, 20);
         radioGold.setFont(new Font(font, Font.BOLD, 13));
         Color gold = new Color(128, 108, 0);
         radioGold.setForeground(gold);
@@ -236,7 +235,7 @@ public class HelperFrame extends JFrame {
                     }
                 });
         radioSilver = new JRadioButton("Silver (Cynda)");
-        radioSilver.setBounds(203, 76, 116, 20);
+        radioSilver.setBounds(207, 76, 116, 20);
         radioSilver.setFont(new Font(font, Font.BOLD, 13));
         Color silver = new Color(110, 110, 110);
         radioSilver.setForeground(silver);

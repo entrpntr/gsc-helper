@@ -7,6 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class TrainerPokePageGroup extends JPanel {
+    private static final long serialVersionUID = 3316576179698424442L;
     private int currentPage = 0;
     private ArrayList<TrainerPokePage> trainerPokePages = new ArrayList<TrainerPokePage>();
     private GSCDVCalculatorPanel dvPanel;
@@ -25,31 +26,31 @@ public class TrainerPokePageGroup extends JPanel {
     public void back() {
         CardLayout cards = (CardLayout) this.getLayout();
         cards.previous(this);
-        dvPanel.toggleForward(true);
+        dvPanel.toggleTrainerForward(true);
         currentPage--;
         if(currentPage == 0) {
-            dvPanel.toggleBack(false);
+            dvPanel.toggleTrainerBack(false);
         }
     }
 
     public void forward() {
         CardLayout cards = (CardLayout) this.getLayout();
         cards.next(this);
-        dvPanel.toggleBack(true);
+        dvPanel.toggleTrainerBack(true);
         currentPage++;
         if(currentPage == trainerPokePages.size() - 1) {
-            dvPanel.toggleForward(false);
+            dvPanel.toggleTrainerForward(false);
         }
     }
 
     public void showFirst() {
         ((CardLayout) this.getLayout()).first(this);
         currentPage = 0;
-        dvPanel.toggleBack(false);
+        dvPanel.toggleTrainerBack(false);
         if(trainerPokePages.size() < 2) {
-            dvPanel.toggleForward(false);
+            dvPanel.toggleTrainerForward(false);
         } else {
-            dvPanel.toggleForward(true);
+            dvPanel.toggleTrainerForward(true);
         }
     }
 

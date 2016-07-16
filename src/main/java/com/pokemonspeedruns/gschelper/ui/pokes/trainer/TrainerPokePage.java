@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class TrainerPokePage extends JPanel {
+    private static final long serialVersionUID = 2117733277640251442L;
     private GSCDVCalculatorPanel dvPanel;
     private ArrayList<TrainerPokeButtonGroup> trainerPokeButtonGroups = new ArrayList<TrainerPokeButtonGroup>();
     public TrainerPokePage(GSCDVCalculatorPanel dvPanel) {

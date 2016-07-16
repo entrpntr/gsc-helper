@@ -10,10 +10,8 @@ import com.pokemonspeedruns.gschelper.ui.pokes.FoePokemonActionListener;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
-public class WildPokeButtonGroup {
+public class WildPokeButtonGroup implements Comparable<WildPokeButtonGroup> {
     public static final int AMOUNT_WIDTH = 50;
     public static final int AMOUNT_HEIGHT = 24;
     public static final int ICON_WIDTH = 40;
@@ -21,24 +19,22 @@ public class WildPokeButtonGroup {
     public static final int BUTTON_WIDTH = 26;
     public static final int BUTTON_HEIGHT = 26;
 
-    private GSCDVCalculatorPanel dvPanel;
     private JLabel amountLabel;
     private JLabel iconLabel;
     private Integer[] levelsArray;
     private JButton[] foeButtons;
     private int numButtons;
 
-    public WildPokeButtonGroup(GSCDVCalculatorPanel dvPanel, Species species, Integer... levels) {
-        this.numButtons = levels.length;
-        Set<Integer> levelList = new LinkedHashSet<Integer>(Arrays.asList(levels));
-        this.dvPanel = dvPanel;
+    public WildPokeButtonGroup(GSCDVCalculatorPanel dvPanel, WildPokeGroup pokeGroup) {
+        Species species = pokeGroup.getSpecies();
+        this.levelsArray = pokeGroup.getLevels();
+        this.numButtons = levelsArray.length;
         this.amountLabel = new JLabel("×0");
         this.amountLabel.setFont(new Font(GSCHelper.FONT, Font.BOLD, 20));
         this.iconLabel =
                 new JLabel(
                         new ImageIcon(
                                 getClass().getClassLoader().getResource(species.getSpriteFilename(dvPanel.getGame()))));
-        this.levelsArray = levelList.toArray(new Integer[numButtons]);
         Arrays.sort(levelsArray);
         this.foeButtons = new JButton[numButtons];
         for (int i = 0; i < numButtons; i++) {
@@ -53,25 +49,41 @@ public class WildPokeButtonGroup {
         }
     }
 
-    public void initialize(int iconX, int iconY) {
-        initializeWithOffset(iconX, iconY, levelsArray[levelsArray.length - 1]);
+    @Override
+    public int compareTo(WildPokeButtonGroup other) {
+        return -1 * Integer.compare(groupWidth(), other.groupWidth());
+    }
+
+    public int iconOffset() {
+        return (28 * levelsArray.length + 4);
+    }
+    public int groupWidth() {
+        return (28 * levelsArray.length + 94);
+    }
+
+    public int coreWidth() {
+        return (28 * levelsArray.length + 78);
+    }
+
+    public void initialize(WildPokePage pokePage, int iconX, int iconY) {
+        initializeWithOffset(pokePage, iconX, iconY, levelsArray[levelsArray.length - 1]);
     }
 
     // Convoluted way of lining up buttons when you don't want them right aligned with the icon.
     // For example, L2-L3 Sentret lined up below L2-L4 Pidgey. Aligning L2 and L3 with Pidgey's will cause a gap.
     // So, rightmostLevel in this example would be 4 for the Sentret group.
-    public void initializeWithOffset(int iconX, int iconY, int rightmostLevel) {
+    public void initializeWithOffset(WildPokePage pokePage, int iconX, int iconY, int rightmostLevel) {
         this.amountLabel.setBounds(iconX + 43, iconY + 9, AMOUNT_WIDTH, AMOUNT_HEIGHT);
-        this.dvPanel.add(this.amountLabel);
+        pokePage.add(this.amountLabel);
         this.iconLabel.setBounds(iconX, iconY, ICON_WIDTH, ICON_HEIGHT);
-        this.dvPanel.add(this.iconLabel);
+        pokePage.add(this.iconLabel);
         int buttonY = iconY + 6;
         for (int i = numButtons - 1; i >= 0; i--) {
             int rightIndex =
                     (rightmostLevel - levelsArray[numButtons - 1]) + (this.foeButtons.length - 1) - i;
             int buttonX = iconX - rightIndex * 28 - 32;
             this.foeButtons[i].setBounds(buttonX, buttonY, BUTTON_WIDTH, BUTTON_HEIGHT);
-            this.dvPanel.add(this.foeButtons[i]);
+            pokePage.add(this.foeButtons[i]);
         }
     }
 
