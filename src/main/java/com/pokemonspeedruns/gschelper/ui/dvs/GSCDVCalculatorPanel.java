@@ -28,10 +28,14 @@ public class GSCDVCalculatorPanel extends JPanel {
     private static final long serialVersionUID = -4646462442805989745L;
     private static final Font DV_LABEL_FONT = new Font(GSCHelper.FONT, Font.BOLD, 19);
 
+    private HelperFrame parent;
+
     private PartyPokemon starter;
     private Game game;
-    private HelperFrame parent;
     private LayoutSettings layoutSettings;
+    private WildPokeGroup[] wildPokes;
+    private String[] trainers;
+
     private JLabel labelTotoLevel;
     private JLabel labelTotoIcon;
     private JButton evolveBtn;
@@ -83,7 +87,9 @@ public class GSCDVCalculatorPanel extends JPanel {
         this.setBounds(0, 0, 800, 594);
         this.setBackground(null);
         this.layoutSettings = layoutSettings;
-        this.init(wildPokes, trainers);
+        this.trainers = trainers;
+        this.wildPokes = wildPokes;
+        this.init();
     }
 
     public PartyPokemon getStarter() {
@@ -94,12 +100,24 @@ public class GSCDVCalculatorPanel extends JPanel {
         return layoutSettings;
     }
 
-    public void init(WildPokeGroup[] pokeGroups, String[] trainers) {
+    public void setLayoutSettings(LayoutSettings calcLayout) {
+        this.layoutSettings = calcLayout;
+    }
+
+    public WildPokeGroup[] getWildPokes() {
+        return this.wildPokes;
+    }
+
+    public String[] getTrainers() {
+        return trainers;
+    }
+
+    public void init() {
         this.initMainPanel();
         this.initTrainerPanel();
         this.initWildPokePanel();
-        this.createTrainerPages(trainers);
-        this.createWildPokePages(pokeGroups);
+        this.createTrainerPages();
+        this.createWildPokePages();
         this.initStatButtons();
         this.updateStats();
     }
@@ -244,7 +262,7 @@ public class GSCDVCalculatorPanel extends JPanel {
         group.initialize(labelY);
     }
 
-    public void createTrainerPages(String[] trainers) {
+    public void createTrainerPages() {
         int idx = -1;
         TrainerPokePage currPage = null;
         for(int i=0; i<trainers.length; i++) {
@@ -322,9 +340,9 @@ public class GSCDVCalculatorPanel extends JPanel {
         return newPage;
     }
 
-    public void createWildPokePages(WildPokeGroup[] pokeGroups) {
+    public void createWildPokePages() {
         ArrayList<WildPokeButtonGroup> pokeButtonGroups = new ArrayList<WildPokeButtonGroup>();
-        for(WildPokeGroup pokeGroup : pokeGroups) {
+        for(WildPokeGroup pokeGroup : this.wildPokes) {
             pokeButtonGroups.add(new WildPokeButtonGroup(this, pokeGroup));
         }
         while(!pokeButtonGroups.isEmpty()) {

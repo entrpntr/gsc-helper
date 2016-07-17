@@ -3,6 +3,48 @@ package com.pokemonspeedruns.gschelper.ui;
 import java.awt.*;
 
 public class LayoutSettings {
+    public String getDvNumbersFontName() {
+        return dvNumbersFontName;
+    }
+
+    public void setDvNumbersFontName(String dvNumbersFontName) {
+        this.dvNumbersFontName = dvNumbersFontName;
+    }
+
+    public int getDvNumbersFontExtra() {
+        return dvNumbersFontExtra;
+    }
+
+    public void setDvNumbersFontExtra(int dvNumbersFontExtra) {
+        this.dvNumbersFontExtra = dvNumbersFontExtra;
+    }
+
+    public int getDvNumbersFontSizeBig() {
+        return dvNumbersFontSizeBig;
+    }
+
+    public void setDvNumbersFontSizeBig(int dvNumbersFontSizeBig) {
+        this.dvNumbersFontSizeBig = dvNumbersFontSizeBig;
+    }
+
+    public int getDvNumbersFontSizeSmall() {
+        return dvNumbersFontSizeSmall;
+    }
+
+    public void setDvNumbersFontSizeSmall(int dvNumbersFontSizeSmall) {
+        this.dvNumbersFontSizeSmall = dvNumbersFontSizeSmall;
+    }
+
+    public LayoutSettings(LayoutSettings other) {
+        this(
+                other.getDvWidth(), other.getDvHeight(), other.getDvBackgroundColor(), other.getDvTitleText(),
+                other.getDvTitleFont().getSize(), other.getDvTitleFont().getName(),
+                other.getDvTitleFont().getStyle(), other.getDvTitleColor(), other.getDvColumnHeadersFont().getSize(),
+                other.getDvColumnHeadersFont().getName(), other.getDvColumnHeadersFont().getStyle(),
+                other.getDvColumnHeadersColor(), other.getDvNumbersFontSizeBig(), other.getDvNumbersFontSizeSmall(),
+                other.getDvNumbersFontName(), other.getDvNumbersFontExtra(), other.getDvNumbersColor()
+        );
+    }
     public LayoutSettings(
             int width, int height, Color bgColor, String dvTitleText, int titleFontSize,
             String titleFontFamily, int titleFontExtra, Color titleColor, int columnHeadersFontSize,
@@ -17,8 +59,13 @@ public class LayoutSettings {
         this.dvTitleColor = titleColor;
         this.dvColumnHeadersFont = new Font(columnHeadersFontFamily, columnHeadersFontExtra, columnHeadersFontSize);
         this.dvColumnHeadersColor = columnHeadersColor;
-        this.dvNumbersFontBig = new Font(numbersFontFamily, dvNumbersFontExtra, numbersFontSizeBig);
-        this.dvNumbersFontSmall = new Font(numbersFontFamily, dvNumbersFontExtra, numbersFontSizeSmall);
+        this.dvNumbersFontName = numbersFontFamily;
+        this.dvNumbersFontExtra = dvNumbersFontExtra;
+        this.dvNumbersFontSizeBig = numbersFontSizeBig;
+        this.dvNumbersFontSizeSmall = numbersFontSizeSmall;
+
+//        this.dvNumbersFontBig = new Font(numbersFontFamily, dvNumbersFontExtra, numbersFontSizeBig);
+//        this.dvNumbersFontSmall = new Font(numbersFontFamily, dvNumbersFontExtra, numbersFontSizeSmall);
         this.dvNumbersColor = numbersColor;
     }
 
@@ -77,7 +124,7 @@ public class LayoutSettings {
     public void setDvColumnHeadersColor(Color dvColumnHeadersColor) {
         this.dvColumnHeadersColor = dvColumnHeadersColor;
     }
-
+/*
     public Font getDvNumbersFontBig() {
         return dvNumbersFontBig;
     }
@@ -93,7 +140,7 @@ public class LayoutSettings {
     public void setDvNumbersFontSmall(Font dvNumbersFontSmall) {
         this.dvNumbersFontSmall = dvNumbersFontSmall;
     }
-
+*/
     public Color getDvNumbersColor() {
         return dvNumbersColor;
     }
@@ -118,7 +165,11 @@ public class LayoutSettings {
     private Color dvTitleColor;
     private Font dvColumnHeadersFont;
     private Color dvColumnHeadersColor;
-    private Font dvNumbersFontBig;
-    private Font dvNumbersFontSmall;
+    private String dvNumbersFontName;
+    private int dvNumbersFontExtra;
+    private int dvNumbersFontSizeBig;
+    private int dvNumbersFontSizeSmall;
+//    private Font dvNumbersFontBig;
+//    private Font dvNumbersFontSmall;
     private Color dvNumbersColor;
 }

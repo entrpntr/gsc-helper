@@ -11,4 +11,8 @@ public class EvolutionFamily extends ArrayList<Species> {
     public int numStages() {
         return this.size();
     }
+
+    public Species getFinalStage() {
+        return this.get(numStages()-1);
+    }
 }
