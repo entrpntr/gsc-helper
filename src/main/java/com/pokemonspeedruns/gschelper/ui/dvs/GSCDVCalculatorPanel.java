@@ -1,6 +1,7 @@
 package com.pokemonspeedruns.gschelper.ui.dvs;
 
 import com.pokemonspeedruns.gschelper.GSCHelper;
+import com.pokemonspeedruns.gschelper.LayoutSettings;
 import com.pokemonspeedruns.gschelper.model.Game;
 import com.pokemonspeedruns.gschelper.model.PartyPokemon;
 import com.pokemonspeedruns.gschelper.model.Trainer;
@@ -23,13 +24,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-public abstract class GSCDVCalculatorPanel extends JPanel {
+public class GSCDVCalculatorPanel extends JPanel {
     private static final long serialVersionUID = -4646462442805989745L;
     private static final Font DV_LABEL_FONT = new Font(GSCHelper.FONT, Font.BOLD, 19);
 
     private PartyPokemon starter;
     private Game game;
     private HelperFrame parent;
+    private LayoutSettings layoutSettings;
     private JLabel labelTotoLevel;
     private JLabel labelTotoIcon;
     private JButton evolveBtn;
@@ -65,7 +67,10 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
     private PreviousPokePageListener previousPokePageListener;
     private NextPokePageListener nextPokePageListener;
 
-    public GSCDVCalculatorPanel(HelperFrame parent, Game game, PartyPokemon starter) {
+    public GSCDVCalculatorPanel(
+            HelperFrame parent, Game game, PartyPokemon starter, WildPokeGroup[] wildPokes,
+            String[] trainers, LayoutSettings layoutSettings) {
+
         this.parent = parent;
         this.game = game;
         this.starter = starter;
@@ -77,20 +82,24 @@ public abstract class GSCDVCalculatorPanel extends JPanel {
         this.setLayout(null);
         this.setBounds(0, 0, 800, 594);
         this.setBackground(null);
-        this.init();
+        this.layoutSettings = layoutSettings;
+        this.init(wildPokes, trainers);
     }
-
-    public abstract void initAction();
 
     public PartyPokemon getStarter() {
         return starter;
     }
 
-    public void init() {
+    public LayoutSettings getLayoutSettings() {
+        return layoutSettings;
+    }
+
+    public void init(WildPokeGroup[] pokeGroups, String[] trainers) {
         this.initMainPanel();
         this.initTrainerPanel();
         this.initWildPokePanel();
-        this.initAction();
+        this.createTrainerPages(trainers);
+        this.createWildPokePages(pokeGroups);
         this.initStatButtons();
         this.updateStats();
     }

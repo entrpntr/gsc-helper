@@ -1,0 +1,195 @@
+{
+	"layouts": [
+		{
+			"key": "toto-default",
+			"totoWidth": 240,
+			"totoHeight": 80,
+			"totoBackgroundColor": [255,255,255],
+			"totoTitleText": "Toto DVs (0-15)",
+			"totoTitleFontSize": 20,
+			"totoTitleFont": "Arial",
+			"totoTitleFontExtra": 1,
+			"totoTitleColor": [0,0,0],
+			"totoColumnHeadersFontSize": 14,
+			"totoColumnHeadersFont": "Arial",
+			"totoColumnHeadersFontExtra": 1,
+			"totoColumnHeadersColor": [0,0,0],
+			"totoDVNumbersFontSizeBig": 16,
+			"totoDVNumbersFontSizeSmall": 14,
+			"totoDVNumbersFont": "Arial",
+			"totoDVNumbersFontExtra": 1,
+			"totoDVNumbersColor": [0,0,0]			
+		},
+		{
+			"key": "cynda-default",
+			"totoWidth": 240,
+			"totoHeight": 80,
+			"totoBackgroundColor": [255,255,255],
+			"totoTitleText": "Cyndaquil DVs (0-15)",
+			"totoTitleFontSize": 20,
+			"totoTitleFont": "Arial",
+			"totoTitleFontExtra": 1,
+			"totoTitleColor": [0,0,0],
+			"totoColumnHeadersFontSize": 14,
+			"totoColumnHeadersFont": "Arial",
+			"totoColumnHeadersFontExtra": 1,
+			"totoColumnHeadersColor": [0,0,0],
+			"totoDVNumbersFontSizeBig": 16,
+			"totoDVNumbersFontSizeSmall": 14,
+			"totoDVNumbersFont": "Arial",
+			"totoDVNumbersFontExtra": 1,
+			"totoDVNumbersColor": [0,0,0]		
+		}
+	],
+	"configs": [
+		{
+			"key": "toto-crystal",
+			"layout": "toto-default",
+			"game": "CRYSTAL",
+			"starter": {
+				"evoFamily": "FERALIGATR",
+				"startStage": 0,
+				"startLevel": 5
+			},
+			"wildPokes": [
+				{
+					"species": "PIDGEY",
+					"levels": [2, 3, 4]
+				},
+				{
+					"species": "SENTRET",
+					"levels": [2, 3]
+				},
+				{
+					"species": "RATTATA",
+					"levels": [2]
+				},
+				{
+					"species": "HOPPIP",
+					"levels": [3, 4]
+				},
+				{
+					"species": "CATERPIE",
+					"levels": [3, 4]
+				},
+				{
+					"species": "POLIWAG",
+					"levels": [4]
+				},
+				{
+					"species": "HOOTHOOT",
+					"levels": [3, 4, 5]
+				},
+				{
+					"species": "ZUBAT",
+					"levels": [3, 4]
+				}
+			],
+			"trainers": [
+				"0x39AEF", 
+				"MIKEY", 
+				"ABE", 
+				"ROD", 
+				"FALKNER", 
+				"GORDON", 
+				"RUSSELL", 
+				"BILL", 
+				"ANTHONY", 
+				"0x3A791"
+			]
+		},
+		{
+			"key": "toto-gold",
+			"layout": "toto-default",
+			"game": "GOLD",
+			"starter": {
+				"evoFamily": "FERALIGATR",
+				"startStage": 0,
+				"startLevel": 5
+			},
+			"wildPokes": [
+				{
+					"species": "PIDGEY",
+					"levels": [2, 3, 4]
+				},
+				{
+					"species": "SENTRET",
+					"levels": [2, 3]
+				},
+				{
+					"species": "RATTATA",
+					"levels": [4]
+				},
+				{
+					"species": "CATERPIE",
+					"levels": [3, 4]
+				},
+				{
+					"species": "HOPPIP",
+					"levels": [6]
+				}
+			],
+			"trainers": [
+				"0x39A92", 
+				"MIKEY", 
+				"DON", 
+				"ABE", 
+				"ROD", 
+				"FALKNER", 
+				"ALBERT", 
+				"RALPH", 
+				"DANIEL", 
+				"RUSSELL"
+			]
+		},
+		{
+			"key": "cynda-silver",
+			"layout": "cynda-default",
+			"game": "SILVER",
+			"starter": {
+				"evoFamily": "TYPHLOSION",
+				"startStage": 0,
+				"startLevel": 5
+			},
+			"wildPokes": [
+				{
+					"species": "BELLSPROUT",
+					"levels": [6]
+				},
+				{
+					"species": "MAREEP",
+					"levels": [6]
+				},
+				{
+					"species": "RATTATA",
+					"levels": [4, 5, 6]
+				},
+				{
+					"species": "HOPPIP",
+					"levels": [6]
+				},
+				{
+					"species": "EKANS",
+					"levels": [4]
+				},
+				{
+					"species": "ZUBAT",
+					"levels": [5, 6, 7]
+				}
+			],
+			"trainers": [
+				"0x39A9E", 
+				"MIKEY", 
+				"DON", 
+				"NICO", 
+				"ABE", 
+				"ROD", 
+				"FALKNER", 
+				"ALBERT", 
+				"DANIEL", 
+				"RUSSELL"
+			]
+		}
+	],
+	"lastUsedConfig": "toto-crystal"
+}

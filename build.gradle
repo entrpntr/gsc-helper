@@ -6,9 +6,23 @@ version = "1.1"
 compileJava.options.encoding = 'UTF-8'
 defaultTasks 'distZip','installDist'
 
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.json/json
+    compile group: 'org.json', name: 'json', version: '20160212'
+}
+
 jar {
     manifest {
         attributes 'Main-Class': 'com.pokemonspeedruns.gschelper.GSCHelper'
+    }
+    from {
+        (configurations.runtime).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
     }
 }
 

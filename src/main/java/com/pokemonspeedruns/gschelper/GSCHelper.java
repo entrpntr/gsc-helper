@@ -4,12 +4,13 @@ import com.pokemonspeedruns.gschelper.model.Trainer;
 import com.pokemonspeedruns.gschelper.ui.HelperFrame;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GSCHelper {
     public static String FONT = "";
 
-    public GSCHelper() {
+    public GSCHelper() throws IOException {
         HelperFrame ui;
         ArrayList<String> fonts = new ArrayList<String>();
         for (Font f : GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts()) {
@@ -51,7 +52,7 @@ public class GSCHelper {
         ui.setVisible(true);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         new GSCHelper();
     }
 }

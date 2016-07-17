@@ -1,11 +1,12 @@
 package com.pokemonspeedruns.gschelper.ui;
 
-import com.pokemonspeedruns.gschelper.model.Game;
-import com.pokemonspeedruns.gschelper.model.PartyPokemon;
+import com.pokemonspeedruns.gschelper.LayoutSettings;
+import com.pokemonspeedruns.gschelper.model.*;
 import com.pokemonspeedruns.gschelper.ui.dvs.GSCDVCalculatorPanel;
-import com.pokemonspeedruns.gschelper.ui.dvs.impl.CrystalTotoDVCalculatorPanel;
-import com.pokemonspeedruns.gschelper.ui.dvs.impl.GoldTotoDVCalculatorPanel;
-import com.pokemonspeedruns.gschelper.ui.dvs.impl.SilverCyndaquilDVCalculatorPanel;
+import com.pokemonspeedruns.gschelper.ui.pokes.wild.WildPokeGroup;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -19,6 +20,8 @@ import java.lang.reflect.Field;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import static com.pokemonspeedruns.gschelper.model.Species.*;
 
@@ -29,10 +32,13 @@ public class HelperFrame extends JFrame {
     private JPanel main;
     private JPanel settings;
 
+    private LinkedHashMap<String, LayoutSettings> layoutSettings = new LinkedHashMap<String, LayoutSettings>();
+    private LinkedHashMap<String, GSCDVCalculatorPanel> dvCalcs = new LinkedHashMap<String, GSCDVCalculatorPanel>();
+
     private GSCDVCalculatorPanel calc;
-    private final GoldTotoDVCalculatorPanel goldTotoCalc;
-    private final CrystalTotoDVCalculatorPanel crystalTotoCalc;
-    private final SilverCyndaquilDVCalculatorPanel silverCyndaquilCalc;
+//    private final GSCDVCalculatorPanel goldTotoCalc;
+//    private final GSCDVCalculatorPanel crystalTotoCalc;
+//    private final GSCDVCalculatorPanel silverCyndaquilCalc;
     private String font = "";
     private JButton buttonOptions;
     private JButton buttonConfig;
@@ -105,7 +111,7 @@ public class HelperFrame extends JFrame {
     private JLabel labelSpdDV;
     private JLabel labelSpcDV;
 
-    public HelperFrame() {
+    public HelperFrame() throws IOException {
         super("Pok\u00e9mon GSC DV Helper");
         if (UIManager.getSystemLookAndFeelClassName().contains("windows")) {
             try {
@@ -136,14 +142,14 @@ public class HelperFrame extends JFrame {
         this.settings.setBackground(null);
 
         // TODO: Allow for other choices besides Totodile.
-        goldTotoCalc =
-                new GoldTotoDVCalculatorPanel(HelperFrame.this, new PartyPokemon(evoFamilies.getFamily(FERALIGATR), 0, 5));
-        crystalTotoCalc =
-                new CrystalTotoDVCalculatorPanel(HelperFrame.this, new PartyPokemon(evoFamilies.getFamily(FERALIGATR), 0, 5));
-        silverCyndaquilCalc =
-                new SilverCyndaquilDVCalculatorPanel(HelperFrame.this, new PartyPokemon(evoFamilies.getFamily(TYPHLOSION), 0, 5));
+//        goldTotoCalc =
+//                new GSCDVCalculatorPanel(HelperFrame.this, new PartyPokemon(evoFamilies.getFamily(FERALIGATR), 0, 5));
+//        crystalTotoCalc =
+//                new CrystalTotoDVCalculatorPanel(HelperFrame.this, new PartyPokemon(evoFamilies.getFamily(FERALIGATR), 0, 5));
+ //       silverCyndaquilCalc =
+//                new SilverCyndaquilDVCalculatorPanel(HelperFrame.this, new PartyPokemon(evoFamilies.getFamily(TYPHLOSION), 0, 5));
 
-        this.calc = crystalTotoCalc;
+//        this.calc = crystalTotoCalc;
         this.initOptions();
 
         this.buttonConfig = new JButton("Config");
@@ -205,7 +211,7 @@ public class HelperFrame extends JFrame {
                         if (HelperFrame.this.game != Game.CRYSTAL) {
                             HelperFrame.this.calc.reset();
                             HelperFrame.this.main.remove(calc);
-                            HelperFrame.this.calc = crystalTotoCalc;
+                            HelperFrame.this.calc = dvCalcs.get("toto-crystal");
                             HelperFrame.this.main.add(calc);
                             HelperFrame.this.reset();
                             HelperFrame.this.repaint();
@@ -225,7 +231,7 @@ public class HelperFrame extends JFrame {
                         if (HelperFrame.this.game != Game.GOLD) {
                             HelperFrame.this.calc.reset();
                             HelperFrame.this.main.remove(calc);
-                            HelperFrame.this.calc = goldTotoCalc;
+                            HelperFrame.this.calc = dvCalcs.get("toto-gold");
                             HelperFrame.this.main.add(calc);
                             HelperFrame.this.reset();
                             HelperFrame.this.repaint();
@@ -245,7 +251,7 @@ public class HelperFrame extends JFrame {
                         if (HelperFrame.this.game != Game.SILVER) {
                             HelperFrame.this.calc.reset();
                             HelperFrame.this.main.remove(calc);
-                            HelperFrame.this.calc = silverCyndaquilCalc;
+                            HelperFrame.this.calc = dvCalcs.get("cynda-silver");
                             HelperFrame.this.main.add(calc);
                             HelperFrame.this.reset();
                             HelperFrame.this.repaint();
@@ -258,16 +264,18 @@ public class HelperFrame extends JFrame {
         radioGSC.add(radioCrystal);
         radioGSC.add(radioGold);
         radioGSC.add(radioSilver);
+        this.loadJson();
+
         this.settings.add(radioCrystal);
         this.settings.add(radioGold);
         this.settings.add(radioSilver);
         this.initTotodile();
-        this.main.add(this.calc);
+//        this.main.add(this.calc);
         this.main.add(this.settings);
         this.main.add(this.totodile);
         this.add(this.main);
-        this.game = Game.CRYSTAL;
-        this.load();
+//        this.game = Game.CRYSTAL;
+//        this.load();
         this.initializing = false;
         this.updateTotoLookAndFeel();
     }
@@ -764,6 +772,149 @@ public class HelperFrame extends JFrame {
         }
     }
 
+    private void loadJson() throws IOException {
+        File file = new File(String.valueOf(this.getExecutionPath()) + "/settings.json");
+        FileReader fr = new FileReader(file);
+        JSONTokener tokener = new JSONTokener(fr);
+        JSONObject jsonSettings = new JSONObject(tokener);
+        JSONArray jsonLayouts = jsonSettings.getJSONArray("layouts");
+        for(Object obj : jsonLayouts) {
+            JSONObject jsonLayout = (JSONObject) obj;
+            String key = jsonLayout.getString("key");
+            JSONArray jsonBgColor = jsonLayout.getJSONArray("totoBackgroundColor");
+            Color bgColor = new Color(jsonBgColor.getInt(0), jsonBgColor.getInt(1), jsonBgColor.getInt(2));
+            JSONArray jsonTitleColor = jsonLayout.getJSONArray("totoTitleColor");
+            Color titleColor = new Color(jsonTitleColor.getInt(0), jsonTitleColor.getInt(1), jsonTitleColor.getInt(2));
+            JSONArray jsonColHeadersColor = jsonLayout.getJSONArray("totoColumnHeadersColor");
+            Color colHeadersColor = new Color(jsonColHeadersColor.getInt(0), jsonColHeadersColor.getInt(1), jsonColHeadersColor.getInt(2));
+            JSONArray jsonNumbersColor = jsonLayout.getJSONArray("totoDVNumbersColor");
+            Color dvNumbersColor = new Color(jsonNumbersColor.getInt(0), jsonNumbersColor.getInt(1), jsonNumbersColor.getInt(2));
+            LayoutSettings newLayout =
+                    new LayoutSettings(
+                            jsonLayout.getInt("totoWidth"),
+                            jsonLayout.getInt("totoHeight"),
+                            bgColor,
+                            jsonLayout.getString("totoTitleText"),
+                            jsonLayout.getInt("totoTitleFontSize"),
+                            jsonLayout.getString("totoTitleFont"),
+                            jsonLayout.getInt("totoTitleFontExtra"),
+                            titleColor,
+                            jsonLayout.getInt("totoColumnHeadersFontSize"),
+                            jsonLayout.getString("totoColumnHeadersFont"),
+                            jsonLayout.getInt("totoColumnHeadersFontExtra"),
+                            colHeadersColor,
+                            jsonLayout.getInt("totoDVNumbersFontSizeBig"),
+                            jsonLayout.getInt("totoDVNumbersFontSizeSmall"),
+                            jsonLayout.getString("totoDVNumbersFont"),
+                            jsonLayout.getInt("totoDVNumbersFontExtra"),
+                            dvNumbersColor
+                    );
+            layoutSettings.put(key, newLayout);
+        }
+        JSONArray jsonConfigs = jsonSettings.getJSONArray("configs");
+        for(Object obj : jsonConfigs) {
+            JSONObject jsonConfig = (JSONObject) obj;
+            String key = jsonConfig.getString("key");
+            String layoutKey = jsonConfig.getString("layout");
+            LayoutSettings layout = layoutSettings.get(layoutKey);
+            Game game = jsonConfig.getEnum(Game.class, "game");
+            JSONObject jsonStarter = jsonConfig.getJSONObject("starter");
+            Species starterEvoFamily = jsonStarter.getEnum(Species.class, "evoFamily");
+            int startStage = jsonStarter.getInt("startStage");
+            int startLevel = jsonStarter.getInt("startLevel");
+            PartyPokemon starter = new PartyPokemon(evoFamilies.getFamily(starterEvoFamily), startStage, startLevel);
+            JSONArray jsonPokes = jsonConfig.getJSONArray("wildPokes");
+            WildPokeGroup[] wildPokeGroups = new WildPokeGroup[jsonPokes.length()];
+            int pokeIdx = 0;
+            for(Object pokeObj : jsonPokes) {
+                JSONObject wildPoke = (JSONObject) pokeObj;
+                Species species = wildPoke.getEnum(Species.class, "species");
+                JSONArray jsonLevels = wildPoke.getJSONArray("levels");
+                Integer[] levels = new Integer[jsonLevels.length()];
+                int levelIdx = 0;
+                for(Object levelObj : jsonLevels) {
+                    Integer level = (Integer) levelObj;
+                    levels[levelIdx++] = level;
+                }
+                wildPokeGroups[pokeIdx++] = new WildPokeGroup(species, levels);
+            }
+            JSONArray jsonTrainers = jsonConfig.getJSONArray("trainers");
+            String[] trainers = new String[jsonTrainers.length()];
+            int trainerIdx=0;
+            for(Object trainerObj : jsonTrainers) {
+                String trainer = (String) trainerObj;
+                trainers[trainerIdx++] = trainer;
+            }
+            dvCalcs.put(key, new GSCDVCalculatorPanel(this, game, starter, wildPokeGroups, trainers, layout));
+        }
+        String lastConfig = jsonSettings.getString("lastUsedConfig");
+        calc = dvCalcs.get(lastConfig);
+        this.game = calc.getGame();
+        switch(game) {
+            case GOLD:
+                this.radioGold.setSelected(true);
+                break;
+            case SILVER:
+                this.radioSilver.setSelected(true);
+                break;
+            case CRYSTAL:
+            default:
+                this.radioCrystal.setSelected(true);
+                break;
+        }
+        this.main.add(calc);
+        LayoutSettings lastLayout = calc.getLayoutSettings();
+        /*
+        this.comboBoxTotoTitleFont.setSelectedItem(this.font);
+        this.comboBoxTotoTitleFontExtra.setSelectedItem(1);
+        this.comboBoxTotoColumnHeadersFont.setSelectedItem(this.font);
+        this.comboBoxTotoColumnHeadersFontExtra.setSelectedItem(1);
+        this.comboBoxTotoDVNumbersFont.setSelectedItem(this.font);
+        this.comboBoxTotoDVNumbersFontExtra.setSelectedItem(1);*/
+        this.setLocation(93, 104);
+
+        int dvWidth = lastLayout.getDvWidth();
+        if(dvWidth > 0 && dvWidth <= this.maxWidth) {
+            this.spinnerTotoAreaWidth.setValue(dvWidth);
+        } else {
+            this.spinnerTotoAreaWidth.setValue(totoWidth);
+        }
+
+        int dvheight = lastLayout.getDvHeight();
+        if(dvheight > 0 && dvheight <= this.maxHeight) {
+            this.spinnerTotoAreaHeight.setValue(dvheight);
+        } else {
+            this.spinnerTotoAreaHeight.setValue(totoHeight);
+        }
+
+        this.labelButtonTotoBackgroundColor.setBackground(lastLayout.getDvBackgroundColor());
+
+        this.textFieldTotoTitleText.setText(lastLayout.getDvTitleText());
+
+        Font dvTitleFont = lastLayout.getDvTitleFont();
+        this.spinnerTotoTitleSize.setValue(dvTitleFont.getSize());
+        this.comboBoxTotoTitleFont.setSelectedItem(dvTitleFont.getName());
+        this.comboBoxTotoTitleFontExtra.setSelectedItem(dvTitleFont.getStyle());
+        this.labelButtonTotoTitleColor.setBackground(lastLayout.getDvTitleColor());
+
+        Font dvColumnHeadersFont = lastLayout.getDvColumnHeadersFont();
+        this.spinnerTotoColumnHeadersFontSize.setValue(dvColumnHeadersFont.getSize());
+        this.comboBoxTotoColumnHeadersFont.setSelectedItem(dvColumnHeadersFont.getName());
+        this.comboBoxTotoColumnHeadersFontExtra.setSelectedItem(dvColumnHeadersFont.getStyle());
+        this.labelButtonTotoColumnHeadersColor.setBackground(lastLayout.getDvColumnHeadersColor());
+
+        Font dvNumbersFontBig = lastLayout.getDvNumbersFontBig();
+        this.spinnerTotototoDVNumbersFontSizeBig.setValue(dvNumbersFontBig.getSize());
+        this.spinnerTotototoDVNumbersFontSizeSmall.setValue(lastLayout.getDvNumbersFontSmall().getSize());
+        this.comboBoxTotoDVNumbersFont.setSelectedItem(dvNumbersFontBig.getName());
+        this.comboBoxTotoDVNumbersFontExtra.setSelectedItem(dvNumbersFontBig.getStyle());
+        this.labelButtonTotoDVNumbersColor.setBackground(lastLayout.getDvNumbersColor());
+
+//        this.reset();
+        this.repaint();
+        this.revalidate();
+    }
+
     private void load() {
         this.comboBoxTotoTitleFont.setSelectedItem(this.font);
         this.comboBoxTotoTitleFontExtra.setSelectedItem(1);
@@ -789,7 +940,7 @@ public class HelperFrame extends JFrame {
                     continue;
                 }
                 if (sp[0].equals("Game")) {
-                    try {
+/*                    try {
                         Game game = Game.valueOf(sp[1].toUpperCase());
                         if (game != Game.CRYSTAL) {
                             this.setGame(game);
@@ -816,7 +967,7 @@ public class HelperFrame extends JFrame {
                     } catch (Exception e) {
                         // empty catch block
                     }
-                    continue;
+ */                   continue;
                 }
                 if (sp[0].equals("totoWidth") && HelperFrame.isInteger(sp[1], 0, this.maxWidth)) {
                     this.spinnerTotoAreaWidth.setValue(Integer.parseInt(sp[1]));
@@ -953,7 +1104,7 @@ public class HelperFrame extends JFrame {
                     out = new BufferedWriter(fw);
                     out.write("Location=" + this.getLocation().x + "," + this.getLocation().y);
                     out.newLine();
-                    String game = this.game.name().toLowerCase();
+                    String game = this.game.name();
                     out.write("Game=" + game);
                     out.newLine();
                     out.write(";Toto Look-and-feel Settings:");
