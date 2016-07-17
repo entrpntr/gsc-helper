@@ -54,6 +54,14 @@ public class WildPokeButtonGroup implements Comparable<WildPokeButtonGroup> {
         return -1 * Integer.compare(groupWidth(), other.groupWidth());
     }
 
+    public int size() {
+        return levelsArray.length;
+    }
+
+    public int levelAtIndex(int idx) {
+        return levelsArray[idx];
+    }
+
     public int iconOffset() {
         return (28 * levelsArray.length + 4);
     }
@@ -66,22 +74,20 @@ public class WildPokeButtonGroup implements Comparable<WildPokeButtonGroup> {
     }
 
     public void initialize(WildPokePage pokePage, int iconX, int iconY) {
-        initializeWithOffset(pokePage, iconX, iconY, levelsArray[levelsArray.length - 1]);
+        initializeWithOffset(pokePage, iconX, iconY, 0);
     }
 
     // Convoluted way of lining up buttons when you don't want them right aligned with the icon.
     // For example, L2-L3 Sentret lined up below L2-L4 Pidgey. Aligning L2 and L3 with Pidgey's will cause a gap.
     // So, rightmostLevel in this example would be 4 for the Sentret group.
-    public void initializeWithOffset(WildPokePage pokePage, int iconX, int iconY, int rightmostLevel) {
+    public void initializeWithOffset(WildPokePage pokePage, int iconX, int iconY, int offsetLeft) {
         this.amountLabel.setBounds(iconX + 43, iconY + 9, AMOUNT_WIDTH, AMOUNT_HEIGHT);
         pokePage.add(this.amountLabel);
         this.iconLabel.setBounds(iconX, iconY, ICON_WIDTH, ICON_HEIGHT);
         pokePage.add(this.iconLabel);
         int buttonY = iconY + 6;
-        for (int i = numButtons - 1; i >= 0; i--) {
-            int rightIndex =
-                    (rightmostLevel - levelsArray[numButtons - 1]) + (this.foeButtons.length - 1) - i;
-            int buttonX = iconX - rightIndex * 28 - 32;
+        for (int i=0; i<numButtons; i++) {
+            int buttonX = iconX - (numButtons + offsetLeft - i - 1) * 28 - 32;
             this.foeButtons[i].setBounds(buttonX, buttonY, BUTTON_WIDTH, BUTTON_HEIGHT);
             pokePage.add(this.foeButtons[i]);
         }

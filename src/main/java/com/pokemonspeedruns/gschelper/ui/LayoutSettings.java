@@ -1,4 +1,4 @@
-package com.pokemonspeedruns.gschelper;
+package com.pokemonspeedruns.gschelper.ui;
 
 import java.awt.*;
 

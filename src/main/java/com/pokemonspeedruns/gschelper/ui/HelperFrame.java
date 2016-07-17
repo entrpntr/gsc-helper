@@ -1,6 +1,5 @@
 package com.pokemonspeedruns.gschelper.ui;
 
-import com.pokemonspeedruns.gschelper.LayoutSettings;
 import com.pokemonspeedruns.gschelper.model.*;
 import com.pokemonspeedruns.gschelper.ui.dvs.GSCDVCalculatorPanel;
 import com.pokemonspeedruns.gschelper.ui.pokes.wild.WildPokeGroup;
@@ -20,7 +19,6 @@ import java.lang.reflect.Field;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import static com.pokemonspeedruns.gschelper.model.Species.*;
@@ -36,9 +34,6 @@ public class HelperFrame extends JFrame {
     private LinkedHashMap<String, GSCDVCalculatorPanel> dvCalcs = new LinkedHashMap<String, GSCDVCalculatorPanel>();
 
     private GSCDVCalculatorPanel calc;
-//    private final GSCDVCalculatorPanel goldTotoCalc;
-//    private final GSCDVCalculatorPanel crystalTotoCalc;
-//    private final GSCDVCalculatorPanel silverCyndaquilCalc;
     private String font = "";
     private JButton buttonOptions;
     private JButton buttonConfig;
@@ -141,15 +136,6 @@ public class HelperFrame extends JFrame {
         this.settings.setBounds(459, 584, 327, 160);
         this.settings.setBackground(null);
 
-        // TODO: Allow for other choices besides Totodile.
-//        goldTotoCalc =
-//                new GSCDVCalculatorPanel(HelperFrame.this, new PartyPokemon(evoFamilies.getFamily(FERALIGATR), 0, 5));
-//        crystalTotoCalc =
-//                new CrystalTotoDVCalculatorPanel(HelperFrame.this, new PartyPokemon(evoFamilies.getFamily(FERALIGATR), 0, 5));
- //       silverCyndaquilCalc =
-//                new SilverCyndaquilDVCalculatorPanel(HelperFrame.this, new PartyPokemon(evoFamilies.getFamily(TYPHLOSION), 0, 5));
-
-//        this.calc = crystalTotoCalc;
         this.initOptions();
 
         this.buttonConfig = new JButton("Config");
@@ -213,6 +199,8 @@ public class HelperFrame extends JFrame {
                             HelperFrame.this.main.remove(calc);
                             HelperFrame.this.calc = dvCalcs.get("toto-crystal");
                             HelperFrame.this.main.add(calc);
+                            HelperFrame.this.updateLayout(calc.getLayoutSettings());
+                            HelperFrame.this.updateTotoLookAndFeel();
                             HelperFrame.this.reset();
                             HelperFrame.this.repaint();
                             HelperFrame.this.revalidate();
@@ -233,6 +221,8 @@ public class HelperFrame extends JFrame {
                             HelperFrame.this.main.remove(calc);
                             HelperFrame.this.calc = dvCalcs.get("toto-gold");
                             HelperFrame.this.main.add(calc);
+                            HelperFrame.this.updateLayout(calc.getLayoutSettings());
+                            HelperFrame.this.updateTotoLookAndFeel();
                             HelperFrame.this.reset();
                             HelperFrame.this.repaint();
                             HelperFrame.this.revalidate();
@@ -253,6 +243,8 @@ public class HelperFrame extends JFrame {
                             HelperFrame.this.main.remove(calc);
                             HelperFrame.this.calc = dvCalcs.get("cynda-silver");
                             HelperFrame.this.main.add(calc);
+                            HelperFrame.this.updateLayout(calc.getLayoutSettings());
+                            HelperFrame.this.updateTotoLookAndFeel();
                             HelperFrame.this.reset();
                             HelperFrame.this.repaint();
                             HelperFrame.this.revalidate();
@@ -270,12 +262,11 @@ public class HelperFrame extends JFrame {
         this.settings.add(radioGold);
         this.settings.add(radioSilver);
         this.initTotodile();
-//        this.main.add(this.calc);
+
         this.main.add(this.settings);
         this.main.add(this.totodile);
         this.add(this.main);
-//        this.game = Game.CRYSTAL;
-//        this.load();
+
         this.initializing = false;
         this.updateTotoLookAndFeel();
     }
@@ -864,15 +855,12 @@ public class HelperFrame extends JFrame {
         }
         this.main.add(calc);
         LayoutSettings lastLayout = calc.getLayoutSettings();
-        /*
-        this.comboBoxTotoTitleFont.setSelectedItem(this.font);
-        this.comboBoxTotoTitleFontExtra.setSelectedItem(1);
-        this.comboBoxTotoColumnHeadersFont.setSelectedItem(this.font);
-        this.comboBoxTotoColumnHeadersFontExtra.setSelectedItem(1);
-        this.comboBoxTotoDVNumbersFont.setSelectedItem(this.font);
-        this.comboBoxTotoDVNumbersFontExtra.setSelectedItem(1);*/
-        this.setLocation(93, 104);
+        updateLayout(lastLayout);
+        this.repaint();
+        this.revalidate();
+    }
 
+    private void updateLayout(LayoutSettings lastLayout) {
         int dvWidth = lastLayout.getDvWidth();
         if(dvWidth > 0 && dvWidth <= this.maxWidth) {
             this.spinnerTotoAreaWidth.setValue(dvWidth);
@@ -909,173 +897,6 @@ public class HelperFrame extends JFrame {
         this.comboBoxTotoDVNumbersFont.setSelectedItem(dvNumbersFontBig.getName());
         this.comboBoxTotoDVNumbersFontExtra.setSelectedItem(dvNumbersFontBig.getStyle());
         this.labelButtonTotoDVNumbersColor.setBackground(lastLayout.getDvNumbersColor());
-
-//        this.reset();
-        this.repaint();
-        this.revalidate();
-    }
-
-    private void load() {
-        this.comboBoxTotoTitleFont.setSelectedItem(this.font);
-        this.comboBoxTotoTitleFontExtra.setSelectedItem(1);
-        this.comboBoxTotoColumnHeadersFont.setSelectedItem(this.font);
-        this.comboBoxTotoColumnHeadersFontExtra.setSelectedItem(1);
-        this.comboBoxTotoDVNumbersFont.setSelectedItem(this.font);
-        this.comboBoxTotoDVNumbersFontExtra.setSelectedItem(1);
-        File file = new File(String.valueOf(this.getExecutionPath()) + "/settings.txt");
-        BufferedReader br;
-        try {
-            String s;
-            FileReader fr = new FileReader(file);
-            br = new BufferedReader(fr);
-            while ((s = br.readLine()) != null) {
-                String[] sp;
-                Color c;
-                if (s.equals("") || s.substring(0, 1).equals(";") || (sp = s.split("=")).length <= 1)
-                    continue;
-                if (sp[0].equals("Location")) {
-                    String[] location = sp[1].split(",");
-                    if (location.length != 2) continue;
-                    this.setLocation(Integer.parseInt(location[0]), Integer.parseInt(location[1]));
-                    continue;
-                }
-                if (sp[0].equals("Game")) {
-/*                    try {
-                        Game game = Game.valueOf(sp[1].toUpperCase());
-                        if (game != Game.CRYSTAL) {
-                            this.setGame(game);
-                            this.crystalTotoCalc.reset();
-                            this.main.remove(calc);
-                            this.radioCrystal.setSelected(false);
-                            // TODO: Support switching between multiple saved configurations.
-                            if(game == Game.GOLD) {
-                                this.calc = goldTotoCalc;
-                                this.main.add(calc);
-                                this.radioGold.setSelected(true);
-                                this.reset();
-                                this.repaint();
-                                this.revalidate();
-                            } else if(game == Game.SILVER) {
-                                this.calc = silverCyndaquilCalc;
-                                this.main.add(calc);
-                                this.radioSilver.setSelected(true);
-                                this.reset();
-                                this.repaint();
-                                this.revalidate();
-                            }
-                        }
-                    } catch (Exception e) {
-                        // empty catch block
-                    }
- */                   continue;
-                }
-                if (sp[0].equals("totoWidth") && HelperFrame.isInteger(sp[1], 0, this.maxWidth)) {
-                    this.spinnerTotoAreaWidth.setValue(Integer.parseInt(sp[1]));
-                    continue;
-                }
-                if (sp[0].equals("totoHeight") && HelperFrame.isInteger(sp[1], 0, this.maxHeight)) {
-                    this.spinnerTotoAreaHeight.setValue(Integer.parseInt(sp[1]));
-                    continue;
-                }
-                if (sp[0].equals("totoBackgroundColor")
-                        && sp[1].split(",").length >= 3
-                        && HelperFrame.isInteger(sp[1].split(",")[0], 0, 255)
-                        && HelperFrame.isInteger(sp[1].split(",")[1], 0, 255)
-                        && HelperFrame.isInteger(sp[1].split(",")[2], 0, 255)) {
-                    c =
-                            new Color(
-                                    Integer.parseInt(sp[1].split(",")[0]),
-                                    Integer.parseInt(sp[1].split(",")[1]),
-                                    Integer.parseInt(sp[1].split(",")[2]));
-                    this.labelButtonTotoBackgroundColor.setBackground(c);
-                    continue;
-                }
-                if (sp[0].equals("totoTitleText")) {
-                    this.textFieldTotoTitleText.setText(sp[1]);
-                    continue;
-                }
-                if (sp[0].equals("totoTitleFontSize") && HelperFrame.isInteger(sp[1], 0, 500)) {
-                    this.spinnerTotoTitleSize.setValue(Integer.parseInt(sp[1]));
-                    continue;
-                }
-                if (sp[0].equals("totoTitleFont")) {
-                    this.comboBoxTotoTitleFont.setSelectedItem(sp[1]);
-                    continue;
-                }
-                if (sp[0].equals("totoTitleFontExtra") && HelperFrame.isInteger(sp[1], 0, 2)) {
-                    this.comboBoxTotoTitleFontExtra.setSelectedItem(Integer.parseInt(sp[1]));
-                    continue;
-                }
-                if (sp[0].equals("totoTitleColor")
-                        && sp[1].split(",").length >= 3
-                        && HelperFrame.isInteger(sp[1].split(",")[0], 0, 255)
-                        && HelperFrame.isInteger(sp[1].split(",")[1], 0, 255)
-                        && HelperFrame.isInteger(sp[1].split(",")[2], 0, 255)) {
-                    c =
-                            new Color(
-                                    Integer.parseInt(sp[1].split(",")[0]),
-                                    Integer.parseInt(sp[1].split(",")[1]),
-                                    Integer.parseInt(sp[1].split(",")[2]));
-                    this.labelButtonTotoTitleColor.setBackground(c);
-                    continue;
-                }
-                if (sp[0].equals("totoColumnHeadersFontSize") && HelperFrame.isInteger(sp[1], 0, 500)) {
-                    this.spinnerTotoColumnHeadersFontSize.setValue(Integer.parseInt(sp[1]));
-                    continue;
-                }
-                if (sp[0].equals("totoColumnHeadersFont")) {
-                    this.comboBoxTotoColumnHeadersFont.setSelectedItem(sp[1]);
-                    continue;
-                }
-                if (sp[0].equals("totoColumnHeadersFontExtra") && HelperFrame.isInteger(sp[1], 0, 2)) {
-                    this.comboBoxTotoColumnHeadersFontExtra.setSelectedItem(Integer.parseInt(sp[1]));
-                    continue;
-                }
-                if (sp[0].equals("totoColumnHeadersColor")
-                        && sp[1].split(",").length >= 3
-                        && HelperFrame.isInteger(sp[1].split(",")[0], 0, 255)
-                        && HelperFrame.isInteger(sp[1].split(",")[1], 0, 255)
-                        && HelperFrame.isInteger(sp[1].split(",")[2], 0, 255)) {
-                    c =
-                            new Color(
-                                    Integer.parseInt(sp[1].split(",")[0]),
-                                    Integer.parseInt(sp[1].split(",")[1]),
-                                    Integer.parseInt(sp[1].split(",")[2]));
-                    this.labelButtonTotoColumnHeadersColor.setBackground(c);
-                    continue;
-                }
-                if (sp[0].equals("totoDVNumbersFontSizeBig") && HelperFrame.isInteger(sp[1], 0, 500)) {
-                    this.spinnerTotototoDVNumbersFontSizeBig.setValue(Integer.parseInt(sp[1]));
-                    continue;
-                }
-                if (sp[0].equals("totoDVNumbersFontSizeSmall") && HelperFrame.isInteger(sp[1], 0, 500)) {
-                    this.spinnerTotototoDVNumbersFontSizeSmall.setValue(Integer.parseInt(sp[1]));
-                    continue;
-                }
-                if (sp[0].equals("totoDVNumbersFont")) {
-                    this.comboBoxTotoDVNumbersFont.setSelectedItem(sp[1]);
-                    continue;
-                }
-                if (sp[0].equals("totoDVNumbersFontExtra") && HelperFrame.isInteger(sp[1], 0, 2)) {
-                    this.comboBoxTotoDVNumbersFontExtra.setSelectedItem(Integer.parseInt(sp[1]));
-                    continue;
-                }
-                if (!sp[0].equals("totoDVNumbersColor")
-                        || sp[1].split(",").length < 3
-                        || !HelperFrame.isInteger(sp[1].split(",")[0], 0, 255)
-                        || !HelperFrame.isInteger(sp[1].split(",")[1], 0, 255)
-                        || !HelperFrame.isInteger(sp[1].split(",")[2], 0, 255)) continue;
-                c =
-                        new Color(
-                                Integer.parseInt(sp[1].split(",")[0]),
-                                Integer.parseInt(sp[1].split(",")[1]),
-                                Integer.parseInt(sp[1].split(",")[2]));
-                this.labelButtonTotoDVNumbersColor.setBackground(c);
-            }
-            fr.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public static boolean isInteger(String s, int min, int max) {

@@ -1,7 +1,7 @@
 package com.pokemonspeedruns.gschelper.ui.dvs;
 
 import com.pokemonspeedruns.gschelper.GSCHelper;
-import com.pokemonspeedruns.gschelper.LayoutSettings;
+import com.pokemonspeedruns.gschelper.ui.LayoutSettings;
 import com.pokemonspeedruns.gschelper.model.Game;
 import com.pokemonspeedruns.gschelper.model.PartyPokemon;
 import com.pokemonspeedruns.gschelper.model.Trainer;
@@ -200,16 +200,16 @@ public class GSCDVCalculatorPanel extends JPanel {
         previousPokePageListener = new PreviousPokePageListener(wildPokePage);
         nextPokePageListener = new NextPokePageListener(wildPokePage);
         wildBack = new JLabel("<", SwingConstants.CENTER);
-        wildBack.setBounds(104, 463, 30, 30);
+        wildBack.setBounds(95, 463, 30, 30);
         wildBack.setFont(new Font(GSCHelper.FONT, Font.BOLD, 22));
         this.add(wildBack);
         wildBack.addMouseListener(previousPokePageListener);
         JLabel labelWild = new JLabel("Wild Pokes");
-        labelWild.setBounds(155, 457, 190, 42);
+        labelWild.setBounds(146, 457, 190, 42);
         labelWild.setFont(new Font(GSCHelper.FONT, Font.BOLD, 29));
         this.add(labelWild);
         wildForward = new JLabel(">", SwingConstants.CENTER);
-        wildForward.setBounds(328, 463, 30, 30);
+        wildForward.setBounds(319, 463, 30, 30);
         wildForward.setFont(new Font(GSCHelper.FONT, Font.BOLD, 22));
         this.add(wildForward);
     }
@@ -263,9 +263,6 @@ public class GSCDVCalculatorPanel extends JPanel {
         this.add(trainerPage);
     }
 
-//    private void createWildPokePage() {
-//
-//    }
     private WildPokePage createNextPokePage(ArrayList<WildPokeButtonGroup> pokeGroups) {
         WildPokePage newPage = new WildPokePage(this);
         ArrayList<WildPokeButtonGroup> nextPageGroups = new ArrayList<WildPokeButtonGroup>();
@@ -324,7 +321,6 @@ public class GSCDVCalculatorPanel extends JPanel {
         newPage.addAll(nextPageGroups);
         return newPage;
     }
-
 
     public void createWildPokePages(WildPokeGroup[] pokeGroups) {
         ArrayList<WildPokeButtonGroup> pokeButtonGroups = new ArrayList<WildPokeButtonGroup>();
