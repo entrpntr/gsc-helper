@@ -1,50 +1,7 @@
 {
-	"layouts": [
-		{
-			"key": "toto-default",
-			"totoWidth": 240,
-			"totoHeight": 80,
-			"totoBackgroundColor": [255,255,255],
-			"totoTitleText": "Toto DVs (0-15)",
-			"totoTitleFontSize": 20,
-			"totoTitleFont": "Arial",
-			"totoTitleFontExtra": 1,
-			"totoTitleColor": [0,0,0],
-			"totoColumnHeadersFontSize": 14,
-			"totoColumnHeadersFont": "Arial",
-			"totoColumnHeadersFontExtra": 1,
-			"totoColumnHeadersColor": [0,0,0],
-			"totoDVNumbersFontSizeBig": 16,
-			"totoDVNumbersFontSizeSmall": 14,
-			"totoDVNumbersFont": "Arial",
-			"totoDVNumbersFontExtra": 1,
-			"totoDVNumbersColor": [0,0,0]			
-		},
-		{
-			"key": "cynda-default",
-			"totoWidth": 240,
-			"totoHeight": 80,
-			"totoBackgroundColor": [255,255,255],
-			"totoTitleText": "Cyndaquil DVs (0-15)",
-			"totoTitleFontSize": 20,
-			"totoTitleFont": "Arial",
-			"totoTitleFontExtra": 1,
-			"totoTitleColor": [0,0,0],
-			"totoColumnHeadersFontSize": 14,
-			"totoColumnHeadersFont": "Arial",
-			"totoColumnHeadersFontExtra": 1,
-			"totoColumnHeadersColor": [0,0,0],
-			"totoDVNumbersFontSizeBig": 16,
-			"totoDVNumbersFontSizeSmall": 14,
-			"totoDVNumbersFont": "Arial",
-			"totoDVNumbersFontExtra": 1,
-			"totoDVNumbersColor": [0,0,0]		
-		}
-	],
 	"configs": [
 		{
 			"key": "toto-crystal",
-			"layout": "toto-default",
 			"game": "CRYSTAL",
 			"starter": {
 				"evoFamily": "FERALIGATR",
@@ -96,11 +53,29 @@
 				"BILL", 
 				"ANTHONY", 
 				"0x3A791"
-			]
+			],
+			"layout": {
+				"totoWidth": 240,
+				"totoHeight": 80,
+				"totoBackgroundColor": [255,255,255],
+				"totoTitleText": "Toto DVs (0-15)",
+				"totoTitleFontSize": 20,
+				"totoTitleFont": "Arial",
+				"totoTitleFontExtra": 1,
+				"totoTitleColor": [0,0,0],
+				"totoColumnHeadersFontSize": 14,
+				"totoColumnHeadersFont": "Arial",
+				"totoColumnHeadersFontExtra": 1,
+				"totoColumnHeadersColor": [0,0,0],
+				"totoDVNumbersFontSizeBig": 16,
+				"totoDVNumbersFontSizeSmall": 14,
+				"totoDVNumbersFont": "Arial",
+				"totoDVNumbersFontExtra": 1,
+				"totoDVNumbersColor": [0,0,0]			
+			}
 		},
 		{
 			"key": "toto-gold",
-			"layout": "toto-default",
 			"game": "GOLD",
 			"starter": {
 				"evoFamily": "FERALIGATR",
@@ -140,11 +115,29 @@
 				"RALPH", 
 				"DANIEL", 
 				"RUSSELL"
-			]
+			],
+			"layout": {
+				"totoWidth": 240,
+				"totoHeight": 80,
+				"totoBackgroundColor": [255,255,255],
+				"totoTitleText": "Toto DVs (0-15)",
+				"totoTitleFontSize": 20,
+				"totoTitleFont": "Arial",
+				"totoTitleFontExtra": 1,
+				"totoTitleColor": [0,0,0],
+				"totoColumnHeadersFontSize": 14,
+				"totoColumnHeadersFont": "Arial",
+				"totoColumnHeadersFontExtra": 1,
+				"totoColumnHeadersColor": [0,0,0],
+				"totoDVNumbersFontSizeBig": 16,
+				"totoDVNumbersFontSizeSmall": 14,
+				"totoDVNumbersFont": "Arial",
+				"totoDVNumbersFontExtra": 1,
+				"totoDVNumbersColor": [0,0,0]			
+			}
 		},
 		{
 			"key": "cynda-silver",
-			"layout": "cynda-default",
 			"game": "SILVER",
 			"starter": {
 				"evoFamily": "TYPHLOSION",
@@ -188,7 +181,26 @@
 				"ALBERT", 
 				"DANIEL", 
 				"RUSSELL"
-			]
+			],
+			"layout": 	{
+				"totoWidth": 240,
+				"totoHeight": 80,
+				"totoBackgroundColor": [255,255,255],
+				"totoTitleText": "Cynda DVs (0-15)",
+				"totoTitleFontSize": 20,
+				"totoTitleFont": "Arial",
+				"totoTitleFontExtra": 1,
+				"totoTitleColor": [0,0,0],
+				"totoColumnHeadersFontSize": 14,
+				"totoColumnHeadersFont": "Arial",
+				"totoColumnHeadersFontExtra": 1,
+				"totoColumnHeadersColor": [0,0,0],
+				"totoDVNumbersFontSizeBig": 16,
+				"totoDVNumbersFontSizeSmall": 14,
+				"totoDVNumbersFont": "Arial",
+				"totoDVNumbersFontExtra": 1,
+				"totoDVNumbersColor": [0,0,0]		
+			}
 		}
 	],
 	"lastUsedConfig": "toto-crystal"

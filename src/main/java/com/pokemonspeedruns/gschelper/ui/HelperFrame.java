@@ -30,7 +30,6 @@ public class HelperFrame extends JFrame {
     private JPanel main;
     private JPanel settings;
 
-    private LinkedHashMap<String, LayoutSettings> layoutSettings = new LinkedHashMap<String, LayoutSettings>();
     private LinkedHashMap<String, GSCDVCalculatorPanel> dvCalcs = new LinkedHashMap<String, GSCDVCalculatorPanel>();
 
     private GSCDVCalculatorPanel calc;
@@ -768,10 +767,12 @@ public class HelperFrame extends JFrame {
         FileReader fr = new FileReader(file);
         JSONTokener tokener = new JSONTokener(fr);
         JSONObject jsonSettings = new JSONObject(tokener);
-        JSONArray jsonLayouts = jsonSettings.getJSONArray("layouts");
-        for(Object obj : jsonLayouts) {
-            JSONObject jsonLayout = (JSONObject) obj;
-            String key = jsonLayout.getString("key");
+        JSONArray jsonConfigs = jsonSettings.getJSONArray("configs");
+        for(Object obj : jsonConfigs) {
+            JSONObject jsonConfig = (JSONObject) obj;
+            String key = jsonConfig.getString("key");
+
+            JSONObject jsonLayout = jsonConfig.getJSONObject("layout");
             JSONArray jsonBgColor = jsonLayout.getJSONArray("totoBackgroundColor");
             Color bgColor = new Color(jsonBgColor.getInt(0), jsonBgColor.getInt(1), jsonBgColor.getInt(2));
             JSONArray jsonTitleColor = jsonLayout.getJSONArray("totoTitleColor");
@@ -780,7 +781,7 @@ public class HelperFrame extends JFrame {
             Color colHeadersColor = new Color(jsonColHeadersColor.getInt(0), jsonColHeadersColor.getInt(1), jsonColHeadersColor.getInt(2));
             JSONArray jsonNumbersColor = jsonLayout.getJSONArray("totoDVNumbersColor");
             Color dvNumbersColor = new Color(jsonNumbersColor.getInt(0), jsonNumbersColor.getInt(1), jsonNumbersColor.getInt(2));
-            LayoutSettings newLayout =
+            LayoutSettings layoutSettings =
                     new LayoutSettings(
                             jsonLayout.getInt("totoWidth"),
                             jsonLayout.getInt("totoHeight"),
@@ -800,14 +801,7 @@ public class HelperFrame extends JFrame {
                             jsonLayout.getInt("totoDVNumbersFontExtra"),
                             dvNumbersColor
                     );
-            layoutSettings.put(key, newLayout);
-        }
-        JSONArray jsonConfigs = jsonSettings.getJSONArray("configs");
-        for(Object obj : jsonConfigs) {
-            JSONObject jsonConfig = (JSONObject) obj;
-            String key = jsonConfig.getString("key");
-            String layoutKey = jsonConfig.getString("layout");
-            LayoutSettings layout = layoutSettings.get(layoutKey);
+
             Game game = jsonConfig.getEnum(Game.class, "game");
             JSONObject jsonStarter = jsonConfig.getJSONObject("starter");
             Species starterEvoFamily = jsonStarter.getEnum(Species.class, "evoFamily");
@@ -836,7 +830,7 @@ public class HelperFrame extends JFrame {
                 String trainer = (String) trainerObj;
                 trainers[trainerIdx++] = trainer;
             }
-            dvCalcs.put(key, new GSCDVCalculatorPanel(this, game, starter, wildPokeGroups, trainers, layout));
+            dvCalcs.put(key, new GSCDVCalculatorPanel(this, game, starter, wildPokeGroups, trainers, layoutSettings));
         }
         String lastConfig = jsonSettings.getString("lastUsedConfig");
         calc = dvCalcs.get(lastConfig);
