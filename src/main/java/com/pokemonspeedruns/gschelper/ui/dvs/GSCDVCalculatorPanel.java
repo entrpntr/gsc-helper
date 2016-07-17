@@ -113,27 +113,27 @@ public class GSCDVCalculatorPanel extends JPanel {
             this.redSpc[i] = false;
         }
         JLabel labelHP = new JLabel("HP");
-        labelHP.setBounds(14, 51, 70, 50);
+        labelHP.setBounds(14, 54, 70, 50);
         labelHP.setFont(DV_LABEL_FONT);
         labelHP.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(labelHP);
         JLabel labelAtk = new JLabel("Atk");
-        labelAtk.setBounds(104, 51, 70, 50);
+        labelAtk.setBounds(104, 54, 70, 50);
         labelAtk.setFont(DV_LABEL_FONT);
         labelAtk.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(labelAtk);
         JLabel labelDef = new JLabel("Def");
-        labelDef.setBounds(194, 51, 70, 50);
+        labelDef.setBounds(194, 54, 70, 50);
         labelDef.setFont(DV_LABEL_FONT);
         labelDef.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(labelDef);
         JLabel labelSpd = new JLabel("Spd");
-        labelSpd.setBounds(374, 51, 70, 50);
+        labelSpd.setBounds(374, 54, 70, 50);
         labelSpd.setFont(DV_LABEL_FONT);
         labelSpd.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(labelSpd);
         JLabel labelSpc = new JLabel("Spc");
-        labelSpc.setBounds(284, 51, 70, 50);
+        labelSpc.setBounds(284, 54, 70, 50);
         labelSpc.setFont(DV_LABEL_FONT);
         labelSpc.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(labelSpc);
@@ -148,9 +148,9 @@ public class GSCDVCalculatorPanel extends JPanel {
         this.add(this.labelTotoLevel);
 
         this.evolveBtn = new JButton("Evolve");
-        this.evolveBtn.setBounds(322, 15, 82, 26);
+        this.evolveBtn.setBounds(322, 14, 84, 27);
         this.evolveBtn.setMargin(new Insets(1,1,1,1));
-        this.evolveBtn.setFont(new Font(GSCHelper.FONT, Font.BOLD, 14));
+        this.evolveBtn.setFont(new Font(GSCHelper.FONT, Font.BOLD, 13));
         if(starter.getEvoFamily().numStages() == 1 ||
                 (starter.getStartStage() == starter.getEvoFamily().numStages() - 1)) {
             evolveBtn.setEnabled(false);
@@ -200,16 +200,16 @@ public class GSCDVCalculatorPanel extends JPanel {
         previousPokePageListener = new PreviousPokePageListener(wildPokePage);
         nextPokePageListener = new NextPokePageListener(wildPokePage);
         wildBack = new JLabel("<", SwingConstants.CENTER);
-        wildBack.setBounds(95, 463, 30, 30);
+        wildBack.setBounds(95, 464, 30, 30);
         wildBack.setFont(new Font(GSCHelper.FONT, Font.BOLD, 22));
         this.add(wildBack);
         wildBack.addMouseListener(previousPokePageListener);
         JLabel labelWild = new JLabel("Wild Pokes");
-        labelWild.setBounds(146, 457, 190, 42);
+        labelWild.setBounds(146, 458, 190, 42);
         labelWild.setFont(new Font(GSCHelper.FONT, Font.BOLD, 29));
         this.add(labelWild);
         wildForward = new JLabel(">", SwingConstants.CENTER);
-        wildForward.setBounds(319, 463, 30, 30);
+        wildForward.setBounds(319, 464, 30, 30);
         wildForward.setFont(new Font(GSCHelper.FONT, Font.BOLD, 22));
         this.add(wildForward);
     }

@@ -56,11 +56,11 @@ public class StatButton {
         this.value = value;
         this.dv = dv;
         this.label = new JLabel(Integer.toString(dv));
-        this.label.setBounds(x - 29, y + 79, 22, 22);
+        this.label.setBounds(x - 29, y + 82, 22, 22);
         this.label.setFont(LABEL_FONT);
         this.label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         this.label.setHorizontalAlignment(SwingConstants.RIGHT);
-        this.makeButton("" + value, x - 6, y + 79);
+        this.makeButton("" + value, x - 6, y + 82);
         label.addMouseListener(new DVPanelMouseAdapter(dvCalcPanel, label, button, column, dv));
     }
 
