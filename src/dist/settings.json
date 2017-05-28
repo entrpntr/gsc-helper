@@ -6,7 +6,8 @@
 			"starter": {
 				"evoFamily": "FERALIGATR",
 				"startStage": 0,
-				"startLevel": 5
+				"startLevel": 5,
+				"boostedExp": false
 			},
 			"wildPokes": [
 				{
@@ -52,7 +53,16 @@
 				"RUSSELL", 
 				"BILL", 
 				"ANTHONY", 
-				"0x3A791"
+				"0x3A791",
+				"0x3BA06",
+				"0x3A633",
+				"0x3A629",
+				"0x3B8C9",
+				"AL",
+				"JOSH",
+				"BENNY",
+				"BUGSY",
+				"0x39B01"
 			],
 			"layout": {
 				"totoWidth": 240,
@@ -80,7 +90,8 @@
 			"starter": {
 				"evoFamily": "FERALIGATR",
 				"startStage": 0,
-				"startLevel": 5
+				"startLevel": 5,
+				"boostedExp": false
 			},
 			"wildPokes": [
 				{
@@ -102,6 +113,22 @@
 				{
 					"species": "HOPPIP",
 					"levels": [6]
+				},
+				{
+					"species": "ZUBAT",
+					"levels": [5, 6]
+				},
+				{
+					"species": "GEODUDE",
+					"levels": [6]
+				},
+				{
+					"species": "SANDSHREW",
+					"levels": [6]
+				},
+				{
+					"species": "ONIX",
+					"levels": [6]
 				}
 			],
 			"trainers": [
@@ -114,7 +141,19 @@
 				"ALBERT", 
 				"RALPH", 
 				"DANIEL", 
-				"RUSSELL"
+				"RUSSELL",
+				"BILL",
+				"RAY",
+				"ANTHONY",
+				"0x3A61A",
+				"0x3B63F",
+				"0x3A4BC",
+				"0x3A4B2",
+				"0x3B53D",
+				"JOSH",
+				"BENNY",
+				"BUGSY",
+				"0x39AA4"
 			],
 			"layout": {
 				"totoWidth": 240,
@@ -142,28 +181,41 @@
 			"starter": {
 				"evoFamily": "TYPHLOSION",
 				"startStage": 0,
-				"startLevel": 5
+				"startLevel": 5,
+				"boostedExp": false
 			},
 			"wildPokes": [
 				{
-					"species": "BELLSPROUT",
-					"levels": [6]
+					"species": "PIDGEY",
+					"levels": [2, 3]
 				},
 				{
-					"species": "MAREEP",
-					"levels": [6]
+					"species": "SENTRET",
+					"levels": [2, 3]
+				},
+				{
+					"species": "LEDYBA",
+					"levels": [3, 4]
+				},
+				{
+					"species": "BELLSPROUT",
+					"levels": [3, 6]
 				},
 				{
 					"species": "RATTATA",
 					"levels": [4, 5, 6]
 				},
 				{
-					"species": "HOPPIP",
+					"species": "EKANS",
+					"levels": [4]
+				},
+				{
+					"species": "MAREEP",
 					"levels": [6]
 				},
 				{
-					"species": "EKANS",
-					"levels": [4]
+					"species": "HOPPIP",
+					"levels": [6]
 				},
 				{
 					"species": "ZUBAT",
@@ -173,14 +225,26 @@
 			"trainers": [
 				"0x39A9E", 
 				"MIKEY", 
-				"DON", 
-				"NICO", 
+				"DON",
+				"NICO",
 				"ABE", 
 				"ROD", 
 				"FALKNER", 
 				"ALBERT", 
 				"DANIEL", 
-				"RUSSELL"
+				"RUSSELL",
+				"BILL",
+				"RAY",
+				"ANTHONY",
+				"0x3A61A",
+				"0x3B63F",
+				"0x3A4BC",
+				"0x3A4B2",
+				"0x3B53D",
+				"JOSH",
+				"BENNY",
+				"BUGSY",
+				"0x39AB8"
 			],
 			"layout": 	{
 				"totoWidth": 240,
@@ -200,6 +264,42 @@
 				"totoDVNumbersFont": "Arial",
 				"totoDVNumbersFontExtra": 1,
 				"totoDVNumbersColor": [0,0,0]		
+			}
+		},
+		{
+			"key": "entei-crystal",
+			"game": "CRYSTAL",
+			"starter": {
+				"evoFamily": "ENTEI",
+				"startStage": 0,
+				"startLevel": 40,
+				"boostedExp": false
+			},
+			"wildPokes": [],
+			"trainers": [
+				"PING",
+				"JEFFREY",
+				"MARTHA",
+				"MORTY"
+			],
+			"layout": {
+				"totoWidth": 240,
+				"totoHeight": 80,
+				"totoBackgroundColor": [255,255,255],
+				"totoTitleText": "Entei DVs (0-15)",
+				"totoTitleFontSize": 20,
+				"totoTitleFont": "Arial",
+				"totoTitleFontExtra": 1,
+				"totoTitleColor": [0,0,0],
+				"totoColumnHeadersFontSize": 14,
+				"totoColumnHeadersFont": "Arial",
+				"totoColumnHeadersFontExtra": 1,
+				"totoColumnHeadersColor": [0,0,0],
+				"totoDVNumbersFontSizeBig": 16,
+				"totoDVNumbersFontSizeSmall": 14,
+				"totoDVNumbersFont": "Arial",
+				"totoDVNumbersFontExtra": 1,
+				"totoDVNumbersColor": [0,0,0]
 			}
 		}
 	],

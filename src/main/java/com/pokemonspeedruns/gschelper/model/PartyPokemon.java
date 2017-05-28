@@ -8,6 +8,7 @@ public class PartyPokemon {
     private int level;
     private int exp;
     private final int startLevel;
+    private final boolean boostedExp;
     private int hp_ev_used = 0;
     private int atk_ev_used = 0;
     private int def_ev_used = 0;
@@ -26,10 +27,11 @@ public class PartyPokemon {
     private int baseSpD;
     private int baseSpe;
 
-    public PartyPokemon(EvolutionFamily evoFamily, int startStage, int level) {
+    public PartyPokemon(EvolutionFamily evoFamily, int startStage, int level, boolean boostedExp) {
         this.evoFamily = evoFamily;
         this.startStage = startStage;
         this.startLevel = level;
+        this.boostedExp = boostedExp;
         this.currentStage = startStage;
         this.species = evoFamily.get(currentStage);
         this.level = level;
@@ -60,6 +62,10 @@ public class PartyPokemon {
 
     public int getStartLevel() {
         return startLevel;
+    }
+
+    public boolean getBoostedExp() {
+        return boostedExp;
     }
 
     public int getCurrentStage() {
@@ -118,12 +124,11 @@ public class PartyPokemon {
         exp = ExpCurve.lowestExpForLevel(species.getExpCurve(), level);
     }
 
-    public static int expGiven(FoePokemon foe, int participants) {
+    public int expGiven(FoePokemon foe, int participants) {
         return (foe.getSpecies().getKillExp() / participants)
-                * foe.getLevel()
-                / 7
-                * 3
-                / (foe.getFoeType() == FoeType.WILD ? 3 : 2);
+                * foe.getLevel() / 7
+                * 3 / (foe.getFoeType() == FoeType.WILD ? 3 : 2)
+                * 3 / (boostedExp ? 2 : 3);
     }
 
     public boolean rekt(FoePokemon foe) {

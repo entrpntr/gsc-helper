@@ -343,6 +343,9 @@ public enum Species {
     public static EvolutionFamilies evoFamilies;
     static {
         evoFamilies = new EvolutionFamilies();
+        evoFamilies.addFamily(TOTODILE, CROCONAW, FERALIGATR);
+        evoFamilies.addFamily(CYNDAQUIL, QUILAVA, TYPHLOSION);
+        evoFamilies.addFamily(CHIKORITA, BAYLEEF, MEGANIUM);
         evoFamilies.addFamily(BULBASAUR, IVYSAUR, VENUSAUR);
         evoFamilies.addFamily(CHARMANDER, CHARMELEON, CHARIZARD);
         evoFamilies.addFamily(SQUIRTLE, WARTORTLE, BLASTOISE);
@@ -430,9 +433,6 @@ public enum Species {
         evoFamilies.addFamily(DRATINI, DRAGONAIR, DRAGONITE);
         evoFamilies.addFamily(MEWTWO);
         evoFamilies.addFamily(MEW);
-        evoFamilies.addFamily(CHIKORITA, BAYLEEF, MEGANIUM);
-        evoFamilies.addFamily(CYNDAQUIL, QUILAVA, TYPHLOSION);
-        evoFamilies.addFamily(TOTODILE, CROCONAW, FERALIGATR);
         evoFamilies.addFamily(SENTRET, FURRET);
         evoFamilies.addFamily(HOOTHOOT, NOCTOWL);
         evoFamilies.addFamily(LEDYBA, LEDIAN);
