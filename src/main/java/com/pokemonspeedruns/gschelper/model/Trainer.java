@@ -4,20 +4,19 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
-public class Trainer implements Iterable<FoePokemon> {
+public class Trainer implements Iterable<FoePokemon>, Comparable<Trainer> {
     private String className, name;
     private ArrayList<FoePokemon> pokes;
     private int offset;
-//    private IVs dvs;
+    //    private IVs dvs;
     private static HashMap<Integer, Trainer> allCrystalTrainers;
     private static HashMap<String, Trainer> crystalTrainersByName;
     private static HashMap<Integer, Trainer> allGSTrainers;
     private static HashMap<String, Trainer> gsTrainersByName;
+    public static TreeMap<String, Vector<Trainer>> gsTrainersByClass;
+    public static TreeMap<String, Vector<Trainer>> crystalTrainersByClass;
 
     @Override
     public boolean equals(Object o) {
@@ -29,8 +28,7 @@ public class Trainer implements Iterable<FoePokemon> {
     }
 
     public String toString() {
-        return String.format("%s %s (0x%X: %s)", className, name, offset,
-                allPokes());
+        return String.format("%s (%s)", getPrettyName(), allPokes());
     }
 
     public ArrayList<FoePokemon> getPokes() {
@@ -47,8 +45,14 @@ public class Trainer implements Iterable<FoePokemon> {
 
     public String allPokes() {
         StringBuilder sb = new StringBuilder();
+        boolean firstPoke = true;
         for (FoePokemon p : pokes) {
-            sb.append("L" + p.getLevel() + " " + p.getSpecies().getName() + ", ");
+            if(!firstPoke) {
+                sb.append(", ");
+            } else {
+                firstPoke = false;
+            }
+            sb.append("L" + p.getLevel() + " " + p.getSpecies().getName());
         }
         return sb.toString();
     }
@@ -97,6 +101,8 @@ public class Trainer implements Iterable<FoePokemon> {
         crystalTrainersByName = new HashMap<String, Trainer>();
         allGSTrainers = new HashMap<Integer, Trainer>();
         gsTrainersByName = new HashMap<String, Trainer>();
+        gsTrainersByClass = new TreeMap<String, Vector<Trainer>>();
+        crystalTrainersByClass = new TreeMap<String, Vector<Trainer>>();
 
         List<Trainer> gsTrainerList = getData("trainer_data_gs.txt");
         List<Trainer> crystalTrainerList = getData("trainer_data_c.txt");
@@ -109,6 +115,10 @@ public class Trainer implements Iterable<FoePokemon> {
                     && crystalTrainersByName.containsKey(t.name) == false) {
                 crystalTrainersByName.put(t.name, t);
             }
+            if(!crystalTrainersByClass.containsKey(t.className)) {
+                crystalTrainersByClass.put(t.className, new Vector<Trainer>());
+            }
+            crystalTrainersByClass.get(t.className).add(t);
         }
 
         for (Trainer t : gsTrainerList) {
@@ -119,6 +129,10 @@ public class Trainer implements Iterable<FoePokemon> {
                     && gsTrainersByName.containsKey(t.name) == false) {
                 gsTrainersByName.put(t.name, t);
             }
+            if(!gsTrainersByClass.containsKey(t.className)) {
+                gsTrainersByClass.put(t.className, new Vector<Trainer>());
+            }
+            gsTrainersByClass.get(t.className).add(t);
         }
     }
 
@@ -126,7 +140,7 @@ public class Trainer implements Iterable<FoePokemon> {
         ArrayList<Trainer> trainers = new ArrayList<Trainer>();
         BufferedReader in;
         try {
-            in = new BufferedReader(new InputStreamReader(Trainer.class.getClassLoader().getResource(filename).openStream()));
+            in = new BufferedReader(new InputStreamReader(Trainer.class.getClassLoader().getResource(filename).openStream(), "UTF-8"));
 
             String currentClassName = "";
 //            IVs currentIVs = new IVs();
@@ -222,5 +236,24 @@ public class Trainer implements Iterable<FoePokemon> {
 
     public String getClassName() {
         return className;
+    }
+
+    private int getMaxLevel() {
+        int maxLevel = -1;
+        for(FoePokemon poke : this) {
+            if(poke.getLevel() > maxLevel) {
+                maxLevel = poke.getLevel();
+            }
+        }
+        return maxLevel;
+    }
+
+    @Override
+    public int compareTo(Trainer o) {
+        if(!this.getName().equals(o.getName())) {
+            return this.getName().compareTo(o.getName());
+        } else {
+            return this.getMaxLevel() - o.getMaxLevel();
+        }
     }
 }

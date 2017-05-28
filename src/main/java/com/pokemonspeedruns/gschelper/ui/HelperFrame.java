@@ -25,7 +25,7 @@ import static com.pokemonspeedruns.gschelper.model.Species.*;
 
 public class HelperFrame extends JFrame {
     private static final long serialVersionUID = -768493274726718272L;
-    private static final String version = "1.1";
+    private static final String version = "1.2b3";
 
     private JPanel main;
     private JPanel settings;
@@ -36,7 +36,7 @@ public class HelperFrame extends JFrame {
     String lastConfig;
     private String font = "";
     private JButton buttonOptions;
-    private JButton buttonConfig;
+    //private JButton buttonConfig;
     private PreviewPane previewPane;
     private JColorChooser cc;
     private ActionListener okListener;
@@ -65,11 +65,12 @@ public class HelperFrame extends JFrame {
     private JComboBox<String> comboBoxTotoDVNumbersFontExtra;
     private JTextField textFieldTotoTitleText;
     private JDialog editTotoDialog;
-    private JRadioButton radioGold;
-    private JRadioButton radioCrystal;
-    private JRadioButton radioSilver;
-    private ButtonGroup radioGSC;
-    private Game game;
+    //private JRadioButton radioGold;
+    //private JRadioButton radioCrystal;
+    //private JRadioButton radioSilver;
+    //private ButtonGroup radioGSC;
+    //private Game game;
+    private JList<String> dvPanelConfigs;
     private boolean initializing = true;
     private String executionPath;
 
@@ -145,17 +146,17 @@ public class HelperFrame extends JFrame {
         this.settings.setBackground(null);
 
         this.initOptions();
-
+/*
         this.buttonConfig = new JButton("Config");
         this.buttonConfig.setMargin(new Insets(1,1,1,1));
         this.buttonConfig.setFont(new Font(font, Font.BOLD, 13));
         this.buttonConfig.setBounds(114, 21, 80, 26);
         this.settings.add(this.buttonConfig);
-
+*/
         this.buttonOptions = new JButton("Layout");
         this.buttonOptions.setMargin(new Insets(1, 1, 1, 1));
         this.buttonOptions.setFont(new Font(font, Font.BOLD, 13));
-        this.buttonOptions.setBounds(114, 49, 80, 26);
+        this.buttonOptions.setBounds(114, 35, 80, 28);
         this.buttonOptions.addActionListener(
                 new ActionListener() {
                     @Override
@@ -167,7 +168,7 @@ public class HelperFrame extends JFrame {
                 });
         this.settings.add(this.buttonOptions);
         JButton buttonAbout = new JButton("About");
-        buttonAbout.setBounds(114, 77, 80, 26);
+        buttonAbout.setBounds(114, 67, 80, 26);
         buttonAbout.setFont(new Font(font, Font.BOLD, 13));
         buttonAbout.addActionListener(
                 new ActionListener() {
@@ -193,6 +194,7 @@ public class HelperFrame extends JFrame {
                     }
                 });
         this.settings.add(buttonReset);
+        /*
         radioCrystal = new JRadioButton("Crystal");
         radioCrystal.setBounds(207, 34, 116, 20);
         radioCrystal.setSelected(true);
@@ -284,7 +286,17 @@ public class HelperFrame extends JFrame {
         this.settings.add(radioCrystal);
         this.settings.add(radioGold);
         this.settings.add(radioSilver);
+        */
         this.main.add(calc);
+
+        JLabel profiles = new JLabel("Profiles");
+        profiles.setFont(new Font(font, Font.BOLD, 11));
+        profiles.setBounds(215, 13, 105, 12);
+        this.settings.add(profiles);
+
+        this.dvPanelConfigs.setBounds(214, 28, 105, 78);
+        this.dvPanelConfigs.setBorder(BorderFactory.createLineBorder(new Color(173, 173, 173), 1));
+        this.settings.add(dvPanelConfigs);
 
         this.initTotodile();
 
@@ -804,6 +816,7 @@ public class HelperFrame extends JFrame {
                 jsonStarter.put("evoFamily", starter.getEvoFamily().getFinalStage().name());
                 jsonStarter.put("startStage", starter.getStartStage());
                 jsonStarter.put("startLevel", starter.getStartLevel());
+                jsonStarter.put("boostedExp", starter.getBoostedExp());
                 jsonConfig.put("starter", jsonStarter);
                 for (WildPokeGroup pokeGroup : wildPokes) {
                     JSONObject nextWildPoke = new JSONObject();
@@ -905,8 +918,12 @@ public class HelperFrame extends JFrame {
             Species starterEvoFamily = jsonStarter.getEnum(Species.class, "evoFamily");
             int startStage = jsonStarter.getInt("startStage");
             int startLevel = jsonStarter.getInt("startLevel");
-            PartyPokemon starter = new PartyPokemon(evoFamilies.getFamily(starterEvoFamily), startStage, startLevel);
-            JSONArray jsonPokes = jsonConfig.getJSONArray("wildPokes");
+            boolean boostedExp = jsonStarter.optBoolean("boostedExp", false);
+            PartyPokemon starter = new PartyPokemon(evoFamilies.getFamily(starterEvoFamily), startStage, startLevel, boostedExp);
+            JSONArray jsonPokes = new JSONArray();
+            if(jsonConfig.keySet().contains("wildPokes")) {
+                jsonPokes = jsonConfig.getJSONArray("wildPokes");
+            }
             WildPokeGroup[] wildPokeGroups = new WildPokeGroup[jsonPokes.length()];
             int pokeIdx = 0;
             for(Object pokeObj : jsonPokes) {
@@ -921,7 +938,10 @@ public class HelperFrame extends JFrame {
                 }
                 wildPokeGroups[pokeIdx++] = new WildPokeGroup(species, levels);
             }
-            JSONArray jsonTrainers = jsonConfig.getJSONArray("trainers");
+            JSONArray jsonTrainers = new JSONArray();
+            if(jsonConfig.keySet().contains("trainers")) {
+                jsonTrainers = jsonConfig.getJSONArray("trainers");
+            }
             String[] trainers = new String[jsonTrainers.length()];
             int trainerIdx=0;
             for(Object trainerObj : jsonTrainers) {
@@ -933,6 +953,36 @@ public class HelperFrame extends JFrame {
         this.lastConfig = jsonSettings.getString("lastUsedConfig");
         calc = dvCalcs.get(lastConfig);
         fr.close();
+
+        String[] cfgKeys = new String[dvCalcs.size()];
+        dvCalcs.keySet().toArray(cfgKeys);
+        DefaultListModel<String> cfgListModel = new DefaultListModel<String>();
+        for(String key : cfgKeys) {
+            cfgListModel.addElement(key);
+        }
+        dvPanelConfigs = new JList<String>();
+        dvPanelConfigs.setModel(cfgListModel);
+        dvPanelConfigs.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        dvPanelConfigs.setPreferredSize(new Dimension(105, 66));
+        dvPanelConfigs.setLayoutOrientation(JList.VERTICAL);
+        dvPanelConfigs.setSelectedValue(this.lastConfig, true);
+        dvPanelConfigs.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                String selectedCalc = dvPanelConfigs.getSelectedValue();
+                if(selectedCalc != null) {
+                    HelperFrame.this.calc.reset();
+                    HelperFrame.this.main.remove(HelperFrame.this.calc);
+                    HelperFrame.this.lastConfig = selectedCalc;
+                    HelperFrame.this.calc = HelperFrame.this.dvCalcs.get(HelperFrame.this.lastConfig);
+                    HelperFrame.this.main.add(HelperFrame.this.calc);
+                    HelperFrame.this.initLayoutSettings();
+                    HelperFrame.this.reset();
+                    HelperFrame.this.repaint();
+                    HelperFrame.this.revalidate();
+                }
+            }
+        });
     }
 
     private void initLayoutSettings() {
